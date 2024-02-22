@@ -8,7 +8,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// LAYOUT
 // Layout Component
 type LayoutProps = {
   children: React.ReactNode;
@@ -20,7 +19,7 @@ const Layout = ({ children, className }: LayoutProps) => {
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased scroll-smooth focus:scroll-auto", className)}
+      className={cn("scroll-smooth antialiased focus:scroll-auto", className)}
     >
       {children}
     </html>
@@ -39,14 +38,14 @@ const Main = ({ children, className, id }: MainProps) => {
     <main
       className={cn(
         // General Prose
-        "prose prose:font-sans dark:prose-invert md:prose-lg lg:prose-xl max-w-none",
+        "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg max-w-none",
         // Prose Headings
         "prose-headings:font-normal",
         // Inline Links
-        "prose-a:border-b prose-a:border-b-primary dark:prose-a:border-b-primary prose-a:font-normal prose-a:text-primary dark:prose-a:text-primary hover:prose-a:border-b-primary hover:prose-a:opacity-75 dark:hover:prose-a:border-b-primary prose-a:no-underline prose-a:transition-all",
+        "prose-a:border-b prose-a:border-b-primary dark:prose-a:border-b-primary prose-a:font-normal prose-a:text-primary dark:prose-a:text-primary hover:prose-a:border-b-primary hover:prose-a:opacity-60 dark:hover:prose-a:border-b-primary prose-a:no-underline prose-a:transition-all",
         // Blockquotes
         "prose-blockquote:not-italic",
-        className
+        className,
       )}
       id={id}
     >
@@ -79,7 +78,7 @@ type ContainerProps = {
 
 const Container = ({ children, className, id }: ContainerProps) => {
   return (
-    <div className={cn("max-w-5xl mx-auto", "p-6 sm:p-8", className)} id={id}>
+    <div className={cn("mx-auto max-w-5xl", "p-6 sm:p-8", className)} id={id}>
       {children}
     </div>
   );
@@ -96,9 +95,15 @@ const Article = ({ children, className, id }: ArticleProps) => {
   return (
     <article
       className={cn(
-        "prose dark:prose-invert md:prose-lg lg:prose-xl",
-        "prose-headings:font-normal prose-main dark:prose-invert",
-        className
+        // General Prose
+        "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg",
+        // Prose Headings
+        "prose-headings:font-normal",
+        // Inline Links
+        "prose-a:border-b prose-a:border-b-primary dark:prose-a:border-b-primary prose-a:font-normal prose-a:text-primary dark:prose-a:text-primary hover:prose-a:border-b-primary hover:prose-a:opacity-60 dark:hover:prose-a:border-b-primary prose-a:no-underline prose-a:transition-all",
+        // Blockquotes
+        "prose-blockquote:not-italic",
+        className,
       )}
       id={id}
     >
