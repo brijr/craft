@@ -40,7 +40,9 @@ const Main = ({ children, className, id }: MainProps) => {
         // General Prose
         "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg max-w-none",
         // Prose Headings
-        "prose-headings:font-normal",
+        "prose-headings:font-normal prose-headings:mt-0",
+        // Prose Paragraphs
+        "prose-p:mb-0",
         // Inline Links
         "prose-a:border-b prose-a:border-b-primary dark:prose-a:border-b-primary prose-a:font-normal prose-a:text-primary dark:prose-a:text-primary hover:prose-a:border-b-primary hover:prose-a:opacity-60 dark:hover:prose-a:border-b-primary prose-a:no-underline prose-a:transition-all",
         // Blockquotes
@@ -63,7 +65,7 @@ type SectionProps = {
 
 const Section = ({ children, className, id }: SectionProps) => {
   return (
-    <section className={cn("py-12", className)} id={id}>
+    <section className={cn("py-8 md:py-12", className)} id={id}>
       {children}
     </section>
   );
