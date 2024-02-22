@@ -1,14 +1,13 @@
-# README for the Craft Design System
+# Craft Design System
 
-> Craft Design System is a group of `npm` packages and **one component file** created by Bridger Tower to build websites with NextJS, Tailwind, and TypeScript faster 🚀
+> Craft Design System is a group of `npm` packages and **one component file** created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, and TypeScript faster 🚀
 
 ## Getting Started 
 
 - [Create a Next.js application](https://nextjs.org/docs/getting-started/installation) if you dont already have one
-- Install the dependencies
 - Run this command to install the dependencies
 ```bash
-npm install 
+npm install @tailwindcss/typography clsx@latest tailwind-merge@latest
 ```
 
 
