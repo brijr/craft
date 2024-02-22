@@ -11,7 +11,9 @@
   ```bash
   npm install @tailwindcss/typography clsx@latest tailwind-merge@latest
   ```
-- 
+- Create a `craft.tsx` component in your `/components` folder in Next.js
+- Copy and paste [the code](https://github.com/brijr/craft-ds/blob/main/craft.tsx) into your new component
+- You are ready to import the Components into your project!
 
 
 ## Components
