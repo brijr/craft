@@ -8,6 +8,7 @@
   ```bash
   npx create-next-app@latest my-app --typescript --tailwind --eslint
   ```
+- [Install Shadcn/ui](https://ui.shadcn.com/docs/installation/next) in your Next.js Applcation
 - Run this command to install the dependencies for Craft
   ```bash
   npm install @tailwindcss/typography clsx@latest tailwind-merge@latest
