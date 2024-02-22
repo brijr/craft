@@ -1,6 +1,6 @@
 # Craft Design System
 
-> Craft Design System is a group of `npm` packages and **one component file** created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, and TypeScript faster 🚀
+> Craft Design System is a group of `npm` packages and **one component file** created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀
 
 ## Getting Started 
 
