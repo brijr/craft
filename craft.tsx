@@ -1,6 +1,12 @@
 import * as React from "react";
-import { cn } from "../lib/utils";
 import "../../dist/styles.css";
+
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 // LAYOUT
 // Layout Component
