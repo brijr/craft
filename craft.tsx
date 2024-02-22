@@ -1,5 +1,6 @@
 import * as React from "react";
 
+// cn util
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -16,7 +17,11 @@ type LayoutProps = {
 
 const Layout = ({ children, className }: LayoutProps) => {
   return (
-    <html lang="en" suppressHydrationWarning className={className}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn("antialiased scroll-smooth focus:scroll-auto", className)}
+    >
       {children}
     </html>
   );
@@ -38,7 +43,7 @@ const Main = ({ children, className, id }: MainProps) => {
         // Prose Headings
         "prose-headings:font-normal",
         // Inline Links
-        "prose-a:border-b prose-a:font-normal hover:prose-a:opacity-75 prose-a:no-underline prose-a:transition-all",
+        "prose-a:border-b prose-a:border-b-primary dark:prose-a:border-b-primary prose-a:font-normal prose-a:text-primary dark:prose-a:text-primary hover:prose-a:border-b-primary hover:prose-a:opacity-75 dark:hover:prose-a:border-b-primary prose-a:no-underline prose-a:transition-all",
         // Blockquotes
         "prose-blockquote:not-italic",
         className
