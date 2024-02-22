@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../../dist/styles.css";
 
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
