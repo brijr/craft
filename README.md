@@ -5,7 +5,9 @@
 ## Getting Started 
 
 - [Create a Next.js application](https://nextjs.org/docs/getting-started/installation) if you dont already have one
-- Run this command to install the dependencies
+  - Use [Tailwind](https://tailwindcss.com/docs/guides/nextjs)
+  - Use Typescript
+- Run this command to install the dependencies for Craft
 ```bash
 npm install @tailwindcss/typography clsx@latest tailwind-merge@latest
 ```
