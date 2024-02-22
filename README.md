@@ -20,6 +20,13 @@
 
 ## Components
 
+> There are currently five components
+> - Layout
+> - Main
+> - Section
+> - Container
+> - Article
+
 ### Layout
 
 The `Layout` component serves as the foundational element that wraps around your application's structure. It sets up the basic layout and applies global styles.
