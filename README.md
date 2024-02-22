@@ -8,10 +8,10 @@
   - Use [Tailwind](https://tailwindcss.com/docs/guides/nextjs)
   - Use Typescript
 - Run this command to install the dependencies for Craft
-```bash
-npm install @tailwindcss/typography clsx@latest tailwind-merge@latest
-```
-
+  ```bash
+  npm install @tailwindcss/typography clsx@latest tailwind-merge@latest
+  ```
+- 
 
 
 ## Components
