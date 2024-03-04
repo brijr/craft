@@ -40,7 +40,7 @@ const Main = ({ children, className, id }: MainProps) => {
         // General Prose
         "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg max-w-none",
         // Prose Headings
-        "prose-headings:font-normal prose-headings:mt-0",
+        "prose-headings:font-normal",
         // Prose Paragraphs
         "prose-p:mb-0",
         // Prose Strong
@@ -49,7 +49,7 @@ const Main = ({ children, className, id }: MainProps) => {
         "prose-a:border-b prose-a:border-b-primary dark:prose-a:border-b-primary prose-a:font-normal prose-a:text-primary dark:prose-a:text-primary hover:prose-a:border-b-primary hover:prose-a:opacity-60 dark:hover:prose-a:border-b-primary prose-a:no-underline prose-a:transition-all",
         // Blockquotes
         "prose-blockquote:not-italic",
-        className,
+        className
       )}
       id={id}
     >
@@ -107,7 +107,7 @@ const Article = ({ children, className, id }: ArticleProps) => {
         "prose-a:border-b prose-a:border-b-primary dark:prose-a:border-b-primary prose-a:font-normal prose-a:text-primary dark:prose-a:text-primary hover:prose-a:border-b-primary hover:prose-a:opacity-60 dark:hover:prose-a:border-b-primary prose-a:no-underline prose-a:transition-all",
         // Blockquotes
         "prose-blockquote:not-italic",
-        className,
+        className
       )}
       id={id}
     >
