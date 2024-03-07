@@ -9,21 +9,12 @@
   "bin": {
     "setup-craft": "./setup.js"
   },
-  "files": [
-    "craft.tsx",
-    "setup.js"
-  ],
+  "files": ["craft.tsx", "setup.js"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brijr/craft.git"
   },
-  "keywords": [
-    "components",
-    "next",
-    "js",
-    "design",
-    "system"
-  ],
+  "keywords": ["components", "next", "js", "design", "system"],
   "author": "brijr",
   "license": "MIT",
   "bugs": {
