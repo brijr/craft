@@ -1,0 +1,39 @@
+{
+  "name": "use-craft",
+  "version": "0.1.0",
+  "description": "components for building next js websites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "setup-craft": "./setup.js"
+  },
+  "files": [
+    "craft.tsx",
+    "setup.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brijr/craft.git"
+  },
+  "keywords": [
+    "components",
+    "next",
+    "js",
+    "design",
+    "system"
+  ],
+  "author": "brijr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brijr/craft/issues"
+  },
+  "homepage": "https://github.com/brijr/craft#readme",
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "clsx": "^2.1.0",
+    "react-wrap-balancer": "^1.1.0",
+    "tailwind-merge": "^2.2.1"
+  }
+}

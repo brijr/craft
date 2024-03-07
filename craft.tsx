@@ -40,16 +40,16 @@ const Main = ({ children, className, id }: MainProps) => {
         // General Prose
         "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg max-w-none",
         // Prose Headings
-        "prose-headings:font-normal",
+        "prose-headings:font-normal prose-headings:mt-0",
         // Prose Paragraphs
         "prose-p:mb-0",
         // Prose Strong
         "prose-strong:font-semibold",
         // Inline Links
-        "prose-a:border-b prose-a:border-b-primary dark:prose-a:border-b-primary prose-a:font-normal prose-a:text-primary dark:prose-a:text-primary hover:prose-a:border-b-primary hover:prose-a:opacity-60 dark:hover:prose-a:border-b-primary prose-a:no-underline prose-a:transition-all",
+        "prose-a:underline prose-a:underline-offset-2 prose-a:decoration-primary hover:prose-a:opacity-80 prose-a:transition-all hover:prose-a:underline-offset-4 prose-a:text-primary",
         // Blockquotes
         "prose-blockquote:not-italic",
-        className
+        className,
       )}
       id={id}
     >
@@ -104,10 +104,10 @@ const Article = ({ children, className, id }: ArticleProps) => {
         // Prose Headings
         "prose-headings:font-normal",
         // Inline Links
-        "prose-a:border-b prose-a:border-b-primary dark:prose-a:border-b-primary prose-a:font-normal prose-a:text-primary dark:prose-a:text-primary hover:prose-a:border-b-primary hover:prose-a:opacity-60 dark:hover:prose-a:border-b-primary prose-a:no-underline prose-a:transition-all",
+        "prose-a:underline prose-a:underline-offset-2 prose-a:decoration-primary hover:prose-a:opacity-80 prose-a:transition-all hover:prose-a:underline-offset-4 prose-a:text-primary",
         // Blockquotes
         "prose-blockquote:not-italic",
-        className
+        className,
       )}
       id={id}
     >
