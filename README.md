@@ -1,3 +1,5 @@
+![craft](https://github.com/brijr/craft/assets/57158102/5f138fb1-1ca9-4b8f-b119-fd90f084ecd3)
+
 # Craft UI
 
 > Craft UI is a Design System is a group of `npm` packages and **one component file** created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀
