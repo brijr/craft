@@ -37,14 +37,12 @@ const Main = ({ children, className, id }: MainProps) => {
   return (
     <main
       className={cn(
-        // No Max Width
-        "max-w-none",
+        // `Main` Specific Styles
+        "max-w-none prose-p:m-0 prose-headings:m-0",
         // General Prose
         "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg",
         // Prose Headings
         "prose-headings:font-normal",
-        // Prose Paragraphs
-        "prose-p:mb-0",
         // Prose Strong
         "prose-strong:font-semibold",
         // Inline Links
@@ -54,8 +52,8 @@ const Main = ({ children, className, id }: MainProps) => {
         // Blockquotes
         "prose-blockquote:not-italic",
         // Pre and Code Blocks
-        "prose-pre:border prose-pre:bg-muted/25",
-        className
+        "prose-pre:border prose-pre:bg-muted/25 prose-pre:text-foreground",
+        className,
       )}
       id={id}
     >
@@ -121,7 +119,7 @@ const Article = ({ children, className, id }: ArticleProps) => {
         "prose-blockquote:not-italic",
         // Pre and Code Blocks
         "prose-pre:border prose-pre:bg-muted/25",
-        className
+        className,
       )}
       id={id}
     >
