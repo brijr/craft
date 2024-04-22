@@ -37,19 +37,25 @@ const Main = ({ children, className, id }: MainProps) => {
   return (
     <main
       className={cn(
+        // No Max Width
+        "max-w-none",
         // General Prose
-        "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg max-w-none",
+        "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg",
         // Prose Headings
-        "prose-headings:font-normal prose-headings:mt-0",
+        "prose-headings:font-normal",
         // Prose Paragraphs
         "prose-p:mb-0",
         // Prose Strong
         "prose-strong:font-semibold",
         // Inline Links
-        "prose-a:underline prose-a:underline-offset-2 prose-a:decoration-primary hover:prose-a:opacity-80 prose-a:transition-all hover:prose-a:underline-offset-4 prose-a:text-primary",
+        "prose-a:underline prose-a:decoration-primary/50 prose-a:underline-offset-2 prose-a:text-foreground/75 prose-a:transition-all",
+        // Inline Link Hover
+        "hover:prose-a:decoration-primary hover:prose-a:text-foreground",
         // Blockquotes
         "prose-blockquote:not-italic",
-        className,
+        // Pre and Code Blocks
+        "prose-pre:border prose-pre:bg-muted/25",
+        className
       )}
       id={id}
     >
@@ -100,14 +106,22 @@ const Article = ({ children, className, id }: ArticleProps) => {
     <article
       className={cn(
         // General Prose
-        "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg",
+        "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg max-w-none",
         // Prose Headings
         "prose-headings:font-normal",
+        // Prose Paragraphs
+        "prose-p:mb-0",
+        // Prose Strong
+        "prose-strong:font-semibold",
         // Inline Links
-        "prose-a:underline prose-a:underline-offset-2 prose-a:decoration-primary hover:prose-a:opacity-80 prose-a:transition-all hover:prose-a:underline-offset-4 prose-a:text-primary",
+        "prose-a:underline prose-a:decoration-primary/50 prose-a:underline-offset-2 prose-a:text-foreground/75 prose-a:transition-all",
+        // Inline Link Hover
+        "hover:prose-a:decoration-primary hover:prose-a:text-foreground",
         // Blockquotes
         "prose-blockquote:not-italic",
-        className,
+        // Pre and Code Blocks
+        "prose-pre:border prose-pre:bg-muted/25",
+        className
       )}
       id={id}
     >
