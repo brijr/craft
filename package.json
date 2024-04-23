@@ -1,6 +1,6 @@
 {
   "name": "brijr-craft",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "> brijr/craft is a Design System developed using a group of `npm` packages and **one component file** created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀",
   "bin": {
     "brijr-craft": "./bin/init.js"

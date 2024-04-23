@@ -26,7 +26,10 @@ const destinationPath = path.join(destinationDir, componentName);
 fs.writeFileSync(destinationPath, componentContent.trim());
 
 // Install @tailwindcss/typography as a dev dependency
-execSync("npm install -D @tailwindcss/typography", { stdio: "inherit" });
+execSync(
+  "npm install @tailwindcss/typography@latest clsx@latest tailwind-merge@latest",
+  { stdio: "inherit" }
+);
 
 console.log(
   `Successfully installed ${componentName} in the /components/ folder and installed @tailwindcss/typography.`
