@@ -2,25 +2,29 @@
 
 > brijr/craft is a Design System developed using a group of `npm` packages and **one component file** created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀
 
-## Getting Started 
+## Getting Started
 
 - [Create a Next.js application](https://nextjs.org/docs/getting-started/installation) and use Tailwind and Typescript
+
   ```bash
   npx create-next-app@latest my-app --typescript --tailwind --eslint
   ```
+
 - [Install shadcn/ui](https://ui.shadcn.com/docs/installation/next) in your Next.js Applcation
 - Run this command to install the dependencies for Craft
+
   ```bash
   npm install @tailwindcss/typography clsx@latest tailwind-merge@latest
   ```
+
 - Create a `craft.tsx` component in your `/components` folder in Next.js
 - Copy and paste [the code](https://github.com/brijr/craft-ds/blob/main/craft.tsx) into your new component
 - You are ready to import the Components into your project!
 
-
 ## Components
 
 > There are currently five components
+>
 > - Layout
 > - Main
 > - Section
