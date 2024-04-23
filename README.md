@@ -11,6 +11,11 @@
   ```
 
 - [Install shadcn/ui](https://ui.shadcn.com/docs/installation/next) in your Next.js Applcation
+
+  ```bash
+  npx shadcn-ui@latest init
+  ```
+  
 - Run this command to Install brijr/craft
 
   ```bash
