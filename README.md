@@ -11,15 +11,19 @@
   ```
 
 - [Install shadcn/ui](https://ui.shadcn.com/docs/installation/next) in your Next.js Applcation
-- Run this command to install the dependencies for Craft
+- Run this command to Install brijr/craft
 
   ```bash
-  npm install @tailwindcss/typography clsx@latest tailwind-merge@latest
+  npx brijr-craft@latest init
   ```
 
-- Create a `craft.tsx` component in your `/components` folder in Next.js
-- Copy and paste [the code](https://github.com/brijr/craft-ds/blob/main/craft.tsx) into your new component
-- You are ready to import the Components into your project!
+- Add Tailwind Typography to your `tailwind.config.js`
+
+  ```js
+  module.exports = {
+    plugins: [require('@tailwindcss/typography')],
+  };
+  ```
 
 ## Components
 
