@@ -2,12 +2,16 @@
 
 # brijr/craft
 
-Use the Starter template at [starter.bridger.to](https://starter.bridger.to)
+```bash
+npx brijr-craft@latest init
+```
+
+Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
 
 ## Handle Typography, Colors, and Layout all with one file.
 
 > brijr/craft is a Design System developed using **one component file** added to teh root folder of a Tailwind/Next.js application. Created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀
-> 
+>
 > Try it out using [brijr/components](https://github.com/brijr/components) 👀
 
 ## Getting Started
@@ -18,25 +22,18 @@ Use the Starter template at [starter.bridger.to](https://starter.bridger.to)
   npx create-next-app@latest my-app --typescript --tailwind --eslint
   ```
 
-- [Install shadcn/ui](https://ui.shadcn.com/docs/installation/next) in your Next.js Applcation
-
-  ```bash
-  npx shadcn-ui@latest init
-  ```
-  
-- Run this command to Install brijr/craft
+- Run this command to Install brijr/craft (this will also install shadcn/ui and all other dependencies)
 
   ```bash
   npx brijr-craft@latest init
   ```
 
-- Add Tailwind Typography to your `tailwind.config.js`
+- Add craft components to build you layout
 
-  ```js
-  module.exports = {
-    plugins: [require('@tailwindcss/typography')],
-  };
+  ```jsx
+  import { Layout, Main, Section, Container, Article } from '@/components/craft.tsx';
   ```
+
 
 ## Components
 
