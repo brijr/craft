@@ -2,9 +2,11 @@
 
 # brijr/craft
 
+## Handle Typography, Colors, and Layout all with one file.
+
 > brijr/craft is a Design System developed using **one component file** added to teh root folder of a Tailwind/Next.js application. Created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀
 > 
-> Try it out using [brijr/components](https://github.com/brijr/components)
+> Try it out using [brijr/components](https://github.com/brijr/components) 👀
 
 ## Getting Started
 
