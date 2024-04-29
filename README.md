@@ -140,7 +140,7 @@ The `Article` component is specifically designed for wrapping article or blog po
 To use these components in your project, install the package via npm:
 
 ```
-npm install your-package-name
+npx brijr-craft@latest init
 ```
 
 ## Importing Components
@@ -148,7 +148,7 @@ npm install your-package-name
 You can import the components you need at the top of your React component file like so:
 
 ```jsx
-import { Layout, Main, Section, Container, Article } from 'your-package-name';
+import { Layout, Main, Section, Container, Article } from '@/components/craft.tsx';
 ```
 
 This documentation provides a quick start guide for integrating and utilizing the layout components in your web applications. Customize the components with additional styles or functionality as needed to fit your project's requirements.
