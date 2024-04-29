@@ -6,6 +6,12 @@
 npx brijr-craft@latest init
 ```
 
+or 
+
+```bash
+pnpm dlx brijr-craft@latest init
+```
+
 Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
 
 ## Handle Typography, Colors, and Layout all with one file.
