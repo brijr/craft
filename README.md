@@ -12,11 +12,36 @@ pnpm dlx brijr-craft@latest init
 
 Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
 
-## Handle Typography, Colors, and Layout
+## Handle Layout, Typography, and Colors
 
 > brijr/craft is a Design System developed using **one component file** paired with the best design tools for Next.js. Craft was put together by [Bridger Tower](https://bridger.to) at [9d8](https://9d8.dev) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀
 >
 > Try it out using [brijr/components](https://github.com/brijr/components) 👀
+
+### Layout
+
+Layout and Spacing is handled by the components provided in `craft.tsx`. You can use these components to build your layout. Here is an example of how to use the components:
+
+```jsx
+import { Main, Section, Container } from "@/components/craft.tsx";
+
+export default function Page() {
+  return (
+    <Main>
+      <Section>
+        <Container>
+          <h1>Heading</h1>
+          <p>Content</p>
+        </Container>
+      </Section>
+    </Main>
+  );
+}
+```
+
+This will handling the vertical and horizontal spacing, the max-width of the container, and the padding of the container and typography spacing. You can also use the `Article` component to handle the layout of an article as the max-width is a bit smaller for readability.
+
+Check out the `craft.tsx` file to see how the components are styled and make changes accordingly.
 
 ### Typography
 
