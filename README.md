@@ -18,7 +18,7 @@ Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
 >
 > Try it out using [brijr/components](https://github.com/brijr/components) 👀
 
-### Typography 
+### Typography
 
 The Typography System is a modified version of [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography). You can find how it is styled in the `<Main />` and `<Article />` component of the `craft.tsx` file.
 
@@ -26,10 +26,9 @@ To manage fonts in your website/software I use [Next.js Font Optimization](https
 
 ### Colors
 
-To manage the colors of your website brijr/craft uses the [system by shadcn](https://ui.shadcn.com/docs/theming). You can see this in the `app/globals.css` and you can make color changes accordingly. In order for this to work you use custom Tailwind styles such as `text-primary` or `bg-accent` etc. as defined in `globals.css`. Example below: 
+To manage the colors of your website brijr/craft uses the [system by shadcn](https://ui.shadcn.com/docs/theming). You can see this in the `app/globals.css` and you can make color changes accordingly. In order for this to work you use custom Tailwind styles such as `text-primary` or `bg-accent` etc. as defined in `globals.css`. Example below:
 
 ```css
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -78,7 +77,9 @@ To manage the colors of your website brijr/craft uses the [system by shadcn](htt
 }
 ```
 
-By using this system it will also take care of dark mode coloring/styling. To add darkmode to your application add a [theme provider and theme toggle](https://ui.shadcn.com/docs/dark-mode/next). 
+By using this system it will also take care of dark mode coloring/styling. To add darkmode to your application add a [theme provider and theme toggle](https://ui.shadcn.com/docs/dark-mode/next).
+
+To find color schemes check out this tool provided by shadcn: [ui.shadcn.com/themes](https://ui.shadcn.com/themes) or [ui.jln.dev](https://ui.jln.dev/).
 
 ## Getting Started
 
@@ -97,16 +98,22 @@ By using this system it will also take care of dark mode coloring/styling. To ad
 - Add craft components to build you layout
 
   ```jsx
-  import { Layout, Main, Section, Container, Article } from '@/components/craft.tsx';
+  import {
+    Layout,
+    Main,
+    Section,
+    Container,
+    Article,
+  } from "@/components/craft.tsx";
   ```
 
-## Packages and Libraries 
+## Packages and Libraries
 
 ### [shadcn/ui](https://ui.shadcn.com)
 
 Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source. Built with Radix UI by [shadcn](https://shadcn.com). This handles the colors and the base components of brijr/craft.
 
-### [React Wrap Balancer](https://react-wrap-balancer.vercel.app/) 
+### [React Wrap Balancer](https://react-wrap-balancer.vercel.app/)
 
 Simple React Component That Makes Titles More Readable. React Wrap Balancer reduces the width of the content wrapper as much as it could, before causing an extra line break. When reaching the minimum width, each line will approximately have the same width, and look more compact and balanced.
 
@@ -132,9 +139,7 @@ The `Layout` component serves as the foundational element that wraps around your
 **Usage:**
 
 ```jsx
-<Layout className="custom-class">
-  {/* content here */}
-</Layout>
+<Layout className="custom-class">{/* content here */}</Layout>
 ```
 
 ### Main
@@ -222,7 +227,13 @@ npx brijr-craft@latest init
 You can import the components you need at the top of your React component file like so:
 
 ```jsx
-import { Layout, Main, Section, Container, Article } from '@/components/craft.tsx';
+import {
+  Layout,
+  Main,
+  Section,
+  Container,
+  Article,
+} from "@/components/craft.tsx";
 ```
 
 > Find a collection of components built with brijr/craft at [componets.bridger.to](https://components.bridger.to)
