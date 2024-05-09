@@ -165,4 +165,4 @@ You can import the components you need at the top of your React component file l
 import { Layout, Main, Section, Container, Article } from '@/components/craft.tsx';
 ```
 
-This documentation provides a quick start guide for integrating and utilizing the layout components in your web applications. Customize the components with additional styles or functionality as needed to fit your project's requirements.
+> Find a collection of components built with brijr/craft at [componets.bridger.to](https://components.bridger.to)
