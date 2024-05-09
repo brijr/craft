@@ -14,11 +14,18 @@ pnpm dlx brijr-craft@latest init
 
 Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
 
-## Handle Typography, Colors, and Layout all with one file.
+## Handle Typography, Colors, and Layout
 
 > brijr/craft is a Design System developed using **one component file** paired with the best design tools for Next.js. Craft was put together by [Bridger Tower](https://bridger.to) at [9d8](https://9d8.dev) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀
 >
 > Try it out using [brijr/components](https://github.com/brijr/components) 👀
+
+### Typography 
+
+The Typography System is a modified version of [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography). You can find how it is styled in the `<Main />` and `<Article />` component of the `craft.tsx` file.
+
+To manage font usage I prefer to use [Next.js Font Optimization](https://nextjs.org/docs/app/building-your-application/optimizing/fonts). I prefer to use a variable font. Here is a [video about how this works](https://www.youtube.com/watch?v=L8_98i_bMMA).
+
 
 ## Getting Started
 
