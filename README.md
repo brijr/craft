@@ -40,6 +40,15 @@ Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
   import { Layout, Main, Section, Container, Article } from '@/components/craft.tsx';
   ```
 
+## Packages and Libraries 
+
+### [shadcn/ui](https://ui.shadcn.com)
+
+Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source. Built with Radix UI by [shadcn](https://shadcn.com). This handles the colors and the base components of brijr/craft.
+
+### [React Wrap Balancer](https://react-wrap-balancer.vercel.app/) 
+
+Simple React Component That Makes Titles More Readable. React Wrap Balancer reduces the width of the content wrapper as much as it could, before causing an extra line break. When reaching the minimum width, each line will approximately have the same width, and look more compact and balanced.
 
 ## Components
 
