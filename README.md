@@ -106,7 +106,7 @@ By using this system it will also take care of dark mode coloring/styling. To ad
 
 To find color schemes check out this tool provided by shadcn: [ui.shadcn.com/themes](https://ui.shadcn.com/themes) or [ui.jln.dev](https://ui.jln.dev/).
 
-## Getting Started
+## Setup and Getting Started
 
 - [Create a Next.js application](https://nextjs.org/docs/getting-started/installation) and use Tailwind and Typescript
 
