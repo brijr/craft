@@ -23,7 +23,7 @@ Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
 Layout and Spacing is handled by the components provided in `craft.tsx`. You can use these components to build your layout. Here is an example of how to use the components:
 
 ```jsx
-import { Main, Section, Container } from "@/components/craft.tsx";
+import { Main, Section, Container } from "@/components/craft";
 
 export default function Page() {
   return (
