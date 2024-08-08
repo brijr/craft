@@ -1,5 +1,7 @@
 ![craft](https://github.com/brijr/craft/assets/57158102/33af93c2-fd11-41c6-b4cb-30e5e5c9bc35)
 
+[Demo video](https://youtu.be/YKkGNZK8En8)
+
 # brijr/craft
 
 ```bash
