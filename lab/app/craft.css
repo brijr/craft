@@ -4,58 +4,46 @@
 
 @layer components {
   /* Typography */
+  .ds-title {
+    @apply font-semibold text-3xl sm:text-4xl md:text-5xl;
+  }
+
   .ds-heading {
-    @apply font-bold mb-4;
+    @apply font-semibold text-2xl sm:text-3xl md:text-4xl;
   }
 
-  .ds-h1 {
-    @apply ds-heading text-3xl sm:text-4xl md:text-5xl;
-  }
-
-  .ds-h2 {
-    @apply ds-heading text-2xl sm:text-3xl md:text-4xl;
-  }
-
-  .ds-h3 {
-    @apply ds-heading text-xl sm:text-2xl md:text-3xl font-semibold;
-  }
-
-  .ds-h4 {
-    @apply ds-heading text-lg sm:text-xl md:text-2xl font-semibold mb-2;
-  }
-
-  .ds-h5 {
-    @apply ds-heading text-base sm:text-lg md:text-xl font-medium mb-2;
+  .ds-subheading {
+    @apply font-medium text-xl sm:text-2xl md:text-3xl font-semibold;
   }
 
   .ds-h6 {
-    @apply ds-heading text-sm sm:text-base md:text-lg font-medium mb-2;
+    @apply text-sm sm:text-base md:text-lg font-medium mb-2;
   }
 
   .ds-p {
-    @apply text-base leading-relaxed mb-4;
+    @apply text-base leading-relaxed mb-4 text-foreground;
   }
 
   .ds-a {
-    @apply text-blue-600 hover:text-blue-800 underline transition duration-300;
+    @apply text-primary hover:text-primary-foreground underline transition duration-300;
   }
 
   /* Interactive Elements */
   .ds-button {
-    @apply px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300;
+    @apply px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition duration-300;
   }
 
   .ds-input {
-    @apply w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300;
+    @apply w-full border border-input rounded px-3 py-2 focus:ring-2 focus:ring-ring focus:border-ring transition duration-300;
   }
 
   /* Lists */
   .ds-ul {
-    @apply list-disc list-inside mb-4;
+    @apply list-disc list-inside mb-4 text-foreground;
   }
 
   .ds-ol {
-    @apply list-decimal list-inside mb-4;
+    @apply list-decimal list-inside mb-4 text-foreground;
   }
 
   /* Tables */
@@ -64,11 +52,11 @@
   }
 
   .ds-th {
-    @apply bg-gray-100 border border-gray-300 px-4 py-2 font-semibold text-left;
+    @apply bg-muted border border-border px-4 py-2 font-semibold text-left text-muted-foreground;
   }
 
   .ds-td {
-    @apply border border-gray-300 px-4 py-2;
+    @apply border border-border px-4 py-2 text-foreground;
   }
 
   /* Forms */
@@ -77,7 +65,7 @@
   }
 
   .ds-label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
+    @apply block text-sm font-medium text-muted-foreground mb-1;
   }
 
   /* Other Elements */
@@ -90,19 +78,19 @@
   }
 
   .ds-span {
-    @apply inline-block;
+    @apply inline-block text-foreground;
   }
 
   .ds-strong {
-    @apply font-bold;
+    @apply font-bold text-foreground;
   }
 
   .ds-em {
-    @apply italic;
+    @apply italic text-foreground;
   }
 
   .ds-hr {
-    @apply border-t border-gray-300 my-6;
+    @apply border-t border-border my-6;
   }
 
   .ds-container {
@@ -111,117 +99,5 @@
 
   .ds-section {
     @apply my-8;
-  }
-}
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-
-    --input: 214.3 31.8% 91.4%;
-
-    --ring: 222.2 84% 4.9%;
-
-    --chart-1: 12 76% 61%;
-
-    --chart-2: 173 58% 39%;
-
-    --chart-3: 197 37% 24%;
-
-    --chart-4: 43 74% 66%;
-
-    --chart-5: 27 87% 67%;
-
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 222.2 84% 4.9%;
-
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-
-    --input: 217.2 32.6% 17.5%;
-
-    --ring: 212.7 26.8% 83.9%;
-
-    --chart-1: 220 70% 50%;
-
-    --chart-2: 160 60% 45%;
-
-    --chart-3: 30 80% 55%;
-
-    --chart-4: 280 65% 60%;
-
-    --chart-5: 340 75% 55%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }
