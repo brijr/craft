@@ -1,0 +1,109 @@
+@layer base {
+  /* Typography */
+  .craft h1 {
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold mb-4;
+  }
+
+  .craft h2 {
+    @apply text-2xl sm:text-3xl md:text-4xl font-bold mb-3;
+  }
+
+  .craft h3 {
+    @apply text-xl sm:text-2xl md:text-3xl font-semibold mb-3;
+  }
+
+  .craft h4 {
+    @apply text-lg sm:text-xl md:text-2xl font-semibold mb-2;
+  }
+
+  .craft h5 {
+    @apply text-base sm:text-lg md:text-xl font-medium mb-2;
+  }
+
+  .craft h6 {
+    @apply text-sm sm:text-base md:text-lg font-medium mb-2;
+  }
+
+  .craft p {
+    @apply text-base leading-relaxed mb-4;
+  }
+
+  .craft a {
+    @apply text-blue-600 hover:text-blue-800 underline transition duration-300;
+  }
+
+  /* Interactive Elements */
+  .craft button {
+    @apply px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300;
+  }
+
+  .craft input[type="text"],
+  .craft textarea,
+  .craft select {
+    @apply w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300;
+  }
+
+  /* Lists */
+  .craft ul {
+    @apply list-disc list-inside mb-4;
+  }
+
+  .craft ol {
+    @apply list-decimal list-inside mb-4;
+  }
+
+  /* Tables */
+  .craft table {
+    @apply w-full border-collapse mb-4;
+  }
+
+  .craft th {
+    @apply bg-gray-100 border border-gray-300 px-4 py-2 font-semibold text-left;
+  }
+
+  .craft td {
+    @apply border border-gray-300 px-4 py-2;
+  }
+
+  /* Forms */
+  .craft form {
+    @apply space-y-4;
+  }
+
+  .craft label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+
+  /* Other Elements */
+  .craft img {
+    @apply max-w-full h-auto mb-4;
+  }
+
+  .craft div {
+    @apply mb-4;
+  }
+
+  .craft span {
+    @apply inline-block;
+  }
+
+  .craft strong {
+    @apply font-bold;
+  }
+
+  .craft em {
+    @apply italic;
+  }
+
+  .craft hr {
+    @apply border-t border-gray-300 my-6;
+  }
+}
+
+.craft .content-wrapper {
+  @apply max-w-4xl mx-auto px-4;
+}
+
+.craft .section {
+  @apply my-8;
+}
