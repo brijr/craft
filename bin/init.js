@@ -35,7 +35,7 @@ rl.question("Enter the component name (default: craft.tsx): ", (componentName) =
     console.log(`Installing dependencies...`);
 
     // Install shadcn-ui
-    execSync("npx shadcn-ui@latest init", { stdio: "inherit" });
+    execSync("npx shadcn@latest init", { stdio: "inherit" });
 
     // Install @tailwindcss/typography, clsx, and tailwind-merge as dev dependencies
     execSync(
