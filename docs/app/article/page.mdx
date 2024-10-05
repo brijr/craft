@@ -27,9 +27,9 @@ Wrap your article content with the Article component:
 The Article component accepts the following props:
 
 - `children`: React.ReactNode (optional)
-- `className`: string (optional)
-- `id`: string (optional)
-- `dangerouslySetInnerHTML`: { __html: string } (optional)
+- `className`: `string` (optional)
+- `id`: `string` (optional)
+- `dangerouslySetInnerHTML`: `{ __html: string }` (optional)
 
 ## Features
 
@@ -57,9 +57,7 @@ The Article component accepts the following props:
 You can customize the Article component by passing additional classes through the `className` prop:
 
 ```tsx
-<Article className="custom-article-class">
-  {/* Your article content */}
-</Article>
+<Article className="custom-article-class">{/* Your article content */}</Article>
 ```
 
 ## Typography Styles
@@ -83,7 +81,10 @@ export default function BlogPost() {
   return (
     <Article>
       <h1>The Future of Web Development</h1>
-      <p>As we look ahead to the coming years, web development continues to evolve at a rapid pace...</p>
+      <p>
+        As we look ahead to the coming years, web development continues to
+        evolve at a rapid pace...
+      </p>
       <h2>Emerging Technologies</h2>
       <ul>
         <li>WebAssembly</li>
@@ -93,7 +94,10 @@ export default function BlogPost() {
       <blockquote>
         "The only constant in web development is change." - Anonymous
       </blockquote>
-      <p>As developers, we must stay adaptable and continue learning to keep up with these exciting changes.</p>
+      <p>
+        As developers, we must stay adaptable and continue learning to keep up
+        with these exciting changes.
+      </p>
     </Article>
   );
 }
