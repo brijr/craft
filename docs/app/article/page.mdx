@@ -1,0 +1,111 @@
+import { Article, Box } from "@/components/craft";
+
+# Article Component
+
+The Article component in Craft Design System is designed for rendering content-rich sections with proper semantic structure and typography styles. It's ideal for blog posts, news articles, or any long-form content.
+
+## Import
+
+```tsx
+import { Article } from "@/components/craft";
+```
+
+## Usage
+
+Wrap your article content with the Article component:
+
+```tsx
+<Article>
+  <h1>My Article Title</h1>
+  <p>This is the first paragraph of my article...</p>
+  {/* More content */}
+</Article>
+```
+
+## Props
+
+The Article component accepts the following props:
+
+- `children`: React.ReactNode (optional)
+- `className`: string (optional)
+- `id`: string (optional)
+- `dangerouslySetInnerHTML`: { __html: string } (optional)
+
+## Features
+
+<Box cols={{ sm: 1, md: 2 }} gap={4}>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Semantic HTML</h3>
+    <p>Uses the `<article>` tag for proper document structure.</p>
+  </div>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Typography Styles</h3>
+    <p>Applies Tailwind Typography styles for consistent and attractive text formatting.</p>
+  </div>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Responsive Design</h3>
+    <p>Automatically adjusts styles for different screen sizes.</p>
+  </div>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Dark Mode Support</h3>
+    <p>Includes dark mode styles for better readability in low-light conditions.</p>
+  </div>
+</Box>
+
+## Customization
+
+You can customize the Article component by passing additional classes through the `className` prop:
+
+```tsx
+<Article className="custom-article-class">
+  {/* Your article content */}
+</Article>
+```
+
+## Typography Styles
+
+The Article component applies the following typography styles:
+
+- Neutral color scheme with dark mode support
+- Adjusted font sizes for headings and body text
+- Proper spacing for paragraphs, lists, and other elements
+- Styled links with hover effects
+- Customized blockquote and code block appearances
+
+## Example
+
+Here's an example of how to use the Article component with some content:
+
+```tsx
+import { Article } from "@/components/craft";
+
+export default function BlogPost() {
+  return (
+    <Article>
+      <h1>The Future of Web Development</h1>
+      <p>As we look ahead to the coming years, web development continues to evolve at a rapid pace...</p>
+      <h2>Emerging Technologies</h2>
+      <ul>
+        <li>WebAssembly</li>
+        <li>Progressive Web Apps</li>
+        <li>AI-driven Development</li>
+      </ul>
+      <blockquote>
+        "The only constant in web development is change." - Anonymous
+      </blockquote>
+      <p>As developers, we must stay adaptable and continue learning to keep up with these exciting changes.</p>
+    </Article>
+  );
+}
+```
+
+This setup provides a well-structured and styled article that will look great on any device and in any color scheme.
+
+## Best Practices
+
+1. Use semantic HTML tags within the Article component for better structure and accessibility.
+2. Take advantage of the built-in typography styles for consistent formatting.
+3. Use the `className` prop for minor style adjustments, but avoid overriding core styles unless necessary.
+4. Consider using the `dangerouslySetInnerHTML` prop when rendering content from a CMS or other external source, but be cautious of potential security risks.
+
+The Article component in Craft Design System makes it easy to create beautifully formatted, responsive, and accessible content with minimal effort.
