@@ -1,4 +1,4 @@
-// craft-ds, v0.2.2
+// craft-ds, v0.2.3
 
 // How to use craft-ds:
 // 1. Install craft-ds in your Next.js project:
