@@ -7,8 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -18,11 +17,6 @@
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
-    "@testing-library/react": "^13.0.0",
-    "@types/jest": "^27.0.0",
-    "@types/react": "^18.3.11",
-    "jest": "^27.0.0",
-    "react": "^18.3.1",
-    "ts-jest": "^27.0.0"
+    "react": "^18.3.1"
   }
 }
