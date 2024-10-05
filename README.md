@@ -1,6 +1,6 @@
 ![craft](https://github.com/brijr/craft/assets/57158102/33af93c2-fd11-41c6-b4cb-30e5e5c9bc35)
 
-# brijr/craft
+# craft-ds
 
 ```bash
 npx brijr-craft@latest init
