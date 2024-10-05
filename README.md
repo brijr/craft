@@ -1,4 +1,4 @@
-# craft-ds
+# Craft Design System
 
 ```bash
 npx craft-ds@latest init

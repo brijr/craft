@@ -59,9 +59,19 @@ async function updateTailwindConfig() {
   }
 }
 
+async function ensureNextJsProject() {
+  if (!existsSync("package.json")) {
+    console.log("No package.json found. Creating a new Next.js project...");
+    runCommand("npx create-next-app@latest -ts -tailwind -eslint .");
+    console.log("Next.js project created successfully.");
+  }
+}
+
 async function main() {
   try {
-    console.log("Welcome to the Craft Design System installer!");
+    console.log("Welcome to the Craft component installer!");
+
+    await ensureNextJsProject();
 
     const componentName = await promptUser(
       "Enter the component name",
