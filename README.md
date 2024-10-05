@@ -1,15 +1,14 @@
 # Craft Design System
 
+Craft is a Design System developed using a single component file paired with the best design tools for Next.js. It was created by [Bridger Tower](https://bridger.to) to build websites with Next.js, Tailwind, shadcn/ui, and TypeScript faster 🚀
+
+## Quick Start
+
+To install Craft in your Next.js project, run:
+
 ```bash
 npx craft-ds@latest init
 ```
-
-> **Note:** If you are using pnpm, you can use the `pnpm dlx` command to install the package.
-
-```bash
-pnpm dlx craft-ds@latest init
-```
-
 
 Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
 
