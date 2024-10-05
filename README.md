@@ -1,5 +1,3 @@
-![craft](https://github.com/brijr/craft/assets/57158102/33af93c2-fd11-41c6-b4cb-30e5e5c9bc35)
-
 # craft-ds
 
 ```bash
@@ -256,15 +254,15 @@ The `Article` component is specifically designed for wrapping article or blog po
 
 ### Flex
 
-The `Flex` component (formerly Stack) is designed to create flexible vertical or horizontal layouts with customizable gap and padding, supporting responsive breakpoints.
+The `Flex` component is designed to create flexible layouts with customizable direction, wrap, and gap, supporting responsive breakpoints.
 
 **Props:**
 
 - `children: React.ReactNode` - The content to be arranged in a flex layout.
 - `className?: string` - Optional CSS classes for additional styling.
-- `direction?: Responsive<"row" | "column">` - The flex direction (default is "column"). Can be responsive.
-- `gap?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>` - The gap between flex items (default is 0). Can be responsive.
-- `padding?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>` - The padding around the flex container (default is 0). Can be responsive.
+- `direction?: Responsive<"row" | "col">` - The flex direction (default is "row"). Can be responsive.
+- `wrap?: Responsive<boolean>` - Whether the flex items should wrap (default is false). Can be responsive.
+- `gap?: Responsive<number>` - The gap between flex items (default is 0). Can be responsive.
 
 **Usage:**
 
