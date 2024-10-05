@@ -1,12 +1,15 @@
+// craft-ds, v0.2.1
+
 import React from "react";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+// Utility function to merge class names using clsx and tailwind-merge
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Types
+// Types for component props
 type LayoutProps = {
   children: React.ReactNode;
   className?: string;
@@ -55,6 +58,7 @@ type GridProps = {
 };
 
 // Layout Component
+// This component sets up the basic HTML structure and applies global styles
 const Layout = ({ children, className }: LayoutProps) => {
   return (
     <html
@@ -68,6 +72,7 @@ const Layout = ({ children, className }: LayoutProps) => {
 };
 
 // Main Component
+// This component is used for the main content area of the page
 const Main = ({ children, className, id }: MainProps) => {
   return (
     <main
@@ -98,6 +103,7 @@ const Main = ({ children, className, id }: MainProps) => {
 };
 
 // Section Component
+// This component is used for defining sections within the page
 const Section = ({ children, className, id }: SectionProps) => {
   return (
     <section className={cn("py-8 md:py-12", className)} id={id}>
@@ -107,6 +113,7 @@ const Section = ({ children, className, id }: SectionProps) => {
 };
 
 // Container Component
+// This component is used for containing content with a maximum width and padding
 const Container = ({ children, className, id }: ContainerProps) => {
   return (
     <div className={cn("mx-auto max-w-5xl", "p-6 sm:p-8", className)} id={id}>
@@ -116,6 +123,7 @@ const Container = ({ children, className, id }: ContainerProps) => {
 };
 
 // Article Component
+// This component is used for rendering articles with optional dangerouslySetInnerHTML
 const Article = ({
   children,
   className,
@@ -152,6 +160,7 @@ const Article = ({
 };
 
 // Flex Component (formerly Stack)
+// This component is used for creating flexible layouts with direction, gap, and padding
 const Flex = React.memo(
   ({
     children,
@@ -198,6 +207,7 @@ const Flex = React.memo(
 Flex.displayName = "Flex";
 
 // Grid Component
+// This component is used for creating responsive grid layouts
 /**
  * Grid component for creating responsive grid layouts.
  * @param {GridProps} props - The props for the Grid component.
@@ -248,4 +258,5 @@ const Grid = React.memo(
 
 Grid.displayName = "Grid";
 
+// Exporting all components for use in other parts of the application
 export { Layout, Main, Section, Container, Article, Flex, Grid };
