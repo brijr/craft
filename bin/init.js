@@ -1,14 +1,10 @@
 #!/usr/bin/env node
 
-import fs from "fs/promises";
-import path from "path";
-import { fileURLToPath } from "url";
-import { execSync } from "child_process";
-import readline from "readline/promises";
-import { existsSync } from "fs";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const fs = require("fs").promises;
+const path = require("path");
+const { execSync } = require("child_process");
+const readline = require("readline");
+const { existsSync } = require("fs");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -16,18 +12,21 @@ const rl = readline.createInterface({
 });
 
 async function promptUser(question, defaultValue) {
-  const answer = await rl.question(`${question} (default: ${defaultValue}): `);
-  return answer.trim() || defaultValue;
+  return new Promise((resolve) => {
+    rl.question(`${question} (default: ${defaultValue}): `, (answer) => {
+      resolve(answer.trim() || defaultValue);
+    });
+  });
 }
 
-async function detectPackageManager() {
+function detectPackageManager() {
   if (existsSync("package-lock.json")) return "npm";
   if (existsSync("yarn.lock")) return "yarn";
   if (existsSync("pnpm-lock.yaml")) return "pnpm";
   return "npm"; // Default to npm if no lock file is found
 }
 
-async function runCommand(command) {
+function runCommand(command) {
   console.log(`Running: ${command}`);
   execSync(command, { stdio: "inherit" });
 }
@@ -63,7 +62,7 @@ async function updateTailwindConfig() {
 async function ensureNextJsProject() {
   if (!existsSync("package.json")) {
     console.log("No package.json found. Creating a new Next.js project...");
-    await runCommand("npx create-next-app@latest .");
+    runCommand("npx create-next-app@latest .");
     console.log("Next.js project created successfully.");
   }
 }
@@ -95,15 +94,15 @@ async function main() {
 
     console.log("Installing dependencies...");
 
-    const packageManager = await detectPackageManager();
+    const packageManager = detectPackageManager();
 
     // Install shadcn-ui
-    await runCommand(`npx shadcn@latest init`);
+    runCommand(`npx shadcn@latest init`);
 
     // Install additional dependencies
     const installCmd =
       packageManager === "npm" ? "npm install" : `${packageManager} add`;
-    await runCommand(
+    runCommand(
       `${installCmd} @tailwindcss/typography@latest clsx@latest tailwind-merge@latest tailwindcss-animate@latest`
     );
 
