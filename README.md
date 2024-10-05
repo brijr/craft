@@ -147,6 +147,14 @@ Beautifully designed components that you can copy and paste into your apps. Acce
 
 Simple React Component That Makes Titles More Readable. React Wrap Balancer reduces the width of the content wrapper as much as it could, before causing an extra line break. When reaching the minimum width, each line will approximately have the same width, and look more compact and balanced.
 
+### [Tailwind Merge](https://tailwind-merge.vercel.app/)
+
+A utility library for merging Tailwind CSS classes with support for responsive design. It helps in dynamically applying Tailwind classes based on different screen sizes.
+
+### [Tailwind Typography](https://tailwindcss.com/docs/typography-plugin)
+
+A plugin that provides a set of prose classes to style text content using Tailwind CSS. It automatically styles paragraphs, headings, lists, and more, making it easy to create a consistent typography style for your website.
+
 ## Components
 
 > There are currently seven components

@@ -5,10 +5,10 @@
 //    npx craft-ds@latest init
 //    or
 //    pnpm dlx craft-ds@latest init
-//
+
 // 2. Import the components you need in your React components:
 //    import { Layout, Main, Section, Container, Article, Flex, Grid } from "@/components/craft";
-//
+
 // 3. Use the components to build your layout:
 //    export default function Page() {
 //      return (
@@ -22,12 +22,12 @@
 //        </Main>
 //      );
 //    }
-//
+
 // 4. Customize the components using the className prop:
 //    <Container className="custom-container">
 //      {/* Your content here */}
 //    </Container>
-//
+
 // 5. Use the Flex and Grid components for more complex layouts:
 //    <Flex direction={{ sm: "column", md: "row" }} gap={4}>
 //      <div>Item 1</div>
