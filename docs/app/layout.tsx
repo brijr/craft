@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Layout, Main, Section, Container } from "@/components/craft";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,11 +29,18 @@ export default function RootLayout({
   return (
     <Layout className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <Main>
-          <Section>
-            <Container>{children}</Container>
-          </Section>
-        </Main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Main>
+            <Section>
+              <Container>{children}</Container>
+            </Section>
+          </Main>
+        </ThemeProvider>
       </body>
     </Layout>
   );
