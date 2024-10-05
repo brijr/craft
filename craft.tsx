@@ -133,4 +133,118 @@ const Article = ({
   );
 };
 
-export { Layout, Main, Section, Container, Article };
+// Flex Component (formerly Stack)
+type Responsive<T> = T | { sm?: T; md?: T; lg?: T; xl?: T };
+
+type FlexProps = {
+  children: React.ReactNode;
+  className?: string;
+  direction?: Responsive<"row" | "column">;
+  gap?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
+  padding?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
+};
+
+const Flex = React.memo(
+  ({
+    children,
+    className,
+    direction = "column",
+    gap = 0,
+    padding = 0,
+  }: FlexProps) => {
+    const directionClasses = (d: "row" | "column") =>
+      d === "row" ? "flex-row" : "flex-col";
+    const gapClasses = (g: number) => `gap-${g}`;
+    const paddingClasses = (p: number) => `p-${p}`;
+
+    const responsiveClasses = (
+      prop: Responsive<any>,
+      classFn: (value: any) => string
+    ) => {
+      if (typeof prop !== "object") return classFn(prop);
+      return Object.entries(prop)
+        .map(([breakpoint, value]) =>
+          breakpoint === "sm"
+            ? classFn(value)
+            : `${breakpoint}:${classFn(value)}`
+        )
+        .join(" ");
+    };
+
+    return (
+      <div
+        className={cn(
+          "flex",
+          responsiveClasses(direction, directionClasses),
+          responsiveClasses(gap, gapClasses),
+          responsiveClasses(padding, paddingClasses),
+          className
+        )}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+Flex.displayName = "Flex";
+
+// Grid Component
+type GridProps = {
+  children: React.ReactNode;
+  className?: string;
+  cols?: Responsive<1 | 2 | 3 | 4 | 5 | 6>;
+  gap?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
+};
+
+/**
+ * Grid component for creating responsive grid layouts.
+ * @param {GridProps} props - The props for the Grid component.
+ * @returns {JSX.Element} A grid container with the specified properties.
+ */
+const Grid = React.memo(
+  ({ children, className, cols = 3, gap = 4 }: GridProps) => {
+    const colClasses = (c: number) =>
+      ({
+        1: "grid-cols-1",
+        2: "grid-cols-2",
+        3: "grid-cols-3",
+        4: "grid-cols-4",
+        5: "grid-cols-5",
+        6: "grid-cols-6",
+      }[c] || "grid-cols-3");
+
+    const gapClasses = (g: number) => `gap-${g}`;
+
+    const responsiveClasses = (
+      prop: Responsive<number>,
+      classFn: (n: number) => string
+    ) => {
+      if (typeof prop === "number") return classFn(prop);
+      return Object.entries(prop)
+        .map(([breakpoint, value]) =>
+          breakpoint === "sm"
+            ? classFn(value)
+            : `${breakpoint}:${classFn(value)}`
+        )
+        .join(" ");
+    };
+
+    return (
+      <div
+        className={cn(
+          "grid",
+          responsiveClasses(cols, colClasses),
+          responsiveClasses(gap, gapClasses),
+          className
+        )}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+Grid.displayName = "Grid";
+
+export { Layout, Main, Section, Container, Article, Flex, Grid };

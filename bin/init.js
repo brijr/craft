@@ -62,19 +62,7 @@ rl.question(
       console.log(
         `\nSuccess! The ${componentName} component has been installed in the /components folder.`
       );
-      console.log(`You can now import and use the components in your project.`);
-      console.log(`To use the ThemeProvider, wrap your app with it like this:`);
-      console.log(`
-import { ThemeProvider } from './components/${componentName}';
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <ThemeProvider>
-      <Component {...pageProps} />
-    </ThemeProvider>
-  );
-}
-`);
+      console.log(`You can now import and use the component in your project.`);
     } catch (error) {
       console.error(`\nAn error occurred during the installation:`);
       console.error(error.message);

@@ -146,13 +146,15 @@ Simple React Component That Makes Titles More Readable. React Wrap Balancer redu
 
 ## Components
 
-> There are currently five components
+> There are currently seven components
 >
 > - Layout
 > - Main
 > - Section
 > - Container
 > - Article
+> - Flex
+> - Grid
 
 ### Layout
 
@@ -241,26 +243,56 @@ The `Article` component is specifically designed for wrapping article or blog po
 </Article>
 ```
 
-## Installation
+### Flex
 
-To use these components in your project, install the package via npm:
+The `Flex` component (formerly Stack) is designed to create flexible vertical or horizontal layouts with customizable gap and padding, supporting responsive breakpoints.
 
-```
-npx brijr-craft@latest init
-```
+**Props:**
 
-## Importing Components
+- `children: React.ReactNode` - The content to be arranged in a flex layout.
+- `className?: string` - Optional CSS classes for additional styling.
+- `direction?: Responsive<"row" | "column">` - The flex direction (default is "column"). Can be responsive.
+- `gap?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>` - The gap between flex items (default is 0). Can be responsive.
+- `padding?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>` - The padding around the flex container (default is 0). Can be responsive.
 
-You can import the components you need at the top of your React component file like so:
+**Usage:**
 
 ```jsx
-import {
-  Layout,
-  Main,
-  Section,
-  Container,
-  Article,
-} from "@/components/craft.tsx";
+<Flex
+  direction={{ sm: "column", md: "row" }}
+  gap={{ sm: 2, md: 4 }}
+  padding={{ sm: 2, md: 4 }}
+  className="custom-flex"
+>
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</Flex>
 ```
 
-> Find a collection of components built with brijr/craft at [componets.bridger.to](https://components.bridger.to)
+### Grid
+
+The `Grid` component is designed to create a responsive grid layout with customizable columns, rows, and gap, supporting responsive breakpoints.
+
+**Props:**
+
+- `children: React.ReactNode` - The content to be arranged in a grid layout.
+- `className?: string` - Optional CSS classes for additional styling.
+- `columns?: Responsive<number>` - The number of columns in the grid (default is 1). Can be responsive.
+- `rows?: Responsive<number>` - The number of rows in the grid (default is 1). Can be responsive.
+- `gap?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>` - The gap between grid items (default is 0). Can be responsive.
+
+**Usage:**
+
+```jsx
+<Grid
+  columns={{ sm: 1, md: 2, lg: 3 }}
+  rows={{ sm: 1, md: 2 }}
+  gap={{ sm: 2, md: 4 }}
+  className="custom-grid"
+>
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</Grid>
+```
