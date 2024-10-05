@@ -6,12 +6,55 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Layout Component
+// Types
 type LayoutProps = {
   children: React.ReactNode;
   className?: string;
 };
 
+type MainProps = {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+};
+
+type SectionProps = {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+};
+
+type ContainerProps = {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+};
+
+type ArticleProps = {
+  children?: React.ReactNode;
+  className?: string;
+  id?: string;
+  dangerouslySetInnerHTML?: { __html: string };
+};
+
+type Responsive<T> = T | { sm?: T; md?: T; lg?: T; xl?: T };
+
+type FlexProps = {
+  children: React.ReactNode;
+  className?: string;
+  direction?: Responsive<"row" | "column">;
+  gap?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
+  padding?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
+};
+
+type GridProps = {
+  children: React.ReactNode;
+  className?: string;
+  cols?: Responsive<1 | 2 | 3 | 4 | 5 | 6>;
+  gap?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
+};
+
+// Layout Component
 const Layout = ({ children, className }: LayoutProps) => {
   return (
     <html
@@ -25,12 +68,6 @@ const Layout = ({ children, className }: LayoutProps) => {
 };
 
 // Main Component
-type MainProps = {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-};
-
 const Main = ({ children, className, id }: MainProps) => {
   return (
     <main
@@ -61,12 +98,6 @@ const Main = ({ children, className, id }: MainProps) => {
 };
 
 // Section Component
-type SectionProps = {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-};
-
 const Section = ({ children, className, id }: SectionProps) => {
   return (
     <section className={cn("py-8 md:py-12", className)} id={id}>
@@ -76,12 +107,6 @@ const Section = ({ children, className, id }: SectionProps) => {
 };
 
 // Container Component
-type ContainerProps = {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-};
-
 const Container = ({ children, className, id }: ContainerProps) => {
   return (
     <div className={cn("mx-auto max-w-5xl", "p-6 sm:p-8", className)} id={id}>
@@ -91,13 +116,6 @@ const Container = ({ children, className, id }: ContainerProps) => {
 };
 
 // Article Component
-type ArticleProps = {
-  children?: React.ReactNode;
-  className?: string;
-  id?: string;
-  dangerouslySetInnerHTML?: { __html: string };
-};
-
 const Article = ({
   children,
   className,
@@ -134,16 +152,6 @@ const Article = ({
 };
 
 // Flex Component (formerly Stack)
-type Responsive<T> = T | { sm?: T; md?: T; lg?: T; xl?: T };
-
-type FlexProps = {
-  children: React.ReactNode;
-  className?: string;
-  direction?: Responsive<"row" | "column">;
-  gap?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
-  padding?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
-};
-
 const Flex = React.memo(
   ({
     children,
@@ -190,13 +198,6 @@ const Flex = React.memo(
 Flex.displayName = "Flex";
 
 // Grid Component
-type GridProps = {
-  children: React.ReactNode;
-  className?: string;
-  cols?: Responsive<1 | 2 | 3 | 4 | 5 | 6>;
-  gap?: Responsive<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
-};
-
 /**
  * Grid component for creating responsive grid layouts.
  * @param {GridProps} props - The props for the Grid component.
