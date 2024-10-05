@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 // cn util
 import { type ClassValue, clsx } from "clsx";
