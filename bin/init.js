@@ -62,7 +62,7 @@ async function updateTailwindConfig() {
 async function ensureNextJsProject() {
   if (!existsSync("package.json")) {
     console.log("No package.json found. Creating a new Next.js project...");
-    runCommand("npx create-next-app@latest .");
+    runCommand("npx create-next-app@latest");
     console.log("Next.js project created successfully.");
   }
 }
@@ -103,7 +103,7 @@ async function main() {
     const installCmd =
       packageManager === "npm" ? "npm install" : `${packageManager} add`;
     runCommand(
-      `${installCmd} @tailwindcss/typography@latest clsx@latest tailwind-merge@latest tailwindcss-animate@latest`
+      `${installCmd} @tailwindcss/typography@latest clsx@latest tailwind-merge@latest tailwindcss-animate@latest react-wrap-balancer`
     );
 
     // Update Tailwind config
