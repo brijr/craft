@@ -1,0 +1,68 @@
+import { Box } from "@/components/craft";
+import { Button } from "@/components/ui/button";
+
+# Craft Design System
+
+A lightweight, customizable design system for React and Next.js
+
+<Box gap={2} className="not-prose mt-4">
+  <Button asChild>
+    <a
+      href="https://github.com/brijr/craft"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      GitHub
+    </a>
+  </Button>
+  <Button asChild variant="outline">
+    <a
+      href="https://www.npmjs.com/package/craft-ds"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      npm
+    </a>
+  </Button>
+</Box>
+
+## Example Usage
+
+```tsx
+import { Layout, Main, Section, Container } from "craft-ds";
+
+export default function Page() {
+  return (
+    <Main>
+      <Section>
+        <Container>
+          <h1>Welcome to my page</h1>
+          <p>This is an example of how to use craft-ds components.</p>
+        </Container>
+      </Section>
+    </Main>
+  );
+}
+```
+
+## Responsive Layouts
+
+<Box gap={4}>
+  <div>Box Item 1</div>
+  <div>Box Item 2</div>
+  <div>Box Item 3</div>
+</Box>
+<Box cols={{ sm: 1, md: 2, lg: 3 }} gap={4}>
+  <div>Box Item 1</div>
+  <div>Box Item 2</div>
+  <div>Box Item 3</div>
+</Box>
+
+## Get Started
+
+1. Install the package: `npm install craft-ds`
+2. Import the components you need
+3. Use the components to build your layout
+4. Customize using className prop and Tailwind CSS
+
+For more detailed instructions and API documentation, visit our [GitHub repository](https://github.com/brijr/craft).
