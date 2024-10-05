@@ -1,3 +1,5 @@
+// craft-ds, v0.2.4.1
+
 import React from "react";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -219,7 +221,6 @@ const Grid = ({ children, className, cols = 1, rows, gap = 0 }: GridProps) => {
 export { Layout, Main, Section, Container, Article, Flex, Grid };
 
 // Instructions for AI
-// craft-ds, v0.2.4
 
 // How to use craft-ds:
 // 1. Import the components you need in your React components:
