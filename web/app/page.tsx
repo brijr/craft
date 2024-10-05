@@ -8,7 +8,7 @@ export default function Home() {
         <Container>
           <h1>craft-ds</h1>
           <p>A lightweight, customizable design system for React and Next.js</p>
-          <Flex gap={4}>
+          <Flex gap={4} className="not-prose">
             <Button asChild>
               <a
                 href="https://github.com/brijr/craft"
