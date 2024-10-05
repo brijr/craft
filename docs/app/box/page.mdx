@@ -1,0 +1,125 @@
+import { Box } from "@/components/craft";
+
+# Box Component
+
+The Box component in Craft Design System is a versatile layout component that can be used to create both flex and grid layouts. It provides a flexible way to build responsive designs and complex layouts with ease.
+
+## Import
+
+```tsx
+import { Box } from "@/components/craft";
+```
+
+## Usage
+
+Use the Box component to create flexible layouts:
+
+```tsx
+<Box direction="row" gap={4}>
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</Box>
+```
+
+## Props
+
+The Box component accepts the following props:
+
+- `children`: React.ReactNode (required)
+- `className`: string (optional)
+- `direction`: "row" | "col" | { sm?: "row" | "col"; md?: "row" | "col"; lg?: "row" | "col"; xl?: "row" | "col"; "2xl"?: "row" | "col"; }
+- `wrap`: boolean | { sm?: boolean; md?: boolean; lg?: boolean; xl?: boolean; "2xl"?: boolean; }
+- `gap`: number | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number; }
+- `cols`: number | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number; }
+- `rows`: number | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number; }
+
+## Features
+
+<Box cols={{ sm: 1, md: 2 }} gap={4}>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Flex and Grid Layouts</h3>
+    <p>Supports both flexbox and grid layouts for versatile design options.</p>
+  </div>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Responsive Design</h3>
+    <p>Easily create layouts that adapt to different screen sizes.</p>
+  </div>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Customizable Gaps</h3>
+    <p>Control the spacing between items with responsive gap sizes.</p>
+  </div>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Flexible Item Wrapping</h3>
+    <p>Control how items wrap within the container across breakpoints.</p>
+  </div>
+</Box>
+
+## Examples
+
+### Flex Layout
+
+```tsx
+<Box direction={{ sm: "col", md: "row" }} wrap={true} gap={{ sm: 2, md: 4 }}>
+  <div className="p-4 bg-muted">Item 1</div>
+  <div className="p-4 bg-muted">Item 2</div>
+  <div className="p-4 bg-muted">Item 3</div>
+</Box>
+```
+
+This creates a column layout on small screens and a row layout on medium screens and above, with different gap sizes.
+
+### Grid Layout
+
+```tsx
+<Box cols={{ sm: 1, md: 2, lg: 3 }} gap={4}>
+  <div className="p-4 bg-muted">Grid Item 1</div>
+  <div className="p-4 bg-muted">Grid Item 2</div>
+  <div className="p-4 bg-muted">Grid Item 3</div>
+</Box>
+```
+
+This creates a responsive grid layout with 1 column on small screens, 2 columns on medium screens, and 3 columns on large screens.
+
+## Customization
+
+You can further customize the Box component using Tailwind classes:
+
+```tsx
+<Box
+  direction="row"
+  gap={4}
+  className="bg-gray-100 p-4 rounded-lg shadow-md justify-between items-center"
+>
+  {/* Your content here */}
+</Box>
+```
+
+## Best Practices
+
+1. Use the `direction` prop for flex layouts and `cols` or `rows` props for grid layouts.
+2. Take advantage of the responsive object syntax for props to create adaptive layouts.
+3. Combine with other Craft components like Container and Section for complex page structures.
+4. Use the `className` prop to add additional Tailwind classes for fine-tuning the layout.
+5. Consider accessibility when creating layouts, ensuring a logical content flow.
+
+## Live Demo
+
+Here's a live demo of the Box component in action:
+
+<Box direction={{ sm: "col", md: "row" }} wrap={true} gap={4} className="mb-8">
+  <div className="p-4 bg-primary text-primary-foreground">Flex Item 1</div>
+  <div className="p-4 bg-primary text-primary-foreground">Flex Item 2</div>
+  <div className="p-4 bg-primary text-primary-foreground">Flex Item 3</div>
+</Box>
+
+<Box cols={{ sm: 1, md: 2, lg: 3 }} gap={4}>
+  <div className="p-4 bg-secondary text-secondary-foreground">Grid Item 1</div>
+  <div className="p-4 bg-secondary text-secondary-foreground">Grid Item 2</div>
+  <div className="p-4 bg-secondary text-secondary-foreground">Grid Item 3</div>
+  <div className="p-4 bg-secondary text-secondary-foreground">Grid Item 4</div>
+  <div className="p-4 bg-secondary text-secondary-foreground">Grid Item 5</div>
+  <div className="p-4 bg-secondary text-secondary-foreground">Grid Item 6</div>
+</Box>
+
+The Box component in Craft Design System provides a powerful and flexible way to create responsive layouts, making it easier to build complex UIs while maintaining clean and readable code.

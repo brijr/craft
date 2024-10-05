@@ -1,0 +1,104 @@
+import { Container, Box } from "@/components/craft";
+
+# Container Component
+
+The Container component in Craft Design System is designed to create a consistent, centered content area with a maximum width. It's perfect for maintaining readable line lengths and creating a balanced layout across different screen sizes.
+
+## Import
+
+```tsx
+import { Container } from "@/components/craft";
+```
+
+## Usage
+
+Wrap your content with the Container component:
+
+```tsx
+<Container>
+  <h1>Welcome to my website</h1>
+  <p>This content will be centered and have a maximum width.</p>
+</Container>
+```
+
+## Props
+
+The Container component accepts the following props:
+
+- `children`: React.ReactNode (required)
+- `className`: string (optional)
+- `id`: string (optional)
+
+## Features
+
+<Box cols={{ sm: 1, md: 2 }} gap={4}>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Centered Content</h3>
+    <p>Automatically centers content horizontally within its parent.</p>
+  </div>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Maximum Width</h3>
+    <p>Sets a maximum width to ensure optimal readability on larger screens.</p>
+  </div>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Responsive Padding</h3>
+    <p>Applies appropriate padding that adjusts for different screen sizes.</p>
+  </div>
+  <div className="p-4 bg-muted">
+    <h3 className="text-lg font-semibold">Flexible Usage</h3>
+    <p>Can be used within other layout components like Section or Main.</p>
+  </div>
+</Box>
+
+## Customization
+
+You can customize the Container component by passing additional classes through the `className` prop:
+
+```tsx
+<Container className="bg-gray-100 rounded-lg shadow-md">
+  {/* Your content here */}
+</Container>
+```
+
+## Default Styles
+
+The Container component applies the following default styles:
+
+- Maximum width of 64rem (1024px)
+- Horizontal centering using `mx-auto`
+- Responsive padding: `p-6` on small screens, `p-8` on medium screens and above
+
+## Example
+
+Here's an example of how to use the Container component within a Section:
+
+```tsx
+import { Section, Container } from "@/components/craft";
+
+export default function HomePage() {
+  return (
+    <Section>
+      <Container>
+        <h1 className="text-3xl font-bold mb-4">Welcome to Our Website</h1>
+        <p className="mb-4">We provide top-notch services for all your needs.</p>
+        <ul className="list-disc list-inside">
+          <li>Feature 1</li>
+          <li>Feature 2</li>
+          <li>Feature 3</li>
+        </ul>
+      </Container>
+    </Section>
+  );
+}
+```
+
+This setup ensures that your content is well-structured, centered, and maintains a readable width across different device sizes.
+
+## Best Practices
+
+1. Use the Container component to wrap the main content of your sections or pages.
+2. Combine with other Craft components like Section and Main for a complete layout structure.
+3. Avoid nesting Containers unless you have a specific reason to do so.
+4. Use the `className` prop to add background colors, borders, or other decorative styles when needed.
+
+The Container component in Craft Design System helps you maintain consistency in your layouts and ensures that your content is presented in an optimal, readable format across all devices.
