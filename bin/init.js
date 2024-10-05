@@ -22,7 +22,7 @@ async function promptUser(question, defaultValue) {
 async function ensureNextJsProject() {
   if (!existsSync("package.json")) {
     console.log("No package.json found. Creating a new Next.js project...");
-    runCommand("npx create-next-app@latest -ts -tailwind -eslint .");
+    runCommand("npx create-next-app@latest . --ts --tailwind --eslint");
     console.log("Next.js project created successfully.");
   }
 }
