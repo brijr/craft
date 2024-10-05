@@ -1,4 +1,4 @@
-// craft-ds, v0.2.4.1
+// craft-ds, v0.2.45
 
 import React from "react";
 import { type ClassValue, clsx } from "clsx";
