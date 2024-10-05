@@ -1,45 +1,3 @@
-// craft-ds, v0.2.3
-
-// How to use craft-ds:
-// 1. Install craft-ds in your Next.js project:
-//    npx craft-ds@latest init
-//    or
-//    pnpm dlx craft-ds@latest init
-
-// 2. Import the components you need in your React components:
-//    import { Layout, Main, Section, Container, Article, Flex, Grid } from "@/components/craft";
-
-// 3. Use the components to build your layout:
-//    export default function Page() {
-//      return (
-//        <Main>
-//          <Section>
-//            <Container>
-//              <h1>Heading</h1>
-//              <p>Content</p>
-//            </Container>
-//          </Section>
-//        </Main>
-//      );
-//    }
-
-// 4. Customize the components using the className prop:
-//    <Container className="custom-container">
-//      {/* Your content here */}
-//    </Container>
-
-// 5. Use the Flex and Grid components for more complex layouts:
-//    <Flex direction={{ sm: "column", md: "row" }} gap={4}>
-//      <div>Item 1</div>
-//      <div>Item 2</div>
-//    </Flex>
-//
-//    <Grid cols={{ sm: 1, md: 2, lg: 3 }} gap={4}>
-//      <div>Item 1</div>
-//      <div>Item 2</div>
-//      <div>Item 3</div>
-//    </Grid>
-
 import React from "react";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -114,9 +72,6 @@ const Layout = ({ children, className }: LayoutProps) => {
   );
 };
 
-// Usage example for Layout component in README.md
-// <Layout className="custom-class">{/* content here */}</Layout>
-
 // Main Component
 // This component is used for the main content area of the page
 
@@ -149,11 +104,6 @@ const Main = ({ children, className, id }: MainProps) => {
   );
 };
 
-// Usage example for Main component in README.md
-// <Main className="custom-class" id="main-content">
-//   {/* main content here */}
-// </Main>
-
 // Section Component
 // This component is used for defining sections within the page
 
@@ -165,11 +115,6 @@ const Section = ({ children, className, id }: SectionProps) => {
   );
 };
 
-// Usage example for Section component in README.md
-// <Section className="custom-section" id="unique-section">
-//   {/* section content here */}
-// </Section>
-
 // Container Component
 // This component is used for containing content with a maximum width and padding
 
@@ -180,11 +125,6 @@ const Container = ({ children, className, id }: ContainerProps) => {
     </div>
   );
 };
-
-// Usage example for Container component in README.md
-// <Container className="custom-container" id="container-id">
-//   {/* contained content here */}
-// </Container>
 
 // Article Component
 // This component is used for rendering articles with optional dangerouslySetInnerHTML
@@ -223,11 +163,6 @@ const Article = ({
     </article>
   );
 };
-
-// Usage example for Article component in README.md
-// <Article className="custom-article" id="article-id">
-//   {/* article content here */}
-// </Article>
 
 // Flex Component (formerly Stack)
 // This component is used for creating flexible layouts with direction, gap, and padding
@@ -276,18 +211,6 @@ const Flex = React.memo(
 );
 
 Flex.displayName = "Flex";
-
-// Usage example for Flex component in README.md
-// <Flex
-//   direction={{ sm: "column", md: "row" }}
-//   gap={{ sm: 2, md: 4 }}
-//   padding={{ sm: 2, md: 4 }}
-//   className="custom-flex"
-// >
-//   <div>Item 1</div>
-//   <div>Item 2</div>
-//   <div>Item 3</div>
-// </Flex>
 
 // Grid Component
 // This component is used for creating responsive grid layouts
@@ -343,6 +266,83 @@ const Grid = React.memo(
 
 Grid.displayName = "Grid";
 
+// Exporting all components for use in other parts of the application
+
+export { Layout, Main, Section, Container, Article, Flex, Grid };
+
+// Instructions for ai
+// craft-ds, v0.2.3
+
+// How to use craft-ds:
+// 1. Import the components you need in your React components:
+//    import { Layout, Main, Section, Container, Article, Flex, Grid } from "@/components/craft";
+
+// 2. Use the components to build your layout:
+//    export default function Page() {
+//      return (
+//        <Main>
+//          <Section>
+//            <Container>
+//              <h1>Heading</h1>
+//              <p>Content</p>
+//            </Container>
+//          </Section>
+//        </Main>
+//      );
+//    }
+
+// 3. Customize the components using the className prop:
+//    <Container className="custom-container">
+//      {/* Your content here */}
+//    </Container>
+
+// 4. Use the Flex and Grid components for more complex layouts:
+//    <Flex direction={{ sm: "column", md: "row" }} gap={4}>
+//      <div>Item 1</div>
+//      <div>Item 2</div>
+//    </Flex>
+//
+//    <Grid cols={{ sm: 1, md: 2, lg: 3 }} gap={4}>
+//      <div>Item 1</div>
+//      <div>Item 2</div>
+//      <div>Item 3</div>
+//    </Grid>
+
+// Usage example for Layout component in README.md
+// <Layout className="custom-class">{/* content here */}</Layout>
+
+// Usage example for Main component in README.md
+// <Main className="custom-class" id="main-content">
+//   {/* main content here */}
+// </Main>
+
+// Usage example for Section component in README.md
+// <Section className="custom-section" id="unique-section">
+//   {/* section content here */}
+// </Section>
+
+// Usage example for Container component in README.md
+// <Container className="custom-container" id="container-id">
+//   {/* contained content here */}
+// </Container>
+
+// Usage example for Article component in README.md
+// <Article className="custom-article" id="article-id">
+//   {/* article content here */}
+// </Article>
+
+// Usage example for Flex component in README.md
+// <Flex
+//   direction={{ sm: "column", md: "row" }}
+//   gap={{ sm: 2, md: 4 }}
+//   padding={{ sm: 2, md: 4 }}
+//   className="custom-flex"
+// >
+//   <div>Item 1</div>
+//   <div>Item 2</div>
+//   <div>Item 3</div>
+// </Flex>
+
 // Usage example for Grid component in README.md
 // <Grid
 //   columns={{ sm: 1, md: 2, lg: 3 }}
@@ -354,7 +354,3 @@ Grid.displayName = "Grid";
 //   <div>Item 2</div>
 //   <div>Item 3</div>
 // </Grid>
-
-// Exporting all components for use in other parts of the application
-
-export { Layout, Main, Section, Container, Article, Flex, Grid };
