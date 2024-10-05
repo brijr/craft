@@ -1,4 +1,4 @@
-import { Main, Section, Container, Flex, Grid } from "@/components/craft";
+import { Main, Section, Container, Box } from "@/components/craft";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
@@ -8,7 +8,7 @@ export default function Home() {
         <Container>
           <h1>craft-ds</h1>
           <p>A lightweight, customizable design system for React and Next.js</p>
-          <Flex gap={4} className="not-prose">
+          <Box gap={2} className="not-prose mt-4">
             <Button asChild>
               <a
                 href="https://github.com/brijr/craft"
@@ -27,7 +27,7 @@ export default function Home() {
                 npm
               </a>
             </Button>
-          </Flex>
+          </Box>
         </Container>
       </Section>
 
@@ -35,7 +35,7 @@ export default function Home() {
         <Container>
           <h2>Components</h2>
 
-          <Grid cols={{ sm: 1, md: 2, lg: 3 }} gap={6}>
+          <Box cols={{ sm: 1, md: 2, lg: 3 }} gap={6}>
             <ComponentCard
               title="Layout"
               description="Sets up the basic HTML structure and applies global styles"
@@ -57,11 +57,11 @@ export default function Home() {
               description="Renders articles with optional dangerouslySetInnerHTML"
             />
             <ComponentCard
-              title="Flex"
-              description="Creates flexible box layouts"
+              title="Box"
+              description="Creates Boxible box layouts"
             />
-            <ComponentCard title="Grid" description="Creates grid layouts" />
-          </Grid>
+            <ComponentCard title="Box" description="Creates Box layouts" />
+          </Box>
         </Container>
       </Section>
 
@@ -91,16 +91,16 @@ export default function Page() {
       <Section>
         <Container>
           <h2>Responsive Layouts</h2>
-          <Flex direction={{ sm: "col", md: "row" }} gap={4}>
-            <div>Flex Item 1</div>
-            <div>Flex Item 2</div>
-            <div>Flex Item 3</div>
-          </Flex>
-          <Grid cols={{ sm: 1, md: 2, lg: 3 }} gap={4}>
-            <div>Grid Item 1</div>
-            <div>Grid Item 2</div>
-            <div>Grid Item 3</div>
-          </Grid>
+          <Box gap={4}>
+            <div>Box Item 1</div>
+            <div>Box Item 2</div>
+            <div>Box Item 3</div>
+          </Box>
+          <Box cols={{ sm: 1, md: 2, lg: 3 }} gap={4}>
+            <div>Box Item 1</div>
+            <div>Box Item 2</div>
+            <div>Box Item 3</div>
+          </Box>
         </Container>
       </Section>
 

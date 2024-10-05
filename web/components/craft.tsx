@@ -1,4 +1,5 @@
-// craft-ds, v0.2.5
+// craft-ds, v0.2.6
+// This is a design system for building responsive layouts in React
 
 import React from "react";
 import { type ClassValue, clsx } from "clsx";
@@ -42,22 +43,37 @@ type ArticleProps = {
   dangerouslySetInnerHTML?: { __html: string };
 };
 
-type Responsive<T> = T | { sm?: T; md?: T; lg?: T; xl?: T; "2xl"?: T };
-
-type FlexProps = {
+type BoxProps = {
   children: React.ReactNode;
   className?: string;
-  direction?: Responsive<"row" | "col">;
-  wrap?: Responsive<boolean>;
-  gap?: Responsive<number>;
-};
-
-type GridProps = {
-  children: React.ReactNode;
-  className?: string;
-  cols?: Responsive<number>;
-  rows?: Responsive<number>;
-  gap?: Responsive<number>;
+  direction?:
+    | "row"
+    | "col"
+    | {
+        sm?: "row" | "col";
+        md?: "row" | "col";
+        lg?: "row" | "col";
+        xl?: "row" | "col";
+        "2xl"?: "row" | "col";
+      };
+  wrap?:
+    | boolean
+    | {
+        sm?: boolean;
+        md?: boolean;
+        lg?: boolean;
+        xl?: boolean;
+        "2xl"?: boolean;
+      };
+  gap?:
+    | number
+    | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number };
+  cols?:
+    | number
+    | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number };
+  rows?:
+    | number
+    | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number };
 };
 
 // Layout Component
@@ -167,64 +183,89 @@ const Article = ({
   );
 };
 
-const responsiveClasses = (prop: Responsive<any>, prefix: string): string => {
-  if (typeof prop !== "object") return `${prefix}-${prop}`;
-  return Object.entries(prop)
-    .map(([breakpoint, value]) =>
-      breakpoint === "sm"
-        ? `${prefix}-${value}`
-        : `${breakpoint}:${prefix}-${value}`
-    )
-    .join(" ");
-};
-
-const Flex = ({
+const Box = ({
   children,
   className,
   direction = "row",
   wrap = false,
   gap = 0,
-}: FlexProps) => {
-  return (
-    <div
-      className={cn(
-        "flex",
-        responsiveClasses(direction, "flex"),
-        wrap && responsiveClasses(wrap, "flex-wrap"),
-        responsiveClasses(gap, "gap"),
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-};
+  cols,
+  rows,
+}: BoxProps) => {
+  const directionClasses = {
+    row: "flex-row",
+    col: "flex-col",
+  };
 
-const Grid = ({ children, className, cols = 1, rows, gap = 0 }: GridProps) => {
-  return (
-    <div
-      className={cn(
-        "grid",
-        responsiveClasses(cols, "grid-cols"),
-        rows && responsiveClasses(rows, "grid-rows"),
-        responsiveClasses(gap, "gap"),
-        className
-      )}
-    >
-      {children}
-    </div>
+  const wrapClasses = wrap ? "flex-wrap" : "flex-nowrap";
+
+  const gapClasses = {
+    0: "gap-0",
+    1: "gap-1",
+    2: "gap-2",
+    3: "gap-3",
+    4: "gap-4",
+    5: "gap-5",
+    6: "gap-6",
+    8: "gap-8",
+    10: "gap-10",
+    12: "gap-12",
+  };
+
+  const colsClasses = {
+    1: "grid-cols-1",
+    2: "grid-cols-2",
+    3: "grid-cols-3",
+    4: "grid-cols-4",
+    5: "grid-cols-5",
+    6: "grid-cols-6",
+    7: "grid-cols-7",
+    8: "grid-cols-8",
+    9: "grid-cols-9",
+    10: "grid-cols-10",
+    11: "grid-cols-11",
+    12: "grid-cols-12",
+  };
+
+  const getResponsiveClasses = (
+    prop: any,
+    classMap: Record<string | number, string>
+  ) => {
+    if (typeof prop === "object") {
+      return Object.entries(prop)
+        .map(([breakpoint, value]) => {
+          const prefix = breakpoint === "sm" ? "" : `${breakpoint}:`;
+          return `${prefix}${classMap[value as keyof typeof classMap] || ""}`;
+        })
+        .join(" ");
+    }
+    return classMap[prop as keyof typeof classMap] || "";
+  };
+
+  const stackClasses = cn(
+    cols || rows ? "grid" : "flex",
+    getResponsiveClasses(direction, directionClasses),
+    typeof wrap === "boolean"
+      ? wrapClasses
+      : getResponsiveClasses(wrap, { true: "flex-wrap", false: "flex-nowrap" }),
+    getResponsiveClasses(gap, gapClasses),
+    cols && getResponsiveClasses(cols, colsClasses),
+    rows && getResponsiveClasses(rows, colsClasses), // Assuming rows use the same classes as cols
+    className
   );
+
+  return <div className={stackClasses}>{children}</div>;
 };
 
 // Exporting all components for use in other parts of the application
 
-export { Layout, Main, Section, Container, Article, Flex, Grid };
+export { Layout, Main, Section, Container, Article, Box };
 
 // Instructions for AI
 
 // How to use craft-ds:
 // 1. Import the components you need in your React components:
-//    import { Layout, Main, Section, Container, Article, Flex, Grid } from "@/components/craft";
+//    import { Layout, Main, Section, Container, Article, Box } from "@/components/craft";
 
 // 2. Use the components to build your layout:
 //    export default function Page() {
@@ -245,17 +286,17 @@ export { Layout, Main, Section, Container, Article, Flex, Grid };
 //      {/* Your content here */}
 //    </Container>
 
-// 4. Use the Flex and Grid components for more complex layouts:
-//    <Flex direction={{ sm: "col", md: "row" }} wrap={true} gap={4}>
+// 4. Use the Box component for flexible layouts:
+//    <Box direction="row" wrap={true} gap={4}>
 //      <div>Item 1</div>
 //      <div>Item 2</div>
-//    </Flex>
+//    </Box>
 
-//    <Grid cols={{ sm: 1, md: 2, lg: 3 }} gap={4}>
+//    <Box cols={3} gap={4}>
 //      <div>Item 1</div>
 //      <div>Item 2</div>
 //      <div>Item 3</div>
-//    </Grid>
+//    </Box>
 
 // Component Usage Examples:
 
@@ -282,8 +323,8 @@ export { Layout, Main, Section, Container, Article, Flex, Grid };
 //   {/* article content here */}
 // </Article>
 
-// Flex
-// <Flex
+// Box (Flex mode)
+// <Box
 //   direction={{ sm: "col", md: "row" }}
 //   wrap={true}
 //   gap={{ sm: 2, md: 4 }}
@@ -291,10 +332,10 @@ export { Layout, Main, Section, Container, Article, Flex, Grid };
 // >
 //   <div>Item 1</div>
 //   <div>Item 2</div>
-// </Flex>
+// </Box>
 
-// Grid
-// <Grid
+// Box (Grid mode)
+// <Box
 //   cols={{ sm: 1, md: 2, lg: 3 }}
 //   gap={{ sm: 2, md: 4 }}
 //   className="justify-items-center items-start"
@@ -302,4 +343,13 @@ export { Layout, Main, Section, Container, Article, Flex, Grid };
 //   <div>Item 1</div>
 //   <div>Item 2</div>
 //   <div>Item 3</div>
-// </Grid>
+// </Box>
+
+// Additional notes for AI:
+// 1. The Box component is versatile and can be used for both flex and grid layouts.
+// 2. Use the 'direction' prop for flex layouts and 'cols' or 'rows' props for grid layouts.
+// 3. All components support responsive design through Tailwind classes.
+// 4. The cn() function is used to merge Tailwind classes efficiently.
+// 5. Remember to use appropriate semantic HTML structure with these components.
+// 6. These components are designed to work with Tailwind CSS, ensure it's properly set up in the project.
+// 7. For typography styles, refer to the Main and Article components which use Tailwind's typography plugin.
