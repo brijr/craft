@@ -3,12 +3,15 @@
 # craft-ds
 
 ```bash
-npx brijr-craft@latest init
+npx craft-ds@latest init
 ```
 
+> **Note:** If you are using pnpm, you can use the `pnpm dlx` command to install the package.
+
 ```bash
-pnpm dlx brijr-craft@latest init
+pnpm dlx craft-ds@latest init
 ```
+
 
 Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
 
@@ -119,7 +122,7 @@ To find color schemes check out this tool provided by shadcn: [ui.shadcn.com/the
 - Run this command to Install brijr/craft (this will also install shadcn/ui and all other dependencies)
 
   ```bash
-  npx brijr-craft@latest init
+  npx craft-ds@latest init
   ```
 
 - Add craft components to build you layout
