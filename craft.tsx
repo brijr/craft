@@ -1,4 +1,4 @@
-// craft-ds, v0.2.8
+// craft-ds, v0.2.81
 // This is a design system for building responsive layouts in React
 
 import React from "react";
@@ -114,7 +114,7 @@ const Main = ({ children, className, id }: MainProps) => {
         "prose-blockquote:not-italic",
         // Pre and Code Blocks
         "prose-pre:border prose-pre:bg-muted/25 prose-pre:text-foreground",
-        className
+        className,
       )}
       id={id}
     >
@@ -174,7 +174,7 @@ const Article = ({
         "prose-blockquote:not-italic",
         // Pre and Code Blocks
         "prose-pre:border prose-pre:bg-muted/25",
-        className
+        className,
       )}
       id={id}
     >
@@ -229,7 +229,7 @@ const Box = ({
 
   const getResponsiveClasses = (
     prop: any,
-    classMap: Record<string | number, string>
+    classMap: Record<string | number, string>,
   ) => {
     if (typeof prop === "object") {
       return Object.entries(prop)
@@ -251,7 +251,7 @@ const Box = ({
     getResponsiveClasses(gap, gapClasses),
     cols && getResponsiveClasses(cols, colsClasses),
     rows && getResponsiveClasses(rows, colsClasses), // Assuming rows use the same classes as cols
-    className
+    className,
   );
 
   return <div className={stackClasses}>{children}</div>;
