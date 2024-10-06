@@ -83,6 +83,18 @@ async function main() {
 
     console.log(`Installing component: ${componentName}`);
 
+    // Check if the component already exists
+    if (existsSync(destinationPath)) {
+      const replace = await promptUser(
+        `${componentName} already exists. Do you want to replace it? (yes/no)`,
+        "no"
+      );
+      if (replace.toLowerCase() !== "yes") {
+        console.log("Installation aborted.");
+        process.exit(0);
+      }
+    }
+
     // Read component content
     const componentContent = await fs.readFile(componentPath, "utf8");
 
