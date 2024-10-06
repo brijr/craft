@@ -58,7 +58,7 @@ async function updateTailwindConfig() {
       : newPlugins;
     tailwindConfig = tailwindConfig.replace(
       pluginsRegex,
-      `plugins: [${updatedPlugins}]`,
+      `plugins: [${updatedPlugins}]`
     );
     await fs.writeFile(tailwindConfigPath, tailwindConfig);
     console.log("Updated tailwind.config.ts with new plugins.");
@@ -75,7 +75,7 @@ async function main() {
 
     const componentName = await promptUser(
       "Enter the component name",
-      "craft.tsx",
+      "craft.tsx"
     );
     const componentPath = path.join(__dirname, "..", "craft.tsx");
     const destinationDir = path.join(process.cwd(), "components");
@@ -87,7 +87,7 @@ async function main() {
     if (existsSync(destinationPath)) {
       const replace = await promptUser(
         `${componentName} already exists. Do you want to replace it? (yes/no)`,
-        "no",
+        "no"
       );
       if (replace.toLowerCase() !== "yes") {
         console.log("Installation aborted.");
@@ -120,21 +120,21 @@ async function main() {
     const installCmd =
       packageManager === "npm" ? "npm install" : `${packageManager} add`;
     runCommand(
-      `${installCmd} @tailwindcss/typography clsx tailwind-merge tailwindcss-animate react-wrap-balancer`,
+      `${installCmd} @tailwindcss/typography clsx tailwind-merge tailwindcss-animate react-wrap-balancer`
     );
 
     // Update Tailwind config
     await updateTailwindConfig();
 
     console.log(
-      `\nSuccess! The ${componentName} component has been installed in the /components folder.`,
+      `\nSuccess! The ${componentName} component has been installed in the /components folder.`
     );
     console.log("You can now import and use the component in your project.");
   } catch (error) {
     console.error("\nAn error occurred during the installation:");
     console.error(error.message);
     console.error(
-      "Please make sure you have the necessary permissions and try again.",
+      "Please make sure you have the necessary permissions and try again."
     );
     process.exit(1);
   } finally {
