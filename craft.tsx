@@ -1,4 +1,4 @@
-// craft-ds, v0.2.6
+// craft-ds, v0.2.7
 // This is a design system for building responsive layouts in React
 
 import React from "react";
