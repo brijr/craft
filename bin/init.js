@@ -108,8 +108,13 @@ async function main() {
 
     const packageManager = detectPackageManager();
 
-    // Install shadcn-ui
-    runCommand(`npx shadcn@latest init`);
+    // Check if components.json exists
+    if (!existsSync(path.join(process.cwd(), "components.json"))) {
+      // Install shadcn-ui
+      runCommand(`npx shadcn@latest init`);
+    } else {
+      console.log("components.json found. Skipping shadcn-ui installation.");
+    }
 
     // Install additional dependencies
     const installCmd =
