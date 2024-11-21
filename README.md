@@ -119,4 +119,4 @@ A plugin that provides a set of prose classes to style text content using Tailwi
 > - Article
 > - Box
 
-For detailed usage of each component, refer to the `craft.tsx` file.
+For detailed usage of each component, refer to the `craft.tsx` file or [craft-ds.com](https://craft-ds.com).
