@@ -50,6 +50,7 @@ type BoxProps = {
     | "row"
     | "col"
     | {
+        base?: "row" | "col";
         sm?: "row" | "col";
         md?: "row" | "col";
         lg?: "row" | "col";
@@ -59,6 +60,7 @@ type BoxProps = {
   wrap?:
     | boolean
     | {
+        base?: boolean;
         sm?: boolean;
         md?: boolean;
         lg?: boolean;
@@ -67,13 +69,34 @@ type BoxProps = {
       };
   gap?:
     | number
-    | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number };
+    | {
+        base?: number;
+        sm?: number;
+        md?: number;
+        lg?: number;
+        xl?: number;
+        "2xl"?: number;
+      };
   cols?:
     | number
-    | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number };
+    | {
+        base?: number;
+        sm?: number;
+        md?: number;
+        lg?: number;
+        xl?: number;
+        "2xl"?: number;
+      };
   rows?:
     | number
-    | { sm?: number; md?: number; lg?: number; xl?: number; "2xl"?: number };
+    | {
+        base?: number;
+        sm?: number;
+        md?: number;
+        lg?: number;
+        xl?: number;
+        "2xl"?: number;
+      };
 };
 
 // Layout Component
@@ -231,10 +254,12 @@ const Box = ({
     prop: any,
     classMap: Record<string | number, string>
   ) => {
+    if (!prop) return "";
+
     if (typeof prop === "object") {
       return Object.entries(prop)
         .map(([breakpoint, value]) => {
-          const prefix = breakpoint === "sm" ? "" : `${breakpoint}:`;
+          const prefix = breakpoint === "base" ? "" : `${breakpoint}:`;
           return `${prefix}${classMap[value as keyof typeof classMap] || ""}`;
         })
         .join(" ");
