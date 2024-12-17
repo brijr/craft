@@ -117,6 +117,54 @@ async function getComponentsPath() {
   return path.join(process.cwd(), "components");
 }
 
+// Check for existing Craft installations
+async function checkExistingInstallation(componentsPath) {
+  const oldCraftFile = path.join(componentsPath, "craft.tsx");
+  const newCraftDir = path.join(componentsPath, "craft");
+
+  let hasOldVersion = existsSync(oldCraftFile);
+  let hasNewVersion = existsSync(newCraftDir);
+
+  if (!hasOldVersion && !hasNewVersion) {
+    return { exists: false };
+  }
+
+  const location = hasOldVersion
+    ? path.relative(process.cwd(), oldCraftFile)
+    : path.relative(process.cwd(), newCraftDir);
+
+  const type = hasOldVersion ? "single file" : "directory";
+
+  const update = await promptUser(
+    `Found existing Craft installation (${type}) at ${location}. Would you like to update it? (yes/no)`,
+    "yes"
+  );
+
+  if (update.toLowerCase() !== "yes") {
+    throw new Error("Installation aborted by user.");
+  }
+
+  // If they have the old version and want to update, we'll need to remove it
+  if (hasOldVersion) {
+    try {
+      const backupFile = `${oldCraftFile}_backup_${Date.now()}`;
+      await fs.rename(oldCraftFile, backupFile);
+      console.log(
+        `Backed up old craft.tsx to ${path.relative(process.cwd(), backupFile)}`
+      );
+    } catch (error) {
+      throw new Error(`Failed to backup old craft.tsx: ${error.message}`);
+    }
+  }
+
+  return {
+    exists: true,
+    type,
+    location,
+    isOldVersion: hasOldVersion,
+  };
+}
+
 async function main() {
   let backupDir = null;
 
@@ -139,12 +187,24 @@ async function main() {
 
     const componentsPath = await getComponentsPath();
     await ensureDirectories(componentsPath);
-    console.log(
-      `Components directory ready at ${path.relative(
-        process.cwd(),
-        componentsPath
-      )}`
-    );
+
+    // Check for existing installation
+    const existingInstall = await checkExistingInstallation(componentsPath);
+    if (existingInstall.exists) {
+      console.log(
+        `Updating existing Craft installation (${existingInstall.type})`
+      );
+      if (existingInstall.isOldVersion) {
+        console.log("Migrating from single-file to directory structure");
+      }
+    } else {
+      console.log(
+        `Components directory ready at ${path.relative(
+          process.cwd(),
+          componentsPath
+        )}`
+      );
+    }
 
     const destinationDir = path.join(componentsPath, "craft");
     const indexPath = path.join(craftDir, "index.tsx");
@@ -154,8 +214,8 @@ async function main() {
 
     console.log(`Installing Craft Design System components...`);
 
-    // Check if the component directory already exists
-    if (existsSync(destinationDir)) {
+    // Only ask about replacement if it's not an update scenario
+    if (!existingInstall.exists && existsSync(destinationDir)) {
       const replace = await promptUser(
         `Craft components already exist in ${path.relative(
           process.cwd(),
@@ -213,21 +273,39 @@ async function main() {
       .replace(/^src\//, "@/") // Replace src/ with @/ for Next.js path aliases
       .replace(/^app\//, "@/"); // Replace app/ with @/ for Next.js path aliases
 
-    console.log(
-      `\nSuccess! The Craft Design System has been installed in ${path.relative(
-        process.cwd(),
-        destinationDir
-      )}.`
-    );
+    const successMessage = existingInstall.exists
+      ? `\n✨ Success! Craft Design System has been ${
+          existingInstall.isOldVersion ? "migrated" : "updated"
+        } in ${path.relative(process.cwd(), destinationDir)}.`
+      : `\n✨ Success! Craft Design System has been installed in ${path.relative(
+          process.cwd(),
+          destinationDir
+        )}.`;
+
+    console.log(successMessage);
+
+    if (existingInstall.isOldVersion) {
+      console.log(
+        "\nℹ️  Your project has been migrated from the single-file to the directory structure."
+      );
+      console.log("   Please update your imports to use the new path.");
+    }
+
     if (backupDir) {
       console.log(
-        `Previous version backed up to: ${path.relative(
+        `ℹ️  Previous version backed up to: ${path.relative(
           process.cwd(),
           backupDir
         )}`
       );
     }
+
     console.log("\nTo use Craft in your project:");
+    if (existingInstall.isOldVersion) {
+      console.log("\nUpdate your imports:");
+      console.log('   Old: import { ... } from "@/components/craft"');
+      console.log(`   New: import { ... } from "${importPath}"`);
+    }
     console.log("1. Import the CSS in your app/globals.css or layout.tsx:");
     console.log(`   import "${importPath}/craft.css"`);
     console.log("\n2. Import components in your pages:");
