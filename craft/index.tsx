@@ -235,8 +235,7 @@ const Box = ({
   };
 
   const getResponsiveClasses = (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    prop: any,
+    prop: string | number | Record<string, unknown> | undefined,
     classMap: Record<string | number, string>
   ) => {
     if (!prop) return "";
