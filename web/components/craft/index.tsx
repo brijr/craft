@@ -1,4 +1,4 @@
-// craft-ds, v0.2.81
+// craft-ds, v0.3
 // This is a design system for building responsive layouts in React
 
 import React from "react";
@@ -235,7 +235,7 @@ const Box = ({
   };
 
   const getResponsiveClasses = (
-    prop: any,
+    prop: string | number | Record<string, unknown> | undefined,
     classMap: Record<string | number, string>
   ) => {
     if (!prop) return "";
