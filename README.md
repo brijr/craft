@@ -10,6 +10,12 @@ To install Craft in your Next.js project, run:
 npx craft-ds@latest init
 ```
 
+or
+
+```bash
+pnpx craft-ds@latest init
+```
+
 Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
 
 ## Core Components
@@ -22,6 +28,7 @@ Craft provides several core components for building responsive layouts:
 - `Main`: Main content area of the page
 - `Section`: Defines sections within the page
 - `Container`: Contains content with a maximum width and padding
+- `Prose`: Component for styling long-form content with appropriate typography
 - `Article`: Renders articles with appropriate typography styles
 - `Box`: Flexible component for creating responsive layouts
 
@@ -81,7 +88,18 @@ All props support responsive objects with breakpoints: base, sm, md, lg, xl, 2xl
 
 ### Typography
 
-Typography is handled through a modified version of [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography). The styling is applied through the `Main` and `Article` components.
+Typography is handled through a modified version of [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography). The styling is applied through the `Main`, `Prose`, or `Article` components.
+
+Example: The `Prose` component is available for styling long-form content with appropriate typography:
+
+```jsx
+import { Prose } from "@/components/craft";
+
+<Prose>
+  <h1>Title</h1>
+  <p>Your content here...</p>
+</Prose>;
+```
 
 For font management, we recommend using [Next.js Font Optimization](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) with variable fonts.
 
@@ -99,13 +117,13 @@ Find color schemes at:
 1. Create a Next.js application:
 
 ```bash
-npx create-next-app@latest my-app --typescript --tailwind --eslint
+pnpx create-next-app@latest
 ```
 
 2. Install Craft (this will also install shadcn/ui and dependencies):
 
 ```bash
-npx craft-ds@latest init
+pnpx craft-ds@latest init
 ```
 
 3. Import and use Craft components:
@@ -116,6 +134,7 @@ import {
   Main,
   Section,
   Container,
+  Prose,
   Article,
   Box,
 } from "@/components/craft";
@@ -126,4 +145,4 @@ import {
 - [shadcn/ui](https://ui.shadcn.com): Beautifully designed, accessible components
 - [React Wrap Balancer](https://react-wrap-balancer.vercel.app/): Improves title readability
 
-For detailed documentation and examples, visit [craft-ds.com](https://craft-ds.com)
+For detailed documentation and examples, visit [craft.bridger.to](https://craft.bridger.to)
