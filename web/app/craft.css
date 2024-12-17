@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CRAFT DESIGN SYSTEM STYLES */
+
 .container {
   @apply max-w-5xl mx-auto p-6 sm:p-8;
 }
@@ -346,13 +348,43 @@
     }
   }
 
+  /* Headings */
+  h1 {
+    @apply mb-8 mt-6;
+  }
+
+  h2 {
+    @apply mb-6 mt-12;
+  }
+
+  h3 {
+    @apply mb-4 mt-8;
+  }
+
+  h4,
+  h5,
+  h6 {
+    @apply mb-4 mt-6;
+  }
+
+  /* If headings are the first element, remove top margin */
+  &:first-child h1,
+  &:first-child h2,
+  &:first-child h3,
+  &:first-child h4,
+  &:first-child h5,
+  &:first-child h6,
+  > :first-child h1,
+  > :first-child h2,
+  > :first-child h3,
+  > :first-child h4,
+  > :first-child h5,
+  > :first-child h6 {
+    @apply mt-0;
+  }
+
   /* Footnotes */
   .footnotes {
     @apply mt-12;
-  }
-
-  /* Headings */
-  h1, h2, h3, h4, h5, h6 {
-    @apply my-6;
   }
 }

@@ -4,7 +4,6 @@ export default function Index() {
   return (
     <section className="craft section">
       <div className="container">
-        <h1>Craft Design System</h1>
         <div className="grid my-12 border">
           <Demo attribute="Example Article" vertical>
             <article className="spaced">
