@@ -54,8 +54,9 @@ const Header = () => {
           .
         </p>
         <div className="my-8 grid gap-2 craft">
-          <a href="https://github.com/brijr/craft">View on GitHub</a>
-          <Link href="/example">View an Article Example</Link>
+          <Link href="/start">+ Get Started with Craft</Link>
+          <a href="https://github.com/brijr/craft">+ View on GitHub</a>
+          <Link href="/example">+ View an Article Example</Link>
         </div>
       </Container>
     </Section>
