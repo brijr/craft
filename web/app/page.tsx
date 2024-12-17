@@ -1,18 +1,25 @@
 import { Demo } from "@/components/demo";
 
+import Link from "next/link";
+
 export default function Index() {
   return (
     <section className="section">
       <div className="container craft">
-        <h2>Craft Design System</h2>
+        <h2 className="mb-2">Craft Design System</h2>
         <p className="text-muted-foreground">
-          Craft is an open-source design system for building conetent sites and
+          Craft is an open-source design system for building content sites and
           user interfaces. It was created by{" "}
           <a target="_blank" href="https://x.com/bridgertower">
             Bridger Tower
           </a>
           .
         </p>
+
+        <div className="my-8 grid gap-2">
+          <a href="https://github.com/brijr/craft">View on GitHub</a>
+          <Link href="/example">View an Article Example</Link>
+        </div>
 
         <div className="grid gap-12 my-12">
           <Headings />
