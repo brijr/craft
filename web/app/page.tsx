@@ -1,7 +1,5 @@
 import { Demo } from "@/components/demo";
 
-import Link from "next/link";
-
 export default function Index() {
   return (
     <section className="section">
@@ -63,10 +61,14 @@ const TextStyles = () => {
           </p>
         </Demo>
         <Demo attribute="large">
-          <p className="large">Large text that's bigger than regular text.</p>
+          <p className="large">
+            Large text that&apos;s bigger than regular text.
+          </p>
         </Demo>
         <Demo attribute="small">
-          <p className="small">Small text that's smaller than regular text.</p>
+          <p className="small">
+            Small text that&apos;s smaller than regular text.
+          </p>
         </Demo>
         <Demo attribute="muted">
           <p className="muted">Muted text with reduced emphasis.</p>
