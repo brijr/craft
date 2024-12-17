@@ -64,7 +64,7 @@ export default function Index() {
               <h2>Section 4: Inline Elements</h2>
               <p>
                 You can use <code>inline code</code> within a paragraph. Press{" "}
-                <kbd>Ctrl</kbd> + <kbd>S</kbd> to save. Here's some{" "}
+                <kbd>Ctrl</kbd> + <kbd>S</kbd> to save. Here&apos;s some{" "}
                 <mark>highlighted text</mark> and an{" "}
                 <abbr title="Abbreviation">abbr</abbr>. You can also use{" "}
                 <sub>subscript</sub> and <sup>superscript</sup> text.
@@ -146,7 +146,7 @@ export default function Index() {
                   <section>
                     <h3>React Hooks in 2025</h3>
                     <ul>
-                      <li>The new 'use' hook for data fetching</li>
+                      <li>The new &apos;use&apos; hook for data fetching</li>
                       <li>React Signals for state management</li>
                       <li>Server Components and Actions</li>
                     </ul>
