@@ -1,0 +1,345 @@
+/* craft.css - Comprehensive typography styling with shadcn colors */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+  @apply max-w-5xl p-6 sm:p-8;
+}
+
+.section {
+  @apply py-8 md:py-12;
+}
+
+.craft {
+  @apply font-sans antialiased;
+
+  /* Prose styles */
+  &.prose {
+    @apply max-w-prose;
+  }
+
+  /* Headings */
+  h1,
+  .h1 {
+    @apply text-4xl font-medium tracking-tight;
+  }
+
+  h2,
+  .h2 {
+    @apply text-3xl font-medium tracking-tight;
+  }
+
+  h3,
+  .h3 {
+    @apply text-2xl font-medium tracking-tight;
+  }
+
+  h4,
+  .h4 {
+    @apply text-xl font-medium tracking-tight;
+  }
+
+  h5,
+  .h5 {
+    @apply text-lg font-medium tracking-tight;
+  }
+
+  h6,
+  .h6 {
+    @apply text-base font-medium tracking-tight;
+  }
+
+  /* Paragraph */
+  p,
+  .p {
+    @apply leading-7;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    @apply border-l-2 pl-6 italic;
+  }
+
+  /* Lists */
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  /* Definition Lists */
+  dl {
+    dt {
+      @apply font-semibold;
+    }
+
+    dd {
+      @apply ml-6;
+    }
+  }
+
+  /* Horizontal Rule */
+  hr {
+    @apply my-8;
+  }
+
+  /* Links */
+  a {
+    @apply font-medium text-primary underline underline-offset-4 hover:text-primary/80;
+  }
+
+  /* Strong */
+  strong {
+    @apply font-semibold;
+  }
+
+  /* Code */
+  code {
+    @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+  }
+
+  pre {
+    @apply overflow-x-auto rounded-lg border bg-muted p-4;
+
+    code {
+      @apply relative rounded bg-transparent p-0;
+    }
+  }
+
+  /* Tables */
+  table {
+    @apply w-full overflow-y-auto;
+
+    thead {
+      @apply border-b;
+
+      tr {
+        @apply border-t p-0;
+      }
+
+      th {
+        @apply border px-4 py-2 text-left font-semibold [&[align=center]]:text-center [&[align=right]]:text-right;
+      }
+    }
+
+    tbody {
+      tr {
+        @apply border-t p-0;
+      }
+
+      td {
+        @apply border px-4 py-2 text-left text-muted-foreground [&[align=center]]:text-center [&[align=right]]:text-right;
+      }
+    }
+  }
+
+  /* Figure */
+  figure {
+    figcaption {
+      @apply text-center text-sm text-muted-foreground;
+    }
+  }
+
+  /* Images */
+  img {
+    @apply rounded-lg border;
+  }
+
+  /* Video */
+  video {
+    @apply rounded-lg border;
+  }
+
+  /* Small */
+  small {
+    @apply text-sm font-medium leading-none;
+  }
+
+  /* Subscript and Superscript */
+  sub,
+  sup {
+    @apply text-sm;
+  }
+
+  /* Abbreviations */
+  abbr {
+    @apply cursor-help underline underline-offset-4;
+  }
+
+  /* Details and Summary */
+  details {
+    @apply rounded-lg border p-4;
+
+    summary {
+      @apply cursor-pointer font-semibold;
+    }
+  }
+
+  /* Keyboard */
+  kbd {
+    @apply rounded-md border bg-muted px-1.5 py-0.5 text-sm font-mono;
+  }
+
+  /* Mark */
+  mark {
+    @apply bg-primary/10 px-1;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-primary/10;
+  }
+
+  /* Lead Paragraph */
+  .lead {
+    @apply text-xl text-muted-foreground;
+  }
+
+  /* Large Text */
+  .large {
+    @apply text-lg font-semibold;
+  }
+
+  /* Small Text */
+  .small {
+    @apply text-sm font-medium leading-none;
+  }
+
+  /* Muted Text */
+  .muted {
+    @apply text-sm text-muted-foreground;
+  }
+
+  /* Lists within Lists */
+  ul ul,
+  ol ol,
+  ul ol,
+  ol ul {
+    @apply ml-6;
+  }
+
+  /* Nested Navigation Lists */
+  nav {
+    ul,
+    ol {
+      @apply list-none;
+    }
+  }
+
+  /* Description Lists */
+  dt {
+    @apply font-semibold;
+  }
+
+  dd {
+    @apply ml-4 text-muted-foreground;
+  }
+
+  /* Blockquote Citations */
+  blockquote cite {
+    @apply block text-sm text-muted-foreground;
+  }
+
+  /* Code Block Filename */
+  pre[data-filename]::before {
+    @apply block text-sm font-medium text-muted-foreground;
+    content: attr(data-filename);
+  }
+
+  /* Table of Contents */
+  .table-of-contents {
+    @apply rounded-lg border p-4;
+
+    ol {
+      @apply ml-4 list-none;
+    }
+
+    a {
+      @apply text-muted-foreground no-underline;
+    }
+  }
+
+  /* Footnotes */
+  .footnotes {
+    @apply border-t pt-6 text-sm text-muted-foreground;
+  }
+
+  /* Task Lists */
+  .task-list {
+    @apply list-none pl-0;
+
+    .task-list-item {
+      @apply flex items-center;
+
+      input[type="checkbox"] {
+        @apply mr-2;
+      }
+    }
+  }
+}
+
+.spaced {
+  /* Base element spacing */
+  > * + * {
+    @apply mt-6;
+  }
+
+  /* Lists */
+  ul,
+  ol {
+    @apply my-6;
+    li {
+      @apply mt-2;
+    }
+  }
+
+  /* Definition Lists */
+  dl {
+    @apply my-6;
+    dd {
+      @apply mt-2;
+    }
+  }
+
+  /* Tables */
+  table {
+    @apply my-6;
+  }
+
+  /* Figures */
+  figure {
+    @apply my-8;
+    figcaption {
+      @apply mt-4;
+    }
+  }
+
+  /* Code blocks */
+  pre {
+    @apply my-6;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    @apply my-6;
+    cite {
+      @apply mt-2;
+    }
+  }
+
+  /* Table of Contents */
+  .table-of-contents {
+    @apply my-6;
+    li {
+      @apply my-2;
+    }
+  }
+
+  /* Footnotes */
+  .footnotes {
+    @apply mt-12;
+  }
+}
