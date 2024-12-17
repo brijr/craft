@@ -5,13 +5,14 @@ export default function Index() {
     <section className="craft section">
       <div className="container">
         <h1>Craft Design System</h1>
-        <div className="grid gap-12">
+        <div className="grid gap-12 my-12">
           <Headings />
           <TextStyles />
           <Lists />
           <BlockElements />
           <InlineElements />
           <Tables />
+          <AdditionalElements />
         </div>
       </div>
     </section>
@@ -202,6 +203,81 @@ const Tables = () => {
               </tr>
             </tbody>
           </table>
+        </Demo>
+      </div>
+    </div>
+  );
+};
+
+const AdditionalElements = () => {
+  return (
+    <div className="grid gap-4">
+      <h3>Additional Elements</h3>
+      <div className="grid border divide-y">
+        <Demo attribute="hr">
+          <div>
+            <p>Text before horizontal rule</p>
+            <hr />
+            <p>Text after horizontal rule</p>
+          </div>
+        </Demo>
+        <Demo attribute="small">
+          <small>Small text element</small>
+        </Demo>
+        <Demo attribute="video">
+          <video controls>
+            <source
+              src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
+              type="video/webm"
+            />
+            Your browser does not support the video tag.
+          </video>
+        </Demo>
+        <Demo attribute="nested-lists">
+          <ul>
+            <li>Parent item 1</li>
+            <li>
+              Parent item 2
+              <ul>
+                <li>Child item 1</li>
+                <li>Child item 2</li>
+              </ul>
+            </li>
+            <li>Parent item 3</li>
+          </ul>
+        </Demo>
+        <Demo attribute="task-list">
+          <ul className="task-list">
+            <li className="task-list-item">
+              <input type="checkbox" checked readOnly /> Completed task
+            </li>
+            <li className="task-list-item">
+              <input type="checkbox" readOnly /> Pending task
+            </li>
+          </ul>
+        </Demo>
+        <Demo attribute="table-of-contents">
+          <nav className="table-of-contents">
+            <ol>
+              <li>
+                <a href="#section1">Section 1</a>
+              </li>
+              <li>
+                <a href="#section2">Section 2</a>
+              </li>
+              <li>
+                <a href="#section3">Section 3</a>
+              </li>
+            </ol>
+          </nav>
+        </Demo>
+        <Demo attribute="footnotes">
+          <div className="footnotes">
+            <ol>
+              <li>First footnote reference</li>
+              <li>Second footnote reference</li>
+            </ol>
+          </div>
         </Demo>
       </div>
     </div>
