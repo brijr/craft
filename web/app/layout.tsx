@@ -60,3 +60,15 @@ const Header = () => {
     </Section>
   );
 };
+
+const Footer = () => {
+  return (
+    <Section>
+      <Container>
+        <p>
+          &copy; 2024 <a href="https://bridger.to">Bridger Tower</a>
+        </p>
+      </Container>
+    </Section>
+  );
+};
