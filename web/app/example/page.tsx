@@ -5,8 +5,8 @@ export default function Index() {
     <section className="craft section">
       <div className="container">
         <h1>Craft Design System</h1>
-        <div className="grid gap-12 my-12 border">
-          <Demo attribute="article" vertical>
+        <div className="grid my-12 border">
+          <Demo attribute="Example Article" vertical>
             <article className="spaced">
               <h1>Sample Article Title</h1>
               <p className="lead">
@@ -99,6 +99,150 @@ export default function Index() {
               </details>
               <hr />
               <small>This article was last updated on May 1, 2023.</small>
+            </article>
+          </Demo>
+        </div>
+
+        <div className="border">
+          <Demo attribute="Another Example Article" vertical>
+            <article className="spaced">
+              <header>
+                <h1>Learning React in 2025: The Ultimate Guide</h1>
+                <div className="flex gap-2 items-center text-muted-foreground">
+                  <div>
+                    <p className="text-sm">
+                      By <span>Web Development Expert</span>
+                    </p>
+                  </div>
+                  <time>January 1, 2025</time>
+                </div>
+              </header>
+
+              <section>
+                <h2>Prerequisites</h2>
+                <div>
+                  <p>✓ Modern JavaScript (ES2024+)</p>
+                  <p>✓ Basic understanding of web development tools</p>
+                  <p>✓ HTML & CSS fundamentals</p>
+                </div>
+
+                <h2>Modern React Tooling</h2>
+                <div>
+                  <p>
+                    <strong>Vite</strong> - Lightning-fast build tool and dev
+                    server
+                  </p>
+                  <p>
+                    <strong>TypeScript</strong> - Essential for type-safe React
+                    development
+                  </p>
+                  <p>
+                    <strong>pnpm</strong> - The preferred package manager in
+                    2025
+                  </p>
+                </div>
+
+                <h2>Core Concepts to Master</h2>
+                <div>
+                  <section>
+                    <h3>React Hooks in 2025</h3>
+                    <ul>
+                      <li>The new 'use' hook for data fetching</li>
+                      <li>React Signals for state management</li>
+                      <li>Server Components and Actions</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h3>Modern Component Patterns</h3>
+                    <ul>
+                      <li>Server Components as the default</li>
+                      <li>Streaming SSR</li>
+                      <li>Enhanced Suspense boundaries</li>
+                    </ul>
+                  </section>
+                </div>
+
+                <h2>Recommended Learning Path</h2>
+                <div>
+                  <ol>
+                    <li>
+                      <strong>Week 1-2:</strong>{" "}
+                      <span>Master React fundamentals and hooks</span>
+                    </li>
+                    <li>
+                      <strong>Week 3-4:</strong>{" "}
+                      <span>Deep dive into Server Components</span>
+                    </li>
+                    <li>
+                      <strong>Week 3-4:</strong>{" "}
+                      <span>Build real-world applications</span>
+                    </li>
+                  </ol>
+                </div>
+
+                <h2>Essential Resources</h2>
+                <div>
+                  <div className="resource">
+                    <h4>Official Documentation</h4>
+                    <p>
+                      <a
+                        href="https://react.dev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        react.dev
+                      </a>{" "}
+                      - Always up-to-date
+                    </p>
+                  </div>
+                  <div className="resource">
+                    <h4>Community Resources</h4>
+                    <p>React Discord community</p>
+                  </div>
+                </div>
+
+                <hr />
+
+                <details>
+                  <summary>Additional Resources</summary>
+                  <div className="p-4">
+                    <h4>Recommended Books</h4>
+                    <ul>
+                      <li>React Design Patterns</li>
+                      <li>Server Components in Action</li>
+                      <li>Modern React Testing</li>
+                    </ul>
+                  </div>
+                </details>
+
+                <blockquote>
+                  The best way to learn React is by building real projects and
+                  engaging with the community.
+                  <cite>- React Core Team</cite>
+                </blockquote>
+
+                <figure>
+                  <img
+                    src="https://via.placeholder.com/800x400"
+                    alt="React Development Workflow"
+                    width={800}
+                    height={400}
+                  />
+                  <figcaption>
+                    A typical React development workflow in 2025
+                  </figcaption>
+                </figure>
+              </section>
+
+              <footer>
+                <aside>
+                  <p className="text-sm text-muted-foreground">
+                    Remember: The React ecosystem evolves rapidly. Always verify
+                    the latest best practices!
+                  </p>
+                </aside>
+              </footer>
             </article>
           </Demo>
         </div>
