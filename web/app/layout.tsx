@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Balancer from "react-wrap-balancer";
 
 import Link from "next/link";
 
@@ -44,14 +45,19 @@ const Header = () => {
   return (
     <Section>
       <Container>
-        <h2 className="mb-2">Craft Design System</h2>
-        <p className="text-muted-foreground">
-          Craft is an open-source design system for building content sites and
-          user interfaces. It was created by{" "}
-          <a target="_blank" href="https://x.com/bridgertower">
-            Bridger Tower
-          </a>
-          .
+        <Link href="/" className="text-4xl block mb-8">
+          ✴︎
+        </Link>
+        <h1 className="text-xl font-medium mb-2">Craft Design System</h1>
+        <p className="craft text-muted-foreground max-w-prose">
+          <Balancer>
+            Craft is an open-source design system for building content sites and
+            user interfaces. It was created by{" "}
+            <a target="_blank" href="https://x.com/bridgertower">
+              Bridger Tower
+            </a>
+            .
+          </Balancer>
         </p>
         <div className="my-8 grid gap-2 craft">
           <Link href="/start">+ Get Started with Craft</Link>
