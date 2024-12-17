@@ -19,14 +19,6 @@ async function promptUser(question, defaultValue) {
   });
 }
 
-async function ensureNextJsProject() {
-  if (!existsSync("package.json")) {
-    console.log("No package.json found. Creating a new Next.js project...");
-    runCommand("npx create-next-app@latest . --ts --tailwind --eslint");
-    console.log("Next.js project created successfully.");
-  }
-}
-
 function detectPackageManager() {
   if (existsSync("package-lock.json")) return "npm";
   if (existsSync("yarn.lock")) return "yarn";
