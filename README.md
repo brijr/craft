@@ -1,5 +1,9 @@
 # Craft Design System v0.3
 
+![CleanShot 2024-12-17 at 15 18 21@2x](https://github.com/user-attachments/assets/f0ea6844-d170-42e9-a68b-56205384054b)
+
+> View the system at [craft.bridger.to](https://craft.bridger.to)
+
 Craft is a minimalist Design System developed using a single component file paired with the best design tools for Next.js. It was created by [Bridger Tower](https://bridger.to) to build websites with Next.js, Tailwind, shadcn/ui, and TypeScript faster
 
 ## Quick Start
