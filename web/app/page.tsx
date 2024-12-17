@@ -6,21 +6,6 @@ export default function Index() {
   return (
     <section className="section">
       <div className="container craft">
-        <h2 className="mb-2">Craft Design System</h2>
-        <p className="text-muted-foreground">
-          Craft is an open-source design system for building content sites and
-          user interfaces. It was created by{" "}
-          <a target="_blank" href="https://x.com/bridgertower">
-            Bridger Tower
-          </a>
-          .
-        </p>
-
-        <div className="my-8 grid gap-2">
-          <a href="https://github.com/brijr/craft">View on GitHub</a>
-          <Link href="/example">View an Article Example</Link>
-        </div>
-
         <div className="grid gap-12 my-12">
           <Headings />
           <TextStyles />
@@ -28,6 +13,7 @@ export default function Index() {
           <BlockElements />
           <InlineElements />
           <Tables />
+          <FormElements />
           <AdditionalElements />
         </div>
       </div>
@@ -221,6 +207,55 @@ const Tables = () => {
               </tr>
             </tbody>
           </table>
+        </Demo>
+      </div>
+    </div>
+  );
+};
+
+const FormElements = () => {
+  return (
+    <div className="grid gap-4">
+      <h3>Form Elements</h3>
+      <div className="flex flex-col border divide-y">
+        <Demo attribute="input">
+          <input
+            type="text"
+            placeholder="Text input"
+            className="w-full max-w-sm px-3 py-2 border rounded-md"
+          />
+        </Demo>
+        <Demo attribute="textarea">
+          <textarea
+            placeholder="Textarea"
+            className="w-full max-w-sm px-3 py-2 border rounded-md"
+          />
+        </Demo>
+        <Demo attribute="select">
+          <select className="w-full max-w-sm px-3 py-2 border rounded-md">
+            <option value="">Select an option</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+          </select>
+        </Demo>
+        <Demo attribute="checkbox">
+          <div className="flex items-center gap-2">
+            <input type="checkbox" id="checkbox" />
+            <label htmlFor="checkbox">Checkbox</label>
+          </div>
+        </Demo>
+        <Demo attribute="radio">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <input type="radio" id="radio1" name="radio-group" />
+              <label htmlFor="radio1">Radio 1</label>
+            </div>
+            <div className="flex items-center gap-2">
+              <input type="radio" id="radio2" name="radio-group" />
+              <label htmlFor="radio2">Radio 2</label>
+            </div>
+          </div>
         </Demo>
       </div>
     </div>

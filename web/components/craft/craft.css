@@ -3,8 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CRAFT DESIGN SYSTEM STYLES */
-
 .container {
   @apply max-w-5xl mx-auto p-6 sm:p-8;
 }
@@ -181,7 +179,7 @@
 
   /* Details and Summary */
   details {
-    @apply rounded-lg border p-4;
+    @apply rounded-lg border px-4 py-2;
 
     summary {
       @apply cursor-pointer font-semibold;
@@ -287,6 +285,51 @@
       input[type="checkbox"] {
         @apply mr-2;
       }
+    }
+  }
+
+  /* Interactive States */
+  button {
+    @apply transition-all duration-200;
+
+    &:hover {
+      @apply opacity-90 transform scale-[0.98];
+    }
+
+    &:focus-visible {
+      @apply outline-none ring-2 ring-primary ring-offset-2;
+    }
+
+    &:active {
+      @apply opacity-80 transform scale-[0.96];
+    }
+  }
+
+  /* Form Elements */
+  input,
+  textarea,
+  select {
+    @apply transition-colors duration-200;
+
+    &:hover {
+      @apply border-primary/50;
+    }
+
+    &:focus {
+      @apply outline-none ring-2 ring-primary ring-offset-2 border-primary;
+    }
+  }
+
+  /* Interactive Cards */
+  .card {
+    @apply transition-all duration-200;
+
+    &:hover {
+      @apply transform translate-y-[-2px] shadow-lg;
+    }
+
+    &:active {
+      @apply transform translate-y-0 shadow-md;
     }
   }
 }
