@@ -33,7 +33,7 @@ export default function Index() {
           </a>
           , and{" "}
           <a
-            href="https://www.typescript.org/"
+            href="https://typescript.org/"
             target="_blank"
             rel="noopener noreferrer"
           >
