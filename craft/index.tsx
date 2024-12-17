@@ -235,7 +235,7 @@ const Box = ({
   };
 
   const getResponsiveClasses = (
-    prop: any,
+    prop: string | number | Record<string, string | number> | undefined,
     classMap: Record<string | number, string>
   ) => {
     if (!prop) return "";
