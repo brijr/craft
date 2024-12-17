@@ -1,4 +1,4 @@
-import { Section, Container } from "@/components/craft";
+import { Section, Container, Prose } from "@/components/craft";
 import Markdown from "react-markdown";
 
 const readMe = `
@@ -156,7 +156,9 @@ export default function Start() {
   return (
     <Section>
       <Container>
-        <Markdown>{readMe}</Markdown>
+        <Prose>
+          <Markdown>{readMe}</Markdown>
+        </Prose>
       </Container>
     </Section>
   );
