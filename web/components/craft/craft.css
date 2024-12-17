@@ -1,7 +1,4 @@
 /* craft.css - Comprehensive typography styling with shadcn colors */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 .container {
   @apply max-w-5xl mx-auto p-6 sm:p-8;

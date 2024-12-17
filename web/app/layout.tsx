@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import "./globals.css";
 import "@/components/craft/craft.css";
+import { Container, Section } from "@/components/craft";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,8 +41,8 @@ export default function RootLayout({
 
 const Header = () => {
   return (
-    <section className="section">
-      <div className="container craft">
+    <Section>
+      <Container>
         <h2 className="mb-2">Craft Design System</h2>
         <p className="text-muted-foreground">
           Craft is an open-source design system for building content sites and
@@ -51,11 +52,11 @@ const Header = () => {
           </a>
           .
         </p>
-        <div className="my-8 grid gap-2">
+        <div className="my-8 grid gap-2 craft">
           <a href="https://github.com/brijr/craft">View on GitHub</a>
           <Link href="/example">View an Article Example</Link>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 };
