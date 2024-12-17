@@ -63,27 +63,31 @@
 
   /* Lists */
   ul {
-    @apply list-disc;
+    @apply list-disc ml-6;
   }
 
   ol {
-    @apply list-decimal;
+    @apply list-decimal ml-6;
   }
 
   /* Definition Lists */
   dl {
     dt {
-      @apply font-semibold;
+      @apply font-medium;
+
+      &:not(:first-child) {
+        @apply mt-2;
+      }
     }
 
     dd {
-      @apply ml-6;
+      @apply ml-4;
     }
   }
 
   /* Horizontal Rule */
   hr {
-    @apply my-8;
+    @apply my-6;
   }
 
   /* Links */
@@ -107,6 +111,10 @@
     code {
       @apply relative rounded bg-transparent p-0;
     }
+  }
+
+  article {
+    @apply max-w-prose;
   }
 
   /* Tables */

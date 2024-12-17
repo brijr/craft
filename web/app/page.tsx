@@ -2,9 +2,18 @@ import { Demo } from "@/components/demo";
 
 export default function Index() {
   return (
-    <section className="craft section">
-      <div className="container">
-        <h1>Craft Design System</h1>
+    <section className="section">
+      <div className="container craft">
+        <h2>Craft Design System</h2>
+        <p className="text-muted-foreground">
+          Craft is an open-source design system for building conetent sites and
+          user interfaces. It was created by{" "}
+          <a target="_blank" href="https://x.com/bridgertower">
+            Bridger Tower
+          </a>
+          .
+        </p>
+
         <div className="grid gap-12 my-12">
           <Headings />
           <TextStyles />
@@ -80,6 +89,7 @@ const Lists = () => {
       <h3>Lists</h3>
       <div className="grid border divide-y">
         <Demo attribute="ul">
+          <p>This is an example of an unordered list</p>
           <ul>
             <li>Unordered list item 1</li>
             <li>Unordered list item 2</li>
@@ -87,6 +97,7 @@ const Lists = () => {
           </ul>
         </Demo>
         <Demo attribute="ol">
+          <p>This is an example of an ordered list</p>
           <ol>
             <li>Ordered list item 1</li>
             <li>Ordered list item 2</li>
