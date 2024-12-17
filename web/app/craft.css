@@ -63,11 +63,11 @@
 
   /* Lists */
   ul {
-    @apply list-disc ml-6;
+    @apply list-disc ml-6 my-2;
   }
 
   ol {
-    @apply list-decimal ml-6;
+    @apply list-decimal ml-6 my-2;
   }
 
   /* Definition Lists */
@@ -92,12 +92,12 @@
 
   /* Links */
   a {
-    @apply font-medium text-primary underline underline-offset-4 hover:text-primary/80;
+    @apply underline underline-offset-2 transition-all hover:text-muted-foreground;
   }
 
   /* Strong */
   strong {
-    @apply font-semibold;
+    @apply font-medium;
   }
 
   /* Code */
@@ -147,7 +147,7 @@
   /* Figure */
   figure {
     figcaption {
-      @apply text-center text-sm text-muted-foreground;
+      @apply text-xs mt-2 text-muted-foreground;
     }
   }
 
