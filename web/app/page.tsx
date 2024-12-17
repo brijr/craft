@@ -23,7 +23,7 @@ const Headings = () => {
   return (
     <div className="grid gap-4">
       <h3>Headings</h3>
-      <div className="grid border divide-y">
+      <div className="flex flex-col border divide-y">
         <Demo attribute="h1">
           <h1>Heading 1</h1>
         </Demo>
@@ -53,7 +53,7 @@ const TextStyles = () => {
       <h3>Text Styles</h3>
       <div className="grid border divide-y">
         <Demo attribute="p">
-          <p>Regular paragraph text with leading-7 line height.</p>
+          <p>Regular paragraph text.</p>
         </Demo>
         <Demo attribute="lead">
           <p className="lead">

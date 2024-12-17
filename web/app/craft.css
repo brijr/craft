@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 .container {
-  @apply max-w-5xl p-6 sm:p-8;
+  @apply max-w-5xl mx-auto p-6 sm:p-8;
 }
 
 .section {
@@ -53,7 +53,7 @@
   /* Paragraph */
   p,
   .p {
-    @apply leading-7;
+    @apply text-base leading-7;
   }
 
   /* Blockquotes */
