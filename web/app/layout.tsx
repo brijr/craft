@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Balancer from "react-wrap-balancer";
+import { Analytics } from "@vercel/analytics/next";
 
+import Balancer from "react-wrap-balancer";
 import Link from "next/link";
 
 import "./globals.css";
@@ -36,6 +37,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
