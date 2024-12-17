@@ -1,4 +1,4 @@
-// craft-ds, v0.2.81
+// craft-ds, v0.3
 // This is a design system for building responsive layouts in React
 
 import React from "react";
@@ -119,28 +119,7 @@ const Layout = ({ children, className }: LayoutProps) => {
 
 const Main = ({ children, className, id }: MainProps) => {
   return (
-    <main
-      className={cn(
-        // `Main` Specific Styles
-        "max-w-none prose-p:m-0",
-        // General Prose
-        "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg",
-        // Prose Headings
-        "prose-headings:font-normal",
-        // Prose Strong
-        "prose-strong:font-semibold",
-        // Inline Links
-        "prose-a:underline prose-a:decoration-primary/50 prose-a:underline-offset-2 prose-a:text-foreground/75 prose-a:transition-all",
-        // Inline Link Hover
-        "hover:prose-a:decoration-primary hover:prose-a:text-foreground",
-        // Blockquotes
-        "prose-blockquote:not-italic",
-        // Pre and Code Blocks
-        "prose-pre:border prose-pre:bg-muted/25 prose-pre:text-foreground",
-        className
-      )}
-      id={id}
-    >
+    <main className={cn("craft", className)} id={id}>
       {children}
     </main>
   );
@@ -151,7 +130,7 @@ const Main = ({ children, className, id }: MainProps) => {
 
 const Section = ({ children, className, id }: SectionProps) => {
   return (
-    <section className={cn("py-8 md:py-12", className)} id={id}>
+    <section className={cn("section", className)} id={id}>
       {children}
     </section>
   );
@@ -162,7 +141,7 @@ const Section = ({ children, className, id }: SectionProps) => {
 
 const Container = ({ children, className, id }: ContainerProps) => {
   return (
-    <div className={cn("mx-auto max-w-5xl", "p-6 sm:p-8", className)} id={id}>
+    <div className={cn("container", className)} id={id}>
       {children}
     </div>
   );
@@ -180,31 +159,36 @@ const Article = ({
   return (
     <article
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-      className={cn(
-        // General Prose
-        "prose prose-neutral prose:font-sans dark:prose-invert xl:prose-lg",
-        // Prose Headings
-        "prose-headings:font-normal",
-        // Prose Paragraphs
-        "prose-p:mb-0",
-        // Prose Strong
-        "prose-strong:font-semibold",
-        // Inline Links
-        "prose-a:underline prose-a:decoration-primary/50 prose-a:underline-offset-2 prose-a:text-foreground/75 prose-a:transition-all",
-        // Inline Link Hover
-        "hover:prose-a:decoration-primary hover:prose-a:text-foreground",
-        // Blockquotes
-        "prose-blockquote:not-italic",
-        // Pre and Code Blocks
-        "prose-pre:border prose-pre:bg-muted/25",
-        className
-      )}
+      className={cn("craft spaced", className)}
       id={id}
     >
       {children}
     </article>
   );
 };
+
+// Prose Component
+// This component is used for rendering prose content with appropriate typography styles
+
+const Prose = ({
+  children,
+  className,
+  id,
+  dangerouslySetInnerHTML,
+}: ArticleProps) => {
+  return (
+    <div
+      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+      className={cn("craft spaced", className)}
+      id={id}
+    >
+      {children}
+    </div>
+  );
+};
+
+// Box Component
+// This component is used for creating flexible layouts
 
 const Box = ({
   children,
@@ -251,7 +235,7 @@ const Box = ({
   };
 
   const getResponsiveClasses = (
-    prop: any,
+    prop: string | number | Record<string, unknown> | undefined,
     classMap: Record<string | number, string>
   ) => {
     if (!prop) return "";
@@ -284,7 +268,7 @@ const Box = ({
 
 // Exporting all components for use in other parts of the application
 
-export { Layout, Main, Section, Container, Article, Box };
+export { Layout, Main, Section, Container, Article, Box, Prose };
 
 // Instructions for AI
 
