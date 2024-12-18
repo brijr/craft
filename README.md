@@ -11,13 +11,8 @@ Craft is a minimalist Design System developed using a single component file pair
 To install Craft in your Next.js project, run:
 
 ```bash
-npx craft-ds@latest init
-```
-
-or
-
-```bash
 pnpx craft-ds@latest init
+# or `npx craft-ds@latest init` for npm
 ```
 
 _then_ add the `craft.css` to your `Layout.tsx` file: 
