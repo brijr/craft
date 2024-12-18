@@ -21,7 +21,20 @@ _then_ add the `craft.css` to your `Layout.tsx` file:
 import '@/components/craft/craft.css'
 ```
 
-Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
+_now_ import layout components from craft, or use the classes from `craft.css`
+
+```tsx
+import {
+  Layout,
+  Main,
+  Section,
+  Container,
+  Prose,
+  Article,
+  Box,
+} from "@/components/craft";
+```
+
 
 ## Core Components
 
