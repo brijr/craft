@@ -20,6 +20,12 @@ or
 pnpx craft-ds@latest init
 ```
 
+_then_ add the `craft.css` to your `Layout.tsx` file: 
+
+```tsx
+import '@/components/craft/craft.css'
+```
+
 Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
 
 ## Core Components
