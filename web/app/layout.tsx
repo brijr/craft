@@ -8,6 +8,8 @@ import Link from "next/link";
 import "./globals.css";
 import "@/components/craft/craft.css";
 
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Container, Section } from "@/components/craft";
 import { Toaster } from "@/components/ui/sonner";
 import { Copy } from "@/components/copy";
@@ -33,15 +35,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        {children}
-        <Footer />
-        <Toaster position="top-center" />
-        <Analytics />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+          <Footer />
+          <Toaster position="top-center" />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );
@@ -51,9 +60,12 @@ const Header = () => {
   return (
     <Section>
       <Container>
-        <Link href="/" className="text-4xl block mb-8">
-          ✴︎
-        </Link>
+        <div className="flex gap-4 justify-between">
+          <Link href="/" className="text-4xl block mb-8">
+            ✴︎
+          </Link>
+          <ThemeToggle />
+        </div>
         <h1 className="text-xl font-medium mb-2">Craft Design System</h1>
         <p className="craft text-muted-foreground max-w-prose">
           <Balancer>
