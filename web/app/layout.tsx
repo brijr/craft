@@ -74,10 +74,19 @@ const Header = () => {
           </Balancer>
         </p>
         <Copy text="npx craft-ds@latest init" />
-        <div className="my-8 grid gap-2 craft">
-          <Link href="/start">+ Get Started with Craft</Link>
-          <a href="https://github.com/brijr/craft">+ View on GitHub</a>
-          <Link href="/example">+ View an Article Example</Link>
+        <div className="my-8 grid gap-2">
+          <Link className="hover:underline underline-offset-4" href="/start">
+            + Get Started with Craft
+          </Link>
+          <a
+            className="hover:underline underline-offset-4"
+            href="https://github.com/brijr/craft"
+          >
+            + View on GitHub
+          </a>
+          <Link className="hover:underline underline-offset-4" href="/example">
+            + View an Article Example
+          </Link>
         </div>
       </Container>
     </Section>
