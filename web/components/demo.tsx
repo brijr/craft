@@ -8,7 +8,7 @@ export const Demo = ({ children, attribute, vertical }: Props) => {
   return (
     <section
       className={`grid ${
-        vertical ? "divide-y" : "divide-x grid-cols-[8rem_3fr]"
+        vertical ? "divide-y" : "sm:divide-x sm:grid-cols-[8rem_3fr]"
       }`}
     >
       <div className="p-4 bg-accent/50">
@@ -17,7 +17,7 @@ export const Demo = ({ children, attribute, vertical }: Props) => {
       </div>
 
       <div className="p-6 relative bg-background">
-        <p className="text-muted-foreground !text-xs absolute top-2 right-2">
+        <p className="text-muted-foreground hidden sm:block !text-xs absolute top-2 right-2">
           Preview
         </p>
         {children}
