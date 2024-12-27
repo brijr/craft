@@ -9,7 +9,7 @@ interface CopyProps {
 export const Copy = ({ text }: CopyProps) => {
   return (
     <button
-      className="py-2 pl-2 pr-3 font-mono bg-accent/50 hover:bg-accent/100 border mt-6 flex gap-3 items-center"
+      className="py-2 pl-2 pr-4 font-mono bg-accent/50 hover:bg-accent/100 border mt-6 flex gap-4 items-center"
       onClick={() => {
         navigator.clipboard.writeText(text);
         toast.success("Copied to clipboard");
