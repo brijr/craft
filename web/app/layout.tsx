@@ -75,9 +75,19 @@ const Header = () => {
 const Footer = () => {
   return (
     <Section>
-      <Container>
+      <Container className="space-y-2">
         <p>
-          &copy; 2024 <a href="https://bridger.to">Bridger</a>
+          Follow on{" "}
+          <a
+            className="text-foreground underline underline-offset-2"
+            href="https://x.com/bridgertower"
+          >
+            x.com{" "}
+          </a>
+          for updates.
+        </p>
+        <p className="text-muted-foreground">
+          &copy; 2024 <a href="https://bridger.to">brijr</a>
         </p>
       </Container>
     </Section>
