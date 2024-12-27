@@ -13,6 +13,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Container, Section } from "@/components/craft";
 import { Toaster } from "@/components/ui/sonner";
 import { Copy } from "@/components/copy";
+import { Github } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,7 +65,15 @@ const Header = () => {
           <Link href="/" className="text-4xl block mb-8">
             ✴︎
           </Link>
-          <ThemeToggle />
+          <div className="flex gap-2">
+            <a
+              className="h-9 w-9 relative flex items-center justify-center border"
+              href="https://github.com/brijr/craft"
+            >
+              <Github className="h-[1.2rem] w-[1.2rem]" />
+            </a>
+            <ThemeToggle />
+          </div>
         </div>
         <h1 className="text-xl font-medium mb-2">Craft Design System</h1>
         <p className="craft text-muted-foreground max-w-prose">
@@ -80,9 +89,9 @@ const Header = () => {
           </Link>
           <a
             className="hover:underline underline-offset-4"
-            href="https://github.com/brijr/craft"
+            href="https://www.npmjs.com/package/craft-ds"
           >
-            + View on GitHub
+            + View on npm
           </a>
           <Link className="hover:underline underline-offset-4" href="/example">
             + View an Article Example
