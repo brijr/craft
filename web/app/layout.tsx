@@ -112,8 +112,8 @@ const Footer = () => {
             className="text-foreground underline underline-offset-2"
             href="https://x.com/bridgertower"
           >
-            x.com{" "}
-          </a>
+            x.com
+          </a>{" "}
           for updates.
         </p>
         <p className="text-muted-foreground">
