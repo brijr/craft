@@ -11,7 +11,7 @@ export const Demo = ({ children, attribute, vertical }: Props) => {
         vertical ? "divide-y" : "sm:divide-x sm:grid-cols-[8rem_3fr]"
       }`}
     >
-      <div className="p-4 bg-accent/50">
+      <div className="p-2 sm:p-4 bg-accent/50 border-b sm:border-b-0">
         <p className="sr-only">HTML Attribute</p>
         <p className="!text-sm">{attribute}</p>
       </div>
