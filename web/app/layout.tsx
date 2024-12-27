@@ -7,7 +7,10 @@ import Link from "next/link";
 
 import "./globals.css";
 import "@/components/craft/craft.css";
+
 import { Container, Section } from "@/components/craft";
+import { Toaster } from "@/components/ui/sonner";
+import { Copy } from "@/components/copy";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +40,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <Toaster position="top-center" />
         <Analytics />
       </body>
     </html>
@@ -54,13 +58,10 @@ const Header = () => {
         <p className="craft text-muted-foreground max-w-prose">
           <Balancer>
             Craft is an open-source design system for building content sites and
-            user interfaces. It was created by{" "}
-            <a target="_blank" href="https://x.com/bridgertower">
-              Bridger Tower
-            </a>
-            .
+            user interfaces.
           </Balancer>
         </p>
+        <Copy text="npx craft-ds@latest init" />
         <div className="my-8 grid gap-2 craft">
           <Link href="/start">+ Get Started with Craft</Link>
           <a href="https://github.com/brijr/craft">+ View on GitHub</a>
@@ -76,7 +77,7 @@ const Footer = () => {
     <Section>
       <Container>
         <p>
-          &copy; 2024 <a href="https://bridger.to">Bridger Tower</a>
+          &copy; 2024 <a href="https://bridger.to">Bridger</a>
         </p>
       </Container>
     </Section>

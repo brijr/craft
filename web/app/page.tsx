@@ -1,4 +1,5 @@
 import { Demo } from "@/components/demo";
+import { Copy } from "@/components/copy";
 
 export default function Index() {
   return (
