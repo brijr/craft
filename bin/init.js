@@ -20,10 +20,10 @@ async function promptUser(question, defaultValue) {
 }
 
 function detectPackageManager() {
-  if (existsSync("package-lock.json")) return "npm";
-  if (existsSync("yarn.lock")) return "yarn";
   if (existsSync("pnpm-lock.yaml")) return "pnpm";
-  return "npm"; // Default to npm if no lock file is found
+  if (existsSync("yarn.lock")) return "yarn";
+  if (existsSync("package-lock.json")) return "npm";
+  return "pnpm"; // Default to pnpm
 }
 
 function runCommand(command) {
@@ -59,245 +59,126 @@ async function validateProject() {
   return packageJson;
 }
 
-// Check and create necessary directories
-async function ensureDirectories(componentsPath) {
-  try {
-    await fs.mkdir(componentsPath, { recursive: true });
-    return true;
-  } catch (error) {
-    throw new Error(`Failed to create components directory: ${error.message}`);
-  }
-}
-
-// Backup existing files if they exist
-async function backupExistingFiles(destinationDir) {
-  if (existsSync(destinationDir)) {
-    const backupDir = `${destinationDir}_backup_${Date.now()}`;
-    try {
-      await fs.rename(destinationDir, backupDir);
-      console.log(
-        `Backed up existing files to ${path.relative(process.cwd(), backupDir)}`
-      );
-      return backupDir;
-    } catch (error) {
-      throw new Error(`Failed to backup existing files: ${error.message}`);
-    }
-  }
-  return null;
-}
-
-// Validate source files exist
-async function validateSourceFiles(craftDir) {
-  const requiredFiles = ["craft.tsx"];
-  const missingFiles = [];
-
-  for (const file of requiredFiles) {
-    if (!existsSync(path.join(craftDir, file))) {
-      missingFiles.push(file);
-    }
-  }
-
-  if (missingFiles.length > 0) {
-    throw new Error(
-      `Missing required source files: ${missingFiles.join(", ")}`
-    );
-  }
-}
-
-async function getComponentsPath() {
-  // Check for app directory first (Next.js 13+)
-  const appPath = path.join(process.cwd(), "app");
-  const srcPath = path.join(process.cwd(), "src");
-
-  if (existsSync(appPath)) {
-    return path.join(appPath, "components");
-  } else if (existsSync(srcPath)) {
-    return path.join(srcPath, "components");
-  }
-  return path.join(process.cwd(), "components");
-}
-
-// Check for existing Craft installations
-async function checkExistingInstallation(componentsPath) {
-  const oldCraftFile = path.join(componentsPath, "craft.tsx");
-  const newCraftDir = path.join(componentsPath, "craft");
-
-  let hasOldVersion = existsSync(oldCraftFile);
-  let hasNewVersion = existsSync(newCraftDir);
-
-  if (!hasOldVersion && !hasNewVersion) {
-    return { exists: false };
-  }
-
-  const location = hasOldVersion
-    ? path.relative(process.cwd(), oldCraftFile)
-    : path.relative(process.cwd(), newCraftDir);
-
-  const type = hasOldVersion ? "single file" : "directory";
-
-  const update = await promptUser(
-    `Found existing Craft installation (${type}) at ${location}. Would you like to update it? (yes/no)`,
-    "yes"
+// Check for required dependencies
+async function checkDependencies() {
+  const packageJson = JSON.parse(
+    await fs.readFile(path.join(process.cwd(), "package.json"), "utf8")
   );
 
-  if (update.toLowerCase() !== "yes") {
-    throw new Error("Installation aborted by user.");
-  }
-
-  // If they have the old version and want to update, we'll need to remove it
-  if (hasOldVersion) {
-    try {
-      const backupFile = `${oldCraftFile}_backup_${Date.now()}`;
-      await fs.rename(oldCraftFile, backupFile);
-      console.log(
-        `Backed up old craft.tsx to ${path.relative(process.cwd(), backupFile)}`
-      );
-    } catch (error) {
-      throw new Error(`Failed to backup old craft.tsx: ${error.message}`);
-    }
-  }
+  const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
 
   return {
-    exists: true,
-    type,
-    location,
-    isOldVersion: hasOldVersion,
+    hasShadcn: existsSync(path.join(process.cwd(), "components.json")),
+    hasTailwind: deps["tailwindcss"] !== undefined,
   };
 }
 
-async function main() {
-  let backupDir = null;
+// Find the components directory
+async function findComponentsDir() {
+  const possiblePaths = [
+    path.join(process.cwd(), "app", "components"),
+    path.join(process.cwd(), "src", "components"),
+    path.join(process.cwd(), "components"),
+  ];
 
+  for (const dir of possiblePaths) {
+    if (existsSync(dir)) {
+      return dir;
+    }
+  }
+
+  // If no components directory exists, create one in the appropriate location
+  if (existsSync(path.join(process.cwd(), "app"))) {
+    const dir = path.join(process.cwd(), "app", "components");
+    await fs.mkdir(dir, { recursive: true });
+    return dir;
+  }
+
+  if (existsSync(path.join(process.cwd(), "src"))) {
+    const dir = path.join(process.cwd(), "src", "components");
+    await fs.mkdir(dir, { recursive: true });
+    return dir;
+  }
+
+  const dir = path.join(process.cwd(), "components");
+  await fs.mkdir(dir, { recursive: true });
+  return dir;
+}
+
+async function main() {
   try {
     console.log("Welcome to the Craft Design System installer!");
 
     // Validate project structure
-    const packageJson = await validateProject();
+    await validateProject();
     console.log("Valid Next.js project detected");
 
-    const componentName = await promptUser(
-      "Enter the component name for the main file (default is craft.tsx)",
-      "craft.tsx"
-    );
+    // Check dependencies
+    const { hasShadcn, hasTailwind } = await checkDependencies();
 
-    // Define source and destination paths
-    const craftDir = path.join(__dirname, "..");
-    await validateSourceFiles(craftDir);
-    console.log("Source files validated");
+    // Install required dependencies
+    const packageManager = detectPackageManager();
+    const installCmd =
+      packageManager === "npm" ? "npm install" : `${packageManager} add`;
 
-    const componentsPath = await getComponentsPath();
-    await ensureDirectories(componentsPath);
-
-    // Check for existing installation
-    const existingInstall = await checkExistingInstallation(componentsPath);
-    if (existingInstall.exists) {
-      console.log(
-        `Updating existing Craft installation (${existingInstall.type})`
-      );
-      if (existingInstall.isOldVersion) {
-        console.log("Migrating to new TypeScript version");
-      }
+    if (!hasTailwind) {
+      console.log("Installing Tailwind CSS...");
+      runCommand(`${installCmd} -D tailwindcss`);
+      console.log("Tailwind CSS installed");
     } else {
-      console.log(
-        `Components directory ready at ${path.relative(
-          process.cwd(),
-          componentsPath
-        )}`
-      );
+      console.log("Tailwind CSS already installed");
     }
 
-    const destinationDir = path.join(componentsPath, "craft");
-    const craftPath = path.join(craftDir, "craft.tsx");
-    const destinationCraftPath = path.join(destinationDir, componentName);
+    if (!hasShadcn) {
+      console.log("Installing shadcn/ui...");
+      runCommand(`npx shadcn@latest init`);
+      console.log("shadcn/ui installed");
+    } else {
+      console.log("shadcn/ui already installed");
+    }
 
-    console.log(`Installing Craft Design System components...`);
+    // Find or create components directory
+    const componentsDir = await findComponentsDir();
+    console.log(
+      `Components directory ready at ${path.relative(
+        process.cwd(),
+        componentsDir
+      )}`
+    );
 
-    // Only ask about replacement if it's not an update scenario
-    if (!existingInstall.exists && existsSync(destinationDir)) {
+    // Check for existing craft component
+    const craftPath = path.join(componentsDir, "craft.tsx");
+    if (existsSync(craftPath)) {
       const replace = await promptUser(
-        `Craft components already exist in ${path.relative(
-          process.cwd(),
-          destinationDir
-        )}. Do you want to replace them? (yes/no)`,
+        "Craft component already exists. Do you want to replace it? (yes/no)",
         "no"
       );
       if (replace.toLowerCase() !== "yes") {
         console.log("Installation aborted.");
         process.exit(0);
       }
-      // Backup existing files
-      backupDir = await backupExistingFiles(destinationDir);
     }
 
-    // Read component contents
-    const craftContent = await fs.readFile(craftPath, "utf8");
+    // Copy craft component
+    const sourcePath = path.join(__dirname, "..", "craft.tsx");
+    await fs.copyFile(sourcePath, craftPath);
+    console.log("Craft component installed");
 
-    // Create components/craft directory if it doesn't exist
-    await fs.mkdir(destinationDir, { recursive: true });
-
-    // Write component file
-    await fs.writeFile(destinationCraftPath, craftContent.trim());
-    console.log("Component file written successfully");
-
-    console.log("Installing dependencies...");
-
-    const packageManager = detectPackageManager();
-
-    // Check if components.json exists
-    if (!existsSync(path.join(process.cwd(), "components.json"))) {
-      // Install shadcn-ui
-      runCommand(`npx shadcn@latest init`);
-    } else {
-      console.log("components.json found. Skipping shadcn-ui installation.");
-    }
-
-    // Install additional dependencies
-    const installCmd =
-      packageManager === "npm" ? "npm install" : `${packageManager} add`;
+    // Install remaining dependencies
+    console.log("Installing additional dependencies...");
     runCommand(`${installCmd} clsx tailwind-merge tailwindcss-animate`);
 
-    // Get the relative path for import statements
-    const importPath = path
-      .relative(process.cwd(), destinationDir)
-      .replace(/\\/g, "/") // Convert Windows paths to forward slashes
-      .replace(/^src\//, "@/") // Replace src/ with @/ for Next.js path aliases
-      .replace(/^app\//, "@/"); // Replace app/ with @/ for Next.js path aliases
-
-    const successMessage = existingInstall.exists
-      ? `\n✨ Success! Craft Design System has been ${
-          existingInstall.isOldVersion ? "migrated" : "updated"
-        } in ${path.relative(process.cwd(), destinationDir)}.`
-      : `\n✨ Success! Craft Design System has been installed in ${path.relative(
-          process.cwd(),
-          destinationDir
-        )}.`;
-
-    console.log(successMessage);
-
-    if (existingInstall.isOldVersion) {
-      console.log(
-        "\nℹ️  Your project has been migrated to the new TypeScript version."
-      );
-      console.log("   Please update your imports to use the new path.");
-    }
-
-    if (backupDir) {
-      console.log(
-        `ℹ️  Previous version backed up to: ${path.relative(
-          process.cwd(),
-          backupDir
-        )}`
-      );
-    }
+    console.log(
+      "\nSuccess! Craft Design System has been installed in ${path.relative(process.cwd(), componentsDir)}."
+    );
 
     console.log("\nTo use Craft in your project:");
-    if (existingInstall.isOldVersion) {
-      console.log("\nUpdate your imports:");
-      console.log('   Old: import { ... } from "@/components/craft"');
-      console.log(`   New: import { ... } from "${importPath}"`);
-    }
-    console.log("\n1. Import components in your pages:");
-    console.log(`   import { Main, Section, Container } from "${importPath}"`);
+    console.log(
+      `1. Import components from "${path.relative(process.cwd(), craftPath)}"`
+    );
+    console.log(
+      '   import { Main, Section, Container } from "@/components/craft";'
+    );
     console.log("\n2. Start using components in your app:");
     console.log(`   export default function Page() {
      return (
@@ -313,21 +194,6 @@ async function main() {
   } catch (error) {
     console.error("\nAn error occurred during the installation:");
     console.error(error.message);
-
-    // Cleanup on error if backup was made
-    if (backupDir) {
-      try {
-        const destinationDir = path.join(await getComponentsPath(), "craft");
-        if (existsSync(destinationDir)) {
-          await fs.rm(destinationDir, { recursive: true });
-        }
-        await fs.rename(backupDir, destinationDir);
-        console.log("Restored previous version from backup");
-      } catch (restoreError) {
-        console.error("Failed to restore from backup:", restoreError.message);
-        console.error(`Manual restore may be needed from: ${backupDir}`);
-      }
-    }
 
     process.exit(1);
   } finally {
