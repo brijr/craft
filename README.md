@@ -1,5 +1,7 @@
 # Craft Design System
 
+[View Demo Site](https://craft-ds.com)
+
 Craft is a lightweight, flexible design system for building responsive layouts in React and handling prose. It provides a set of foundational components that make it easy to create consistent, maintainable layouts while leveraging the power of Tailwind CSS.
 
 ## Features
