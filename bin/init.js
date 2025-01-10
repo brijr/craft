@@ -88,7 +88,7 @@ async function backupExistingFiles(destinationDir) {
 
 // Validate source files exist
 async function validateSourceFiles(craftDir) {
-  const requiredFiles = ["index.tsx", "craft.css"];
+  const requiredFiles = ["craft.tsx"];
   const missingFiles = [];
 
   for (const file of requiredFiles) {
@@ -176,12 +176,12 @@ async function main() {
     console.log("Valid Next.js project detected");
 
     const componentName = await promptUser(
-      "Enter the component name for the main file (default is index.tsx)",
-      "index.tsx"
+      "Enter the component name for the main file (default is craft.tsx)",
+      "craft.tsx"
     );
 
     // Define source and destination paths
-    const craftDir = path.join(__dirname, "..", "craft");
+    const craftDir = path.join(__dirname, "..");
     await validateSourceFiles(craftDir);
     console.log("Source files validated");
 
@@ -195,7 +195,7 @@ async function main() {
         `Updating existing Craft installation (${existingInstall.type})`
       );
       if (existingInstall.isOldVersion) {
-        console.log("Migrating from single-file to directory structure");
+        console.log("Migrating to new TypeScript version");
       }
     } else {
       console.log(
@@ -207,10 +207,8 @@ async function main() {
     }
 
     const destinationDir = path.join(componentsPath, "craft");
-    const indexPath = path.join(craftDir, "index.tsx");
-    const cssPath = path.join(craftDir, "craft.css");
-    const destinationIndexPath = path.join(destinationDir, componentName);
-    const destinationCssPath = path.join(destinationDir, "craft.css");
+    const craftPath = path.join(craftDir, "craft.tsx");
+    const destinationCraftPath = path.join(destinationDir, componentName);
 
     console.log(`Installing Craft Design System components...`);
 
@@ -232,20 +230,14 @@ async function main() {
     }
 
     // Read component contents
-    const [indexContent, cssContent] = await Promise.all([
-      fs.readFile(indexPath, "utf8"),
-      fs.readFile(cssPath, "utf8"),
-    ]);
+    const craftContent = await fs.readFile(craftPath, "utf8");
 
     // Create components/craft directory if it doesn't exist
     await fs.mkdir(destinationDir, { recursive: true });
 
-    // Write component files
-    await Promise.all([
-      fs.writeFile(destinationIndexPath, indexContent.trim()),
-      fs.writeFile(destinationCssPath, cssContent.trim()),
-    ]);
-    console.log("Component files written successfully");
+    // Write component file
+    await fs.writeFile(destinationCraftPath, craftContent.trim());
+    console.log("Component file written successfully");
 
     console.log("Installing dependencies...");
 
@@ -262,9 +254,7 @@ async function main() {
     // Install additional dependencies
     const installCmd =
       packageManager === "npm" ? "npm install" : `${packageManager} add`;
-    runCommand(
-      `${installCmd} clsx tailwind-merge tailwindcss-animate react-wrap-balancer`
-    );
+    runCommand(`${installCmd} clsx tailwind-merge tailwindcss-animate`);
 
     // Get the relative path for import statements
     const importPath = path
@@ -286,7 +276,7 @@ async function main() {
 
     if (existingInstall.isOldVersion) {
       console.log(
-        "\nℹ️  Your project has been migrated from the single-file to the directory structure."
+        "\nℹ️  Your project has been migrated to the new TypeScript version."
       );
       console.log("   Please update your imports to use the new path.");
     }
@@ -306,11 +296,9 @@ async function main() {
       console.log('   Old: import { ... } from "@/components/craft"');
       console.log(`   New: import { ... } from "${importPath}"`);
     }
-    console.log("1. Import the CSS in your app/globals.css or layout.tsx:");
-    console.log(`   import "${importPath}/craft.css"`);
-    console.log("\n2. Import components in your pages:");
+    console.log("\n1. Import components in your pages:");
     console.log(`   import { Main, Section, Container } from "${importPath}"`);
-    console.log("\n3. Start using components in your app:");
+    console.log("\n2. Start using components in your app:");
     console.log(`   export default function Page() {
      return (
        <Main>
