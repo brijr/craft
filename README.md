@@ -1,16 +1,43 @@
-# Craft Design System Documentation
+# Craft Design System
 
 Craft is a lightweight, flexible design system for building responsive layouts in React and handling prose. It provides a set of foundational components that make it easy to create consistent, maintainable layouts while leveraging the power of Tailwind CSS.
 
-## Installation
+## Features
+
+- **Modern Styling**: Built with Tailwind CSS and compatible with shadcn/ui
+- **Responsive Design**: First-class support for responsive layouts
+- **Type-Safe**: Written in TypeScript with strong type inference
+- **Performance**: Zero runtime overhead, all styles are compiled
+- **Accessible**: Built with WCAG guidelines in mind
+- **Lightweight**: No external dependencies beyond Tailwind CSS
+
+## Requirements
+
+- Node.js 18 or higher (recommended 20+)
+- Next.js 13 or higher (recommended 15+)
+- shadcn/ui (for the color system)
+- Tailwind CSS
+- TypeScript (recommended)
+
+## Quick Start
 
 ```bash
-# If using npm
+# Using npm
 npx init craft-ds
 
-# If using pnpm
+# Using pnpm (recommended)
 pnpx init craft-ds
+
+# Using yarn
+yarn create craft-ds
 ```
+
+The installer will:
+
+1. Check your environment and dependencies
+2. Install and configure required packages
+3. Set up the Craft component in your project
+4. Optionally install and configure shadcn/ui
 
 ## Core Components
 
@@ -28,7 +55,7 @@ export default function Page() {
 
 ### Main
 
-The primary content area of your page. Applies typography styles without spacing.
+The primary content area of your page. Applies typography styles without header spacing.
 
 ```tsx
 <Main>
@@ -58,7 +85,7 @@ Centers content and provides consistent horizontal padding.
 
 ### Article
 
-Applies typography and spacing styles, ideal for long-form content.
+Applies typography and spacing styles (including header spacing), ideal for long-form content.
 
 ```tsx
 <Article>
@@ -69,7 +96,7 @@ Applies typography and spacing styles, ideal for long-form content.
 
 ### Prose
 
-Similar to Article but without max-width constraints. Perfect for rich text content.
+Similar to Article but without max-width constraints and header spacing. Perfect for rich text content.
 
 ```tsx
 <Prose>{/* Rich text content */}</Prose>
@@ -78,6 +105,18 @@ Similar to Article but without max-width constraints. Perfect for rich text cont
 ### Box
 
 A powerful layout component that supports both Flexbox and Grid layouts with responsive properties.
+
+#### Type-Safe Props
+
+```typescript
+interface BoxProps {
+  direction?: ResponsiveValue<"row" | "col">;
+  wrap?: ResponsiveValue<"wrap" | "nowrap">;
+  gap?: ResponsiveValue<0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12>;
+  cols?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
+  rows?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
+}
+```
 
 #### Flex Layout Example:
 
@@ -98,124 +137,62 @@ A powerful layout component that supports both Flexbox and Grid layouts with res
 </Box>
 ```
 
+## Typography System
+
+Craft provides a comprehensive typography system that handles:
+
+- Headings (h1-h6) with proper sizing and spacing
+- Paragraphs with comfortable line height
+- Lists (ordered, unordered, and nested)
+- Code blocks and inline code
+- Tables with proper borders and spacing
+- Block quotes and citations
+- Figures and captions
+- And more...
+
+### Typography Components
+
+Choose the right typography component for your needs:
+
+- **Article**: Full typography with header spacing
+- **Prose**: Typography without header spacing
+- **Main**: Basic typography without header spacing
+
 ## Customization
 
-### 1. Component Classes
+### Tailwind Configuration
+
+Craft works seamlessly with your Tailwind configuration. You can customize:
+
+- Colors through your color palette
+- Spacing through your spacing scale
+- Typography through your font settings
+- Breakpoints through your screen configurations
+
+### Component Styling
 
 All components accept a `className` prop for custom styling:
 
 ```tsx
-<Container className="bg-gray-100 rounded-lg">{/* Content */}</Container>
-```
-
-### 2. Typography Styles
-
-Typography styles can be customized by modifying the `styles.typography` object in `craft.tsx`:
-
-```tsx
-const styles = {
-  typography: {
-    base: [
-      "font-sans antialiased",
-      "[&_h1]:text-4xl [&_h1]:font-medium",
-      // Add or modify styles here
-    ],
-  },
-};
-```
-
-### 3. Responsive Design
-
-Use Tailwind's responsive prefixes in className props:
-
-```tsx
-<Container className="px-4 sm:px-6 lg:px-8">{/* Content */}</Container>
-```
-
-### 4. Box Component Properties
-
-The Box component accepts several props for layout customization:
-
-```tsx
-interface BoxProps {
-  direction?: ResponsiveValue<"row" | "col">;
-  wrap?: ResponsiveValue<"wrap" | "nowrap">;
-  gap?: ResponsiveValue<0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12>;
-  cols?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
-  rows?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
-}
-```
-
-All properties support responsive values:
-
-```tsx
-{
-  base: "default value",
-  sm: "small screens and up",
-  md: "medium screens and up",
-  lg: "large screens and up",
-  xl: "extra large screens and up",
-  "2xl": "2x extra large screens and up"
-}
+<Container className="bg-gray-100 dark:bg-gray-900">
+  <Section className="py-12">
+    <h1>Custom Styled Section</h1>
+  </Section>
+</Container>
 ```
 
 ## Best Practices
 
-1. **Component Hierarchy**
-
-   - Use `Layout` at the root
-   - Place main content in `Main`
-   - Use `Section` to group related content
-   - Use `Container` for consistent padding
-   - Use `Article` or `Prose` for text content
-
-2. **Responsive Design**
-
-   - Start with mobile layouts
-   - Use responsive props in Box component
-   - Leverage Tailwind's responsive classes
-
-3. **Typography**
-
-   - Use `Article` or `Prose` for text-heavy content
-   - Customize typography through the styles object
-   - Maintain consistent heading hierarchy
-
-4. **Layout Patterns**
-   - Use Box for complex layouts
-   - Prefer flex layout for simple arrangements
-   - Use grid layout for uniform grid systems
-
-## Examples
-
-### Blog Post Layout
-
-```tsx
-<Layout>
-  <Main>
-    <Container>
-      <Article>
-        <h1>Blog Post Title</h1>
-        <p>Blog post content...</p>
-      </Article>
-    </Container>
-  </Main>
-</Layout>
-```
-
-### Card Grid
+### Layout Structure
 
 ```tsx
 <Layout>
   <Main>
     <Section>
       <Container>
-        <Box cols={{ base: 1, md: 2, lg: 3 }} gap={6}>
-          {cards.map((card) => (
-            <div key={card.id} className="p-4 border rounded">
-              {card.content}
-            </div>
-          ))}
+        <h1>Page Title</h1>
+        <Box cols={{ base: 1, md: 2 }} gap={6}>
+          {/* Content */}
         </Box>
       </Container>
     </Section>
@@ -223,27 +200,26 @@ All properties support responsive values:
 </Layout>
 ```
 
-### Two-Column Layout
+### Content Structure
 
 ```tsx
-<Layout>
-  <Main>
-    <Container>
-      <Box direction={{ base: "col", lg: "row" }} gap={8}>
-        <div className="flex-1">
-          <Article>
-            <h1>Main Content</h1>
-            <p>Article content...</p>
-          </Article>
-        </div>
-        <div className="w-full lg:w-1/3">
-          <Prose>
-            <h2>Sidebar</h2>
-            <p>Sidebar content...</p>
-          </Prose>
-        </div>
-      </Box>
-    </Container>
-  </Main>
-</Layout>
+<Article>
+  <h1>Article Title</h1>
+  <p>Introduction paragraph...</p>
+
+  <h2>Section Title</h2>
+  <p>Section content...</p>
+
+  <Box cols={{ base: 1, md: 2 }} gap={4}>
+    {/* Grid content */}
+  </Box>
+</Article>
 ```
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## License
+
+MIT Bridger Tower 2025
