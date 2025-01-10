@@ -122,7 +122,7 @@ const Footer = () => {
           for updates.
         </p>
         <p className="text-muted-foreground">
-          &copy; 2024 <a href="https://bridger.to">brijr</a>
+          &copy; 2025 <a href="https://bridger.to">brijr</a>
         </p>
       </Container>
     </Section>
