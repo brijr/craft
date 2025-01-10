@@ -1,4 +1,4 @@
- {
+{
   "name": "craft-ds",
   "version": "0.3.01",
   "description": "> craft-ds is a Design System developed using a group of `npm` packages and **one component file** created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀",
@@ -18,7 +18,11 @@
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.4",
+    "@types/react-dom": "^19.0.2",
     "react": "^18.3.1",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.3"
   }
 }
