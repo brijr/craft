@@ -88,9 +88,15 @@ const Header = () => {
           </Link>
           <a
             className="hover:underline underline-offset-4"
+            href="https://github.com/brijr/craft/blob/main/craft.tsx"
+          >
+            + View Source Code
+          </a>
+          <a
+            className="hover:underline underline-offset-4"
             href="https://www.npmjs.com/package/craft-ds"
           >
-            + View on npm
+            + View `craft-ds` on `npm`
           </a>
           <Link className="hover:underline underline-offset-4" href="/example">
             + View an Article Example
