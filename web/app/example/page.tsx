@@ -1,12 +1,13 @@
 import { Demo } from "@/components/demo";
+import { Container, Section, Article } from "@/components/craft";
 
 export default function Index() {
   return (
-    <section className="craft section">
-      <div className="container">
+    <Section>
+      <Container>
         <div className="grid my-12 border">
           <Demo attribute="Example Article" vertical>
-            <article className="spaced">
+            <Article>
               <h1>Sample Article Title</h1>
               <p className="lead">
                 This is a lead paragraph that introduces the article.
@@ -98,13 +99,13 @@ export default function Index() {
               </details>
               <hr />
               <small>This article was last updated on May 1, 2023.</small>
-            </article>
+            </Article>
           </Demo>
         </div>
 
         <div className="border">
           <Demo attribute="Another Example Article" vertical>
-            <article className="spaced">
+            <Article>
               <header>
                 <h1>Learning React in 2025: The Ultimate Guide</h1>
                 <div className="flex gap-2 items-center text-muted-foreground">
@@ -242,10 +243,10 @@ export default function Index() {
                   </p>
                 </aside>
               </footer>
-            </article>
+            </Article>
           </Demo>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
