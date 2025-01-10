@@ -1,5 +1,5 @@
 // craft-ds, v0.3.2
-// This is a design system for building responsive layouts in React
+// This is a design system for building responsive layouts in React and handling prose
 
 import React from "react";
 import { type ClassValue, clsx } from "clsx";
@@ -11,30 +11,75 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Base interface for common props
-interface BaseProps {
+export interface BaseProps {
   children?: React.ReactNode;
   className?: string;
   id?: string;
 }
 
 // HTML props interface for dangerouslySetInnerHTML
-interface HTMLProps {
+export interface HTMLProps {
   dangerouslySetInnerHTML?: { __html: string };
 }
 
-// Responsive property type
-type ResponsiveValue<T> = T | Partial<Record<Breakpoint, T>>;
+// Available breakpoints as a const object for better type safety
+export const BREAKPOINTS = {
+  base: "base",
+  sm: "sm",
+  md: "md",
+  lg: "lg",
+  xl: "xl",
+  "2xl": "2xl",
+} as const;
 
-// Available breakpoints
-type Breakpoint = "base" | "sm" | "md" | "lg" | "xl" | "2xl";
+export type Breakpoint = keyof typeof BREAKPOINTS;
 
-// Box-specific props
-interface BoxProps extends BaseProps {
+// Numeric constraints for better type safety
+export const GRID_VALUES = {
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  7: 7,
+  8: 8,
+  9: 9,
+  10: 10,
+  11: 11,
+  12: 12,
+} as const;
+
+export const GAP_VALUES = {
+  0: 0,
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  8: 8,
+  10: 10,
+  12: 12,
+} as const;
+
+export type GridValue = keyof typeof GRID_VALUES;
+export type GapValue = keyof typeof GAP_VALUES;
+
+// Responsive property type with better type inference
+export type ResponsiveValue<T> =
+  | T
+  | {
+      [K in Breakpoint]?: T;
+    };
+
+// Box-specific props with improved type safety
+export interface BoxProps extends BaseProps {
   direction?: ResponsiveValue<"row" | "col">;
   wrap?: ResponsiveValue<"wrap" | "nowrap">;
-  gap?: ResponsiveValue<0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12>;
-  cols?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
-  rows?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
+  gap?: ResponsiveValue<GapValue>;
+  cols?: ResponsiveValue<GridValue>;
+  rows?: ResponsiveValue<GridValue>;
 }
 
 // Style configurations
@@ -184,7 +229,7 @@ export const Article = ({
       baseTypographyStyles,
       styles.layout.spacing,
       styles.layout.article,
-      className,
+      className
     )}
     id={id}
   >
@@ -210,7 +255,7 @@ export const Prose = ({
 // Utility function for responsive classes
 const getResponsiveClass = <T extends string | number>(
   value: ResponsiveValue<T> | undefined,
-  classMap: Record<T, string>,
+  classMap: Record<T, string>
 ): string => {
   if (!value) return "";
   if (typeof value === "object") {
@@ -282,7 +327,7 @@ export const Box = ({
         getResponsiveClass(gap, gapClasses),
         cols && getResponsiveClass(cols, colsClasses),
         rows && getResponsiveClass(rows, colsClasses),
-        className,
+        className
       )}
       id={id}
     >
