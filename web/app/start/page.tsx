@@ -2,154 +2,223 @@ import { Section, Container, Prose } from "@/components/craft";
 import Markdown from "react-markdown";
 
 const readMe = `
-# Craft Design System v0.3
+# Craft Design System
 
-Craft is a minimalist Design System developed using a single component file paired with the best design tools for Next.js. It was created by [Bridger Tower](https://bridger.to) to build websites with Next.js, Tailwind, shadcn/ui, and TypeScript faster
+Craft is a lightweight, flexible design system for building responsive layouts in React and handling prose. It provides a set of foundational components that make it easy to create consistent, maintainable layouts while leveraging the power of Tailwind CSS.
+
+## Features
+
+- **Modern Styling**: Built with Tailwind CSS and compatible with shadcn/ui
+- **Responsive Design**: First-class support for responsive layouts
+- **Type-Safe**: Written in TypeScript with strong type inference
+- **Performance**: Zero runtime overhead, all styles are compiled
+- **Accessible**: Built with WCAG guidelines in mind
+- **Lightweight**: No external dependencies beyond Tailwind CSS
+
+## Requirements
+
+- Node.js 18 or higher (recommended 20+)
+- Next.js 13 or higher (recommended 15+)
+- shadcn/ui (for the color system)
+- Tailwind CSS
+- TypeScript (recommended)
 
 ## Quick Start
 
-To install Craft in your Next.js project, run:
-
 \`\`\`bash
-npx craft-ds@latest init
+# Using npm
+npx init craft-ds
+
+# Using pnpm (recommended)
+pnpx init craft-ds
+
+# Using yarn
+yarn create craft-ds
 \`\`\`
 
-or
+The installer will:
 
-\`\`\`bash
-pnpx craft-ds@latest init
-\`\`\`
-
-Or use the Starter template at [starter.bridger.to](https://starter.bridger.to)
+1. Check your environment and dependencies
+2. Install and configure required packages
+3. Set up the Craft component in your project
+4. Optionally install and configure shadcn/ui
 
 ## Core Components
 
-Craft provides several core components for building responsive layouts:
+### Layout
 
-### Layout Components
+The root component that provides base styling and structure.
 
-- \`Layout\`: Sets up the basic HTML structure and applies global styles
-- \`Main\`: Main content area of the page
-- \`Section\`: Defines sections within the page
-- \`Container\`: Contains content with a maximum width and padding
-- \`Prose\`: Component for styling long-form content with appropriate typography
-- \`Article\`: Renders articles with appropriate typography styles
-- \`Box\`: Flexible component for creating responsive layouts
+\`\`\`tsx
+import { Layout } from "@/components/craft";
 
-### Box Component
+export default function Page() {
+  return <Layout>{/* Your page content */}</Layout>;
+}
+\`\`\`
 
-The \`Box\` component is the heart of Craft's layout system. It provides a flexible way to create both flex and grid layouts with responsive controls:
+### Main
 
-\`\`\`jsx
-import { Box } from "@/components/craft";
+The primary content area of your page. Applies typography styles without header spacing.
 
-// Basic Flex Layout
-<Box direction="row" wrap={true} gap={4}>
+\`\`\`tsx
+<Main>
+  <h1>Welcome</h1>
+  <p>This content will have typography styles applied.</p>
+</Main>
+\`\`\`
+
+### Section
+
+A semantic section container for grouping related content.
+
+\`\`\`tsx
+<Section>
+  <h2>Features</h2>
+  {/* Section content */}
+</Section>
+\`\`\`
+
+### Container
+
+Centers content and provides consistent horizontal padding.
+
+\`\`\`tsx
+<Container>{/* Centered content with padding */}</Container>
+\`\`\`
+
+### Article
+
+Applies typography and spacing styles (including header spacing), ideal for long-form content.
+
+\`\`\`tsx
+<Article>
+  <h1>Article Title</h1>
+  <p>Article content with proper typography and spacing.</p>
+</Article>
+\`\`\`
+
+### Prose
+
+Similar to Article but without max-width constraints and header spacing. Perfect for rich text content.
+
+\`\`\`tsx
+<Prose>{/* Rich text content */}</Prose>
+\`\`\`
+
+### Box
+
+A powerful layout component that supports both Flexbox and Grid layouts with responsive properties.
+
+#### Type-Safe Props
+
+\`\`\`typescript
+interface BoxProps {
+  direction?: ResponsiveValue<"row" | "col">;
+  wrap?: ResponsiveValue<"wrap" | "nowrap">;
+  gap?: ResponsiveValue<0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12>;
+  cols?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
+  rows?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
+}
+\`\`\`
+
+#### Flex Layout Example:
+
+\`\`\`tsx
+<Box direction={{ base: "col", md: "row" }} wrap="wrap" gap={4}>
   <div>Item 1</div>
   <div>Item 2</div>
 </Box>
+\`\`\`
 
-// Responsive Layout
-<Box
-  direction={{
-    base: "col",
-    md: "row"
-  }}
-  wrap={{
-    base: true,
-    md: false
-  }}
-  gap={{
-    base: 2,
-    md: 4
-  }}
->
-  <div>Item 1</div>
-  <div>Item 2</div>
-</Box>
+#### Grid Layout Example:
 
-// Grid Layout
-<Box cols={{
-  base: 1,
-  md: 2,
-  lg: 3
-}} gap={4}>
+\`\`\`tsx
+<Box cols={{ base: 1, md: 2, lg: 3 }} gap={4}>
   <div>Grid Item 1</div>
   <div>Grid Item 2</div>
   <div>Grid Item 3</div>
 </Box>
 \`\`\`
 
-#### Box Props
+## Typography System
 
-- \`direction\`: Control flex direction ("row" | "col")
-- \`wrap\`: Enable/disable flex wrap
-- \`gap\`: Set spacing between items
-- \`cols\`: Define grid columns
-- \`rows\`: Define grid rows
+Craft provides a comprehensive typography system that handles:
 
-All props support responsive objects with breakpoints: base, sm, md, lg, xl, 2xl
+- Headings (h1-h6) with proper sizing and spacing
+- Paragraphs with comfortable line height
+- Lists (ordered, unordered, and nested)
+- Code blocks and inline code
+- Tables with proper borders and spacing
+- Block quotes and citations
+- Figures and captions
+- And more...
 
-### Typography
+### Typography Components
 
-Typography is handled through a modified version of [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography). The styling is applied through the \`Main\`, \`Prose\`, or \`Article\` components.
+Choose the right typography component for your needs:
 
-Example: The \`Prose\` component is available for styling long-form content with appropriate typography:
+- **Article**: Full typography with header spacing
+- **Prose**: Typography without header spacing
+- **Main**: Basic typography without header spacing
 
-\`\`\`jsx
-import { Prose } from "@/components/craft";
+## Customization
 
-<Prose>
-  <h1>Title</h1>
-  <p>Your content here...</p>
-</Prose>;
+### Tailwind Configuration
+
+Craft works seamlessly with your Tailwind configuration. You can customize:
+
+- Colors through your color palette
+- Spacing through your spacing scale
+- Typography through your font settings
+- Breakpoints through your screen configurations
+
+### Component Styling
+
+All components accept a \`className\` prop for custom styling:
+
+\`\`\`tsx
+<Container className="bg-gray-100 dark:bg-gray-900">
+  <Section className="py-12">
+    <h1>Custom Styled Section</h1>
+  </Section>
+</Container>
 \`\`\`
 
-For font management, we recommend using [Next.js Font Optimization](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) with variable fonts.
+## Best Practices
 
-### Colors
+### Layout Structure
 
-Colors are managed using [shadcn's theming system](https://ui.shadcn.com/docs/theming). Custom Tailwind classes like \`text-primary\` or \`bg-accent\` are defined in \`globals.css\`.
-
-Find color schemes at:
-
-- [ui.shadcn.com/themes](https://ui.shadcn.com/themes)
-- [ui.jln.dev](https://ui.jln.dev/)
-
-## Setup Guide
-
-1. Create a Next.js application:
-
-\`\`\`bash
-pnpx create-next-app@latest
+\`\`\`tsx
+<Layout>
+  <Main>
+    <Section>
+      <Container>
+        <h1>Page Title</h1>
+        <Box cols={{ base: 1, md: 2 }} gap={6}>
+          {/* Content */}
+        </Box>
+      </Container>
+    </Section>
+  </Main>
+</Layout>
 \`\`\`
 
-2. Install Craft (this will also install shadcn/ui and dependencies):
+### Content Structure
 
-\`\`\`bash
-pnpx craft-ds@latest init
+\`\`\`tsx
+<Article>
+  <h1>Article Title</h1>
+  <p>Introduction paragraph...</p>
+
+  <h2>Section Title</h2>
+  <p>Section content...</p>
+
+  <Box cols={{ base: 1, md: 2 }} gap={4}>
+    {/* Grid content */}
+  </Box>
+</Article>
 \`\`\`
-
-3. Import and use Craft components:
-
-\`\`\`jsx
-import {
-  Layout,
-  Main,
-  Section,
-  Container,
-  Prose,
-  Article,
-  Box,
-} from "@/components/craft";
-\`\`\`
-
-## Dependencies
-
-- [shadcn/ui](https://ui.shadcn.com): Beautifully designed, accessible components
-- [React Wrap Balancer](https://react-wrap-balancer.vercel.app/): Improves title readability
-
-For detailed documentation and examples, visit [craft.bridger.to](https://craft.bridger.to)
 `;
 
 export default function Start() {
