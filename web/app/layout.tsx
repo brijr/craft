@@ -9,7 +9,7 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Container, Section } from "../../craft";
+import { Container, Section } from "@/components/craft";
 import { Toaster } from "@/components/ui/sonner";
 import { Copy } from "@/components/copy";
 import { Github } from "lucide-react";

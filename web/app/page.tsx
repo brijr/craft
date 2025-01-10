@@ -1,61 +1,62 @@
 import { Demo } from "@/components/demo";
-import { Main, Section } from "@/components/craft";
+import { Container, Section, Prose } from "@/components/craft";
 
 export default function Index() {
   return (
-    <Section>
-      <Main>
-        <div className="border bg-accent/50 p-6">
-          Craft is a minimalist Design System that combines a single component
-          file and a single CSS file with Next.js best practices for building
-          websites quickly. It leverages{" "}
-          <a
-            href="https://nextjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Next.js
-          </a>
-          ,{" "}
-          <a
-            href="https://tailwindcss.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Tailwind
-          </a>
-          ,{" "}
-          <a
-            href="https://ui.shadcn.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            shadcn/ui
-          </a>
-          , and{" "}
-          <a
-            href="https://typescript.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            TypeScript
-          </a>{" "}
-          to provide a streamlined development experience while maintaining a
-          clean, modern aesthetic.
-        </div>
-
-        <div className="grid gap-12 my-12">
-          <Headings />
-          <TextStyles />
-          <Lists />
-          <BlockElements />
-          <InlineElements />
-          <Tables />
-          <FormElements />
-          <AdditionalElements />
-        </div>
-      </Main>
-    </Section>
+    <Prose>
+      <Section>
+        <Container>
+          <div className="border bg-accent/50 p-6">
+            Craft is a minimalist Design System that combines a single component
+            file and a single CSS file with Next.js best practices for building
+            websites quickly. It leverages{" "}
+            <a
+              href="https://nextjs.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Next.js
+            </a>
+            ,{" "}
+            <a
+              href="https://tailwindcss.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Tailwind
+            </a>
+            ,{" "}
+            <a
+              href="https://ui.shadcn.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              shadcn/ui
+            </a>
+            , and{" "}
+            <a
+              href="https://typescript.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              TypeScript
+            </a>{" "}
+            to provide a streamlined development experience while maintaining a
+            clean, modern aesthetic.
+          </div>
+          <div className="grid gap-12 my-12">
+            <Headings />
+            <TextStyles />
+            <Lists />
+            <BlockElements />
+            <InlineElements />
+            <Tables />
+            <FormElements />
+            <AdditionalElements />
+          </div>
+        </Container>
+      </Section>
+    </Prose>
   );
 }
 
