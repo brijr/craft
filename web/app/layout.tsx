@@ -77,8 +77,8 @@ const Header = () => {
         <h1 className="text-xl font-medium mb-2">Craft Design System</h1>
         <p className="craft text-muted-foreground max-w-prose">
           <Balancer>
-            Craft is an open-source, minimalist, typography-first design system
-            for building content sites and user interfaces.
+            Craft is a lightweight, flexible design system for building
+            responsive layouts in React and handling prose.
           </Balancer>
         </p>
         <Copy text="npx craft-ds@latest init" />
