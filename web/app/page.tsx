@@ -1,9 +1,10 @@
 import { Demo } from "@/components/demo";
+import { Main, Section } from "@/components/craft";
 
 export default function Index() {
   return (
-    <section className="section">
-      <div className="container craft">
+    <Section>
+      <Main>
         <div className="border bg-accent/50 p-6">
           Craft is a minimalist Design System that combines a single component
           file and a single CSS file with Next.js best practices for building
@@ -53,8 +54,8 @@ export default function Index() {
           <FormElements />
           <AdditionalElements />
         </div>
-      </div>
-    </section>
+      </Main>
+    </Section>
   );
 }
 

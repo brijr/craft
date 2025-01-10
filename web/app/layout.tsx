@@ -6,7 +6,6 @@ import Balancer from "react-wrap-balancer";
 import Link from "next/link";
 
 import "./globals.css";
-import "@/components/craft/craft.css";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
