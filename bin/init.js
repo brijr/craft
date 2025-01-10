@@ -11,11 +11,32 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+// Colored console output
+const colors = {
+  reset: "\x1b[0m",
+  green: "\x1b[32m",
+  yellow: "\x1b[33m",
+  blue: "\x1b[34m",
+  red: "\x1b[31m",
+};
+
+const log = {
+  info: (msg) => console.log(`${colors.blue}ℹ${colors.reset} ${msg}`),
+  success: (msg) => console.log(`${colors.green}✓${colors.reset} ${msg}`),
+  warn: (msg) => console.log(`${colors.yellow}⚠${colors.reset} ${msg}`),
+  error: (msg) => console.error(`${colors.red}✕${colors.reset} ${msg}`),
+};
+
 async function promptUser(question, defaultValue) {
   return new Promise((resolve) => {
-    rl.question(`${question} (default: ${defaultValue}): `, (answer) => {
-      resolve(answer.trim() || defaultValue);
-    });
+    rl.question(
+      `${colors.blue}?${colors.reset} ${question} ${
+        defaultValue ? `(default: ${defaultValue})` : ""
+      }: `,
+      (answer) => {
+        resolve(answer.trim() || defaultValue);
+      }
+    );
   });
 }
 
@@ -26,34 +47,53 @@ function detectPackageManager() {
   return "pnpm"; // Default to pnpm
 }
 
-function runCommand(command) {
-  console.log(`Running: ${command}`);
-  execSync(command, { stdio: "inherit" });
+async function runCommand(command, silent = false) {
+  if (!silent) log.info(`Running: ${command}`);
+  try {
+    execSync(command, { stdio: silent ? "ignore" : "inherit" });
+    return true;
+  } catch (error) {
+    if (!silent) log.error(`Command failed: ${command}`);
+    return false;
+  }
+}
+
+// Check Node.js version
+function checkNodeVersion() {
+  const version = process.version.match(/^v(\d+)\./)[1];
+  const minVersion = 18;
+
+  if (parseInt(version) < minVersion) {
+    throw new Error(
+      `Node.js version ${minVersion} or higher is required. Current version: ${process.version}`
+    );
+  }
 }
 
 // Validation and project structure detection
 async function validateProject() {
-  // Check for package.json
-  if (!existsSync(path.join(process.cwd(), "package.json"))) {
+  const packageJsonPath = path.join(process.cwd(), "package.json");
+
+  if (!existsSync(packageJsonPath)) {
     throw new Error(
       "No package.json found. Please run this command in a Next.js project root directory."
     );
   }
 
-  // Read and validate package.json
-  const packageJson = JSON.parse(
-    await fs.readFile(path.join(process.cwd(), "package.json"), "utf8")
-  );
+  const packageJson = JSON.parse(await fs.readFile(packageJsonPath, "utf8"));
+  const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
 
-  // Check for Next.js dependency
-  const hasNextJs =
-    (packageJson.dependencies && packageJson.dependencies.next) ||
-    (packageJson.devDependencies && packageJson.devDependencies.next);
-
-  if (!hasNextJs) {
+  if (!deps.next) {
     throw new Error(
       "This project doesn't appear to be a Next.js project. Please ensure Next.js is installed."
     );
+  }
+
+  // Check Next.js version
+  const nextVersion = deps.next.replace(/[^0-9.]/g, "");
+  const [major] = nextVersion.split(".");
+  if (parseInt(major) < 14) {
+    log.warn("Craft works best with Next.js 14 or higher. Consider upgrading.");
   }
 
   return packageJson;
@@ -70,6 +110,8 @@ async function checkDependencies() {
   return {
     hasShadcn: existsSync(path.join(process.cwd(), "components.json")),
     hasTailwind: deps["tailwindcss"] !== undefined,
+    hasClsx: deps["clsx"] !== undefined,
+    hasTailwindMerge: deps["tailwind-merge"] !== undefined,
   };
 }
 
@@ -80,6 +122,15 @@ async function findComponentsDir() {
     path.join(process.cwd(), "src", "components"),
     path.join(process.cwd(), "components"),
   ];
+
+  // Check if we're in a monorepo
+  const isMonorepo =
+    existsSync(path.join(process.cwd(), "packages")) ||
+    existsSync(path.join(process.cwd(), "apps"));
+
+  if (isMonorepo) {
+    log.warn("Monorepo detected. Installing in the current working directory.");
+  }
 
   for (const dir of possiblePaths) {
     if (existsSync(dir)) {
@@ -107,14 +158,19 @@ async function findComponentsDir() {
 
 async function main() {
   try {
-    console.log("Welcome to the Craft Design System installer!");
+    log.info("Welcome to the Craft Design System installer!");
+
+    // Check Node.js version
+    checkNodeVersion();
+    log.success("Node.js version check passed");
 
     // Validate project structure
     await validateProject();
-    console.log("Valid Next.js project detected");
+    log.success("Valid Next.js project detected");
 
     // Check dependencies
-    const { hasShadcn, hasTailwind } = await checkDependencies();
+    const { hasShadcn, hasTailwind, hasClsx, hasTailwindMerge } =
+      await checkDependencies();
 
     // Install required dependencies
     const packageManager = detectPackageManager();
@@ -122,24 +178,32 @@ async function main() {
       packageManager === "npm" ? "npm install" : `${packageManager} add`;
 
     if (!hasTailwind) {
-      console.log("Installing Tailwind CSS...");
-      runCommand(`${installCmd} -D tailwindcss`);
-      console.log("Tailwind CSS installed");
+      log.info("Installing Tailwind CSS...");
+      await runCommand(`${installCmd} -D tailwindcss`);
+      log.success("Tailwind CSS installed");
     } else {
-      console.log("Tailwind CSS already installed");
+      log.success("Tailwind CSS already installed");
     }
 
     if (!hasShadcn) {
-      console.log("Installing shadcn/ui...");
-      runCommand(`npx shadcn@latest init`);
-      console.log("shadcn/ui installed");
+      log.info("Installing shadcn/ui...");
+      const shouldInstall = await promptUser(
+        "Would you like to install and configure shadcn/ui? (recommended)",
+        "yes"
+      );
+      if (shouldInstall.toLowerCase() === "yes") {
+        await runCommand(`npx shadcn@latest init`);
+        log.success("shadcn/ui installed");
+      } else {
+        log.warn("Skipping shadcn/ui installation");
+      }
     } else {
-      console.log("shadcn/ui already installed");
+      log.success("shadcn/ui already installed");
     }
 
     // Find or create components directory
     const componentsDir = await findComponentsDir();
-    console.log(
+    log.success(
       `Components directory ready at ${path.relative(
         process.cwd(),
         componentsDir
@@ -150,11 +214,11 @@ async function main() {
     const craftPath = path.join(componentsDir, "craft.tsx");
     if (existsSync(craftPath)) {
       const replace = await promptUser(
-        "Craft component already exists. Do you want to replace it? (yes/no)",
+        "Craft component already exists. Do you want to replace it?",
         "no"
       );
       if (replace.toLowerCase() !== "yes") {
-        console.log("Installation aborted.");
+        log.info("Installation aborted.");
         process.exit(0);
       }
     }
@@ -162,25 +226,30 @@ async function main() {
     // Copy craft component
     const sourcePath = path.join(__dirname, "..", "craft.tsx");
     await fs.copyFile(sourcePath, craftPath);
-    console.log("Craft component installed");
+    log.success("Craft component installed");
 
-    // Install remaining dependencies
-    console.log("Installing additional dependencies...");
-    runCommand(`${installCmd} clsx tailwind-merge tailwindcss-animate`);
+    // Install remaining dependencies if needed
+    if (!hasClsx || !hasTailwindMerge) {
+      log.info("Installing additional dependencies...");
+      await runCommand(`${installCmd} clsx tailwind-merge`);
+      log.success("Additional dependencies installed");
+    }
 
-    console.log(
-      "\nSuccess! Craft Design System has been installed in ${path.relative(process.cwd(), componentsDir)}."
+    // Final success message
+    console.log("\n" + "=".repeat(50));
+    log.success(
+      `Craft Design System installed in ${path.relative(
+        process.cwd(),
+        componentsDir
+      )}`
     );
-
     console.log("\nTo use Craft in your project:");
     console.log(
-      `1. Import components from "${path.relative(process.cwd(), craftPath)}"`
+      `1. Import components:\n   ${colors.blue}import { Main, Section, Container } from "@/components/craft";${colors.reset}`
     );
+    console.log("\n2. Use in your app:");
     console.log(
-      '   import { Main, Section, Container } from "@/components/craft";'
-    );
-    console.log("\n2. Start using components in your app:");
-    console.log(`   export default function Page() {
+      `   ${colors.blue}export default function Page() {
      return (
        <Main>
          <Section>
@@ -190,11 +259,12 @@ async function main() {
          </Section>
        </Main>
      );
-   }`);
+   }${colors.reset}`
+    );
+    console.log("\n" + "=".repeat(50));
   } catch (error) {
-    console.error("\nAn error occurred during the installation:");
-    console.error(error.message);
-
+    log.error("An error occurred during installation:");
+    log.error(error.message);
     process.exit(1);
   } finally {
     rl.close();
