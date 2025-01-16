@@ -1,4 +1,4 @@
-// craft-ds, v0.3.2
+// craft-ds, v0.3.3
 // This is a design system for building responsive layouts in React and handling prose
 
 import React from "react";
@@ -15,6 +15,7 @@ export interface BaseProps {
   children?: React.ReactNode;
   className?: string;
   id?: string;
+  style?: React.CSSProperties;
 }
 
 // HTML props interface for dangerouslySetInnerHTML
@@ -202,30 +203,35 @@ const articleTypographyStyles = [
 ];
 
 // Components
-export const Layout = ({ children, className }: BaseProps) => (
+export const Layout = ({ children, className, style }: BaseProps) => (
   <html
     lang="en"
     suppressHydrationWarning
     className={cn("scroll-smooth antialiased focus:scroll-auto", className)}
+    style={style}
   >
     {children}
   </html>
 );
 
-export const Main = ({ children, className, id }: BaseProps) => (
-  <main className={cn(baseTypographyStyles, className)} id={id}>
+export const Main = ({ children, className, id, style }: BaseProps) => (
+  <main className={cn(baseTypographyStyles, className)} id={id} style={style}>
     {children}
   </main>
 );
 
-export const Section = ({ children, className, id }: BaseProps) => (
-  <section className={cn(styles.layout.section, className)} id={id}>
+export const Section = ({ children, className, id, style }: BaseProps) => (
+  <section
+    className={cn(styles.layout.section, className)}
+    id={id}
+    style={style}
+  >
     {children}
   </section>
 );
 
-export const Container = ({ children, className, id }: BaseProps) => (
-  <div className={cn(styles.layout.container, className)} id={id}>
+export const Container = ({ children, className, id, style }: BaseProps) => (
+  <div className={cn(styles.layout.container, className)} id={id} style={style}>
     {children}
   </div>
 );
@@ -235,6 +241,7 @@ export const Article = ({
   className,
   id,
   dangerouslySetInnerHTML,
+  style,
 }: BaseProps & HTMLProps) => (
   <article
     dangerouslySetInnerHTML={dangerouslySetInnerHTML}
@@ -245,6 +252,7 @@ export const Article = ({
       className
     )}
     id={id}
+    style={style}
   >
     {children}
   </article>
@@ -255,33 +263,17 @@ export const Prose = ({
   className,
   id,
   dangerouslySetInnerHTML,
+  style,
 }: BaseProps & HTMLProps) => (
   <div
     dangerouslySetInnerHTML={dangerouslySetInnerHTML}
     className={cn(baseTypographyStyles, styles.layout.spacing, className)}
     id={id}
+    style={style}
   >
     {children}
   </div>
 );
-
-// Utility function for responsive classes
-const getResponsiveClass = <T extends string | number>(
-  value: ResponsiveValue<T> | undefined,
-  classMap: Record<T, string>
-): string => {
-  if (!value) return "";
-  if (typeof value === "object") {
-    return Object.entries(value)
-      .map(([breakpoint, val]) => {
-        const prefix = breakpoint === "base" ? "" : `${breakpoint}:`;
-        return val ? `${prefix}${classMap[val as T]}` : "";
-      })
-      .filter(Boolean)
-      .join(" ");
-  }
-  return classMap[value];
-};
 
 export const Box = ({
   children,
@@ -292,6 +284,7 @@ export const Box = ({
   cols,
   rows,
   id,
+  style,
 }: BoxProps) => {
   const directionClasses = {
     row: "flex-row",
@@ -343,8 +336,27 @@ export const Box = ({
         className
       )}
       id={id}
+      style={style}
     >
       {children}
     </div>
   );
+};
+
+// Utility function for responsive classes
+const getResponsiveClass = <T extends string | number>(
+  value: ResponsiveValue<T> | undefined,
+  classMap: Record<T, string>
+): string => {
+  if (!value) return "";
+  if (typeof value === "object") {
+    return Object.entries(value)
+      .map(([breakpoint, val]) => {
+        const prefix = breakpoint === "base" ? "" : `${breakpoint}:`;
+        return val ? `${prefix}${classMap[val as T]}` : "";
+      })
+      .filter(Boolean)
+      .join(" ");
+  }
+  return classMap[value];
 };
