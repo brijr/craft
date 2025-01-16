@@ -12,6 +12,7 @@ Craft is a lightweight, flexible design system for building responsive layouts i
 - **Performance**: Zero runtime overhead, all styles are compiled
 - **Accessible**: Built with WCAG guidelines in mind
 - **Lightweight**: No external dependencies beyond Tailwind CSS
+- **Inline Styles Support**: Easily apply custom styles directly to components
 
 ## Requirements
 
