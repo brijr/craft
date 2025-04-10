@@ -84,6 +84,7 @@ const Header = () => {
           </Balancer>
         </p>
         <Copy text="npx craft-ds@latest init" />
+        <Copy text="npx shadcn@latest add --from=https://github.com/brijr/craft" />
         <div className="my-8 grid gap-2">
           <a
             className="hover:underline underline-offset-4"

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "craft-registry",
+  "description": "Registry for Craft Design System components",
+  "version": "0.3.52",
+  "styles": [
+    {
+      "name": "default",
+      "label": "Default"
+    }
+  ],
+  "items": [
+    {
+      "name": "craft-ds",
+      "style": "default",
+      "path": "./registry-item.json"
+    }
+  ]
+}

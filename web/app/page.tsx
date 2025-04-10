@@ -1,3 +1,4 @@
+import { GitHubButton } from "@/components/github-button";
 import { Container, Section, Prose } from "@/components/ds";
 import { Demo } from "@/components/demo";
 
@@ -48,6 +49,7 @@ const Intro = () => {
       </a>{" "}
       to provide a streamlined development experience while maintaining a clean,
       modern aesthetic.
+      <GitHubButton />
     </Prose>
   );
 };
