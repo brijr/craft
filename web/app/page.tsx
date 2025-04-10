@@ -1,5 +1,5 @@
+import { Container, Section, Prose } from "@/components/ds";
 import { Demo } from "@/components/demo";
-import { Container, Section, Prose } from "@/components/craft";
 
 export default function Index() {
   return (
