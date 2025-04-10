@@ -170,22 +170,22 @@ export const Prose = ({
         "[&_h5:not(:first-child)]:mt-3 [&_h5]:mb-2",
         "[&_h6:not(:first-child)]:mt-3 [&_h6]:mb-2",
         // Heading styles
-        "[&_h1]:text-4xl [&_h1]:sm:text-5xl [&_h1]:font-medium [&_h1]:tracking-tight [&_h1]:text-balance",
-        "[&_h2]:text-3xl [&_h2]:sm:text-4xl [&_h2]:font-medium [&_h2]:tracking-tight [&_h2]:text-balance",
-        "[&_h3]:text-2xl [&_h3]:sm:text-3xl [&_h3]:font-medium [&_h3]:tracking-tight [&_h3]:text-balance",
-        "[&_h4]:text-xl [&_h4]:sm:text-2xl [&_h4]:tracking-tight [&_h4]:text-balance",
-        "[&_h5]:text-lg [&_h5]:sm:text-xl [&_h5]:tracking-tight [&_h5]:text-balance",
-        "[&_h6]:text-base [&_h6]:sm:text-lg [&_h6]:tracking-tight [&_h6]:text-balance",
+        "[&_h1]:text-4xl sm:[&_h1]:text-5xl [&_h1]:font-medium [&_h1]:tracking-tight [&_h1]:text-balance",
+        "[&_h2]:text-3xl sm:[&_h2]:text-4xl [&_h2]:font-medium [&_h2]:tracking-tight [&_h2]:text-balance",
+        "[&_h3]:text-2xl sm:[&_h3]:text-3xl [&_h3]:font-medium [&_h3]:tracking-tight [&_h3]:text-balance",
+        "[&_h4]:text-xl sm:[&_h4]:text-2xl [&_h4]:tracking-tight [&_h4]:text-balance",
+        "[&_h5]:text-lg sm:[&_h5]:text-xl [&_h5]:tracking-tight [&_h5]:text-balance",
+        "[&_h6]:text-base sm:[&_h6]:text-lg [&_h6]:tracking-tight [&_h6]:text-balance",
         // Paragraph styles
         "[&_p]:text-pretty [&_p]:text-base",
         // Inline text styles
         "[&_strong]:font-semibold",
         "[&_em]:italic",
         "[&_del]:line-through",
-        "[&_small]:text-sm [&_small]:sm:text-base [&_small]:font-medium [&_small]:leading-snug",
+        "[&_small]:text-sm sm:[&_small]:text-base [&_small]:font-medium [&_small]:leading-snug",
         "[&_sub]:text-sm [&_sub]:align-baseline [&_sup]:text-sm [&_sup]:align-baseline",
         // Links (except in headings)
-        "[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:text-primary [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:dark:text-primary/50 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:transition-all [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:no-underline hover:[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:underline [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:underline-offset-2 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:decoration-primary/50 focus-visible:[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:outline-none focus-visible:[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:ring-2 focus-visible:[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:ring-primary/50",
+        "[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:text-primary dark:[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:text-primary/50 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:transition-all [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:no-underline [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:hover:underline [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:underline-offset-2 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:decoration-primary/50 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:outline-hidden [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:ring-2 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:ring-primary/50",
         // Lists
         "[&_ul]:pl-0 [&_ul]:list-none [&_ul]:space-y-2",
         "[&_ul>li]:relative [&_ul>li]:pl-6",
@@ -208,12 +208,12 @@ export const Prose = ({
         "[&_h5>code:not(pre_code)]:text-inherit [&_h5>code:not(pre_code)]:tracking-tight",
         "[&_h6>code:not(pre_code)]:text-inherit [&_h6>code:not(pre_code)]:tracking-tight",
         // Specific heading code block sizes
-        "[&_h1>code:not(pre_code)]:text-4xl [&_h1>code:not(pre_code)]:sm:text-5xl",
-        "[&_h2>code:not(pre_code)]:text-3xl [&_h2>code:not(pre_code)]:sm:text-4xl",
-        "[&_h3>code:not(pre_code)]:text-2xl [&_h3>code:not(pre_code)]:sm:text-3xl",
-        "[&_h4>code:not(pre_code)]:text-xl [&_h4>code:not(pre_code)]:sm:text-2xl",
-        "[&_h5>code:not(pre_code)]:text-lg [&_h5>code:not(pre_code)]:sm:text-xl",
-        "[&_h6>code:not(pre_code)]:text-base [&_h6>code:not(pre_code)]:sm:text-lg",
+        "[&_h1>code:not(pre_code)]:text-4xl sm:[&_h1>code:not(pre_code)]:text-5xl",
+        "[&_h2>code:not(pre_code)]:text-3xl sm:[&_h2>code:not(pre_code)]:text-4xl",
+        "[&_h3>code:not(pre_code)]:text-2xl sm:[&_h3>code:not(pre_code)]:text-3xl",
+        "[&_h4>code:not(pre_code)]:text-xl sm:[&_h4>code:not(pre_code)]:text-2xl",
+        "[&_h5>code:not(pre_code)]:text-lg sm:[&_h5>code:not(pre_code)]:text-xl",
+        "[&_h6>code:not(pre_code)]:text-base sm:[&_h6>code:not(pre_code)]:text-lg",
         // Pre blocks
         "[&_pre]:overflow-x-auto [&_pre]:rounded-sm [&_pre]:border [&_pre]:bg-muted/50 [&_pre]:p-4 [&_pre]:my-4",
         "[&_pre>code]:bg-transparent [&_pre>code]:p-0",
@@ -227,15 +227,15 @@ export const Prose = ({
         "[&_img]:border [&_img]:my-4 [&_img]:max-w-full [&_img]:h-auto",
         "[&_video]:border [&_video]:my-4 [&_video]:max-w-full [&_video]:h-auto",
         "[&_figure]:my-4",
-        "[&_figcaption]:text-sm [&_figcaption]:!mb-6 [&_figcaption]:text-muted-foreground",
+        "[&_figcaption]:text-sm [&_figcaption]:mb-6! [&_figcaption]:text-muted-foreground",
         // Block elements
-        "[&_blockquote]:border-l-4 [&_blockquote]:border-border [&_blockquote]:!pl-4 [&_blockquote]:py-2 [&_blockquote]:my-4 [&_blockquote]:text-muted-foreground [&_blockquote]:bg-muted/30",
-        "[&_hr]:!my-8 [&_hr]:border-t-2 [&_hr]:border-border/50",
-        "[&_p:has(>hr)]:!my-8 [&_p:has(>hr)]:border-t-2 [&_p:has(>hr)]:border-border/50",
+        "[&_blockquote]:border-l-4 [&_blockquote]:border-border [&_blockquote]:pl-4! [&_blockquote]:py-2 [&_blockquote]:my-4 [&_blockquote]:text-muted-foreground [&_blockquote]:bg-muted/30",
+        "[&_hr]:my-8! [&_hr]:border-t-2 [&_hr]:border-border/50",
+        "[&_p:has(>hr)]:my-8! [&_p:has(>hr)]:border-t-2 [&_p:has(>hr)]:border-border/50",
         "[&_details]:rounded-sm [&_details]:border [&_details]:px-4 [&_details]:py-2 [&_details]:my-4",
-        "[&_summary]:cursor-pointer [&_summary]:font-semibold [&_summary]:focus-visible:outline-none",
+        "[&_summary]:cursor-pointer [&_summary]:font-semibold focus-visible:[&_summary]:outline-hidden",
         // Interactive elements
-        "[&_kbd]:rounded-sm [&_kbd]:border [&_kbd]:bg-muted [&_kbd]:px-1.5 [&_kbd]:py-0.5 [&_kbd]:text-sm [&_kbd]:font-mono [&_kbd]:shadow-sm [&_kbd]:align-middle",
+        "[&_kbd]:rounded-sm [&_kbd]:border [&_kbd]:bg-muted [&_kbd]:px-1.5 [&_kbd]:py-0.5 [&_kbd]:text-sm [&_kbd]:font-mono [&_kbd]:shadow-xs [&_kbd]:align-middle",
         isArticle && "max-w-prose",
         className
       )}
