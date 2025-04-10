@@ -85,7 +85,7 @@ const Header = () => {
         </p>
         <Copy text="pnpx craft-ds@latest init" />
         <Copy
-          text={`pnpx shadcn@latest add "https://github.com/brijr/craft/blob/main/registry.json"`}
+          text={`pnpx shadcn@latest add "https://raw.githubusercontent.com/brijr/craft/main/registry.json"`}
         />
         <div className="my-8 grid gap-2">
           <a
