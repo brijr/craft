@@ -8,7 +8,7 @@
     {
       "path": "ds.tsx",
       "type": "registry:component",
-      "target": "components/ui/ds.tsx"
+      "target": "../ds.tsx"
     }
   ]
 }
