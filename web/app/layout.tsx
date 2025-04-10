@@ -83,8 +83,10 @@ const Header = () => {
             responsive layouts in React and handling prose.
           </Balancer>
         </p>
-        <Copy text="npx craft-ds@latest init" />
-        <Copy text="npx shadcn@latest add --from=https://github.com/brijr/craft" />
+        <Copy text="pnpx craft-ds@latest init" />
+        <Copy
+          text={`pnpx shadcn@latest add "https://github.com/brijr/craft/blob/main/registry.json"`}
+        />
         <div className="my-8 grid gap-2">
           <a
             className="hover:underline underline-offset-4"
