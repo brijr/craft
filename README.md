@@ -46,30 +46,30 @@ The installer will:
 
 ### Layout
 
-The root component that provides base styling and structure.
+The root component that provides base styling and structure for the HTML document.
 
 ```tsx
 import { Layout } from "@/components/craft";
 
-export default function Page() {
-  return <Layout>{/* Your page content */}</Layout>;
+export default function RootLayout({ children }) {
+  return <Layout>{children}</Layout>;
 }
 ```
 
 ### Main
 
-The primary content area of your page. Applies typography styles without header spacing.
+The primary content area of your page.
 
 ```tsx
 <Main>
   <h1>Welcome</h1>
-  <p>This content will have typography styles applied.</p>
+  <p>This content will be in the main section.</p>
 </Main>
 ```
 
 ### Section
 
-A semantic section container for grouping related content.
+A semantic section container for grouping related content with vertical padding.
 
 ```tsx
 <Section>
@@ -80,86 +80,111 @@ A semantic section container for grouping related content.
 
 ### Container
 
-Centers content and provides consistent horizontal padding.
+Centers content with a maximum width and provides consistent padding.
 
 ```tsx
 <Container>{/* Centered content with padding */}</Container>
 ```
 
-### Article
+### Nav
 
-Applies typography and spacing styles (including header spacing), ideal for long-form content.
+Creates a navigation container with an inner div for navigation elements.
 
 ```tsx
-<Article>
-  <h1>Article Title</h1>
-  <p>Article content with proper typography and spacing.</p>
-</Article>
+<Nav>
+  <div>Logo</div>
+  <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/about">About</a>
+    </li>
+  </ul>
+</Nav>
 ```
 
 ### Prose
 
-Similar to Article but without max-width constraints and header spacing. Perfect for rich text content.
+A powerful component for rich text content with extensive typography styling. Can be rendered as an article element when needed.
 
 ```tsx
-<Prose>{/* Rich text content */}</Prose>
+// As a div (default)
+<Prose>
+  <h1>Rich Text Content</h1>
+  <p>Content with proper typography styling.</p>
+</Prose>
+
+// As an article with spacing
+<Prose isArticle={true} isSpaced={true}>
+  <h1>Article Title</h1>
+  <p>Article content with proper typography and spacing.</p>
+</Prose>
 ```
 
-### Box
+## Component Props
 
-A powerful layout component that supports both Flexbox and Grid layouts with responsive properties.
-
-#### Type-Safe Props
+All components share a common props interface:
 
 ```typescript
-interface BoxProps {
-  direction?: ResponsiveValue<"row" | "col">;
-  wrap?: ResponsiveValue<"wrap" | "nowrap">;
-  gap?: ResponsiveValue<0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12>;
-  cols?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
-  rows?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
-}
-```
-
-#### Flex Layout Example:
-
-```tsx
-<Box direction={{ base: "col", md: "row" }} wrap="wrap" gap={4}>
-  <div>Item 1</div>
-  <div>Item 2</div>
-</Box>
-```
-
-#### Grid Layout Example:
-
-```tsx
-<Box cols={{ base: 1, md: 2, lg: 3 }} gap={4}>
-  <div>Grid Item 1</div>
-  <div>Grid Item 2</div>
-  <div>Grid Item 3</div>
-</Box>
+type DSProps = {
+  className?: string;
+  children?: React.ReactNode;
+  id?: string;
+  style?: React.CSSProperties;
+  dangerouslySetInnerHTML?: { __html: string };
+  containerClassName?: string; // Used in Nav component
+  isArticle?: boolean; // Used in Prose component
+  isSpaced?: boolean; // Used in Prose component
+};
 ```
 
 ## Typography System
 
-Craft provides a comprehensive typography system that handles:
+The Prose component provides a comprehensive typography system that handles:
 
-- Headings (h1-h6) with proper sizing and spacing
-- Paragraphs with comfortable line height
-- Lists (ordered, unordered, and nested)
-- Code blocks and inline code
-- Tables with proper borders and spacing
-- Block quotes and citations
-- Figures and captions
-- And more...
+- **Headings (h1-h6)**: Responsive sizing, proper tracking, and text balance
+- **Paragraphs**: Text prettifying and proper base sizing
+- **Inline Text**: Styling for strong, em, del, small, sub, and sup elements
+- **Links**: Special styling with hover and focus states
+- **Lists**: Styled ordered, unordered, and nested lists
+- **Definition Lists**: Styled dt and dd elements
+- **Code Blocks**: Different styling for inline code vs. code blocks
+- **Tables**: Fully styled tables with alternating row colors
+- **Media**: Styling for images, videos, figures, and captions
+- **Block Elements**: Styling for blockquotes, horizontal rules, and details/summary
+- **Interactive Elements**: Styling for keyboard shortcuts and abbreviations
 
-### Typography Components
+### Typography Example
 
-Choose the right typography component for your needs:
+```tsx
+<Prose isSpaced={true}>
+  <h1>Main Heading</h1>
+  <p>Introduction paragraph with <a href="#">links</a> and <code>inline code</code>.</p>
 
-- **Article**: Full typography with header spacing
-- **Prose**: Typography without header spacing
-- **Main**: Basic typography without header spacing
+  <h2>Section Heading</h2>
+  <p>More content with <strong>strong text</strong> and <em>emphasis</em>.</p>
+
+  <ul>
+    <li>List item one</li>
+    <li>List item two
+      <ul>
+        <li>Nested list item</li>
+
+      </ul>
+    </li>
+  </ul>
+
+  <blockquote>
+    <p>This is a blockquote with styled borders and background.</p>
+  </blockquote>
+
+  <pre><code>// This is a code block
+function example() {
+  return true;
+}</code></pre>
+</Prose>
+```
 
 ## Customization
 
@@ -190,13 +215,12 @@ All components accept a `className` prop for custom styling:
 
 ```tsx
 <Layout>
+  <Nav>{/* Navigation content */}</Nav>
   <Main>
     <Section>
       <Container>
         <h1>Page Title</h1>
-        <Box cols={{ base: 1, md: 2 }} gap={6}>
-          {/* Content */}
-        </Box>
+        {/* Content */}
       </Container>
     </Section>
   </Main>
@@ -206,17 +230,15 @@ All components accept a `className` prop for custom styling:
 ### Content Structure
 
 ```tsx
-<Article>
+<Prose isArticle={true} isSpaced={true}>
   <h1>Article Title</h1>
   <p>Introduction paragraph...</p>
 
   <h2>Section Title</h2>
   <p>Section content...</p>
 
-  <Box cols={{ base: 1, md: 2 }} gap={4}>
-    {/* Grid content */}
-  </Box>
-</Article>
+  {/* Rich content with full typography styling */}
+</Prose>
 ```
 
 ## Contributing
