@@ -84,9 +84,7 @@ const Header = () => {
           </Balancer>
         </p>
         <Copy text="pnpx craft-ds@latest init" />
-        <Copy
-          text={`pnpx shadcn@latest add "https://raw.githubusercontent.com/brijr/craft/main/craft-ds.json"`}
-        />
+        <Copy text={`pnpx shadcn@latest add "https://craft-ds.com/shadcn"`} />
         <div className="my-8 grid gap-2">
           <a
             className="hover:underline underline-offset-4"
