@@ -3,6 +3,7 @@
   "name": "craft-registry",
   "description": "Registry for Craft Design System components",
   "version": "0.3.52",
+  "type": "registry",
   "styles": [
     {
       "name": "default",
