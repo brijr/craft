@@ -1,5 +1,5 @@
 import { Demo } from "@/components/demo";
-import { Container, Section, Article } from "@/components/craft";
+import { Container, Section, Prose } from "@/components/ds";
 
 export default function Index() {
   return (
@@ -7,7 +7,7 @@ export default function Index() {
       <Container>
         <div className="grid my-12 border">
           <Demo attribute="Example Article" vertical>
-            <Article>
+            <Prose isArticle>
               <h1>Sample Article Title</h1>
               <p className="lead">
                 This is a lead paragraph that introduces the article.
@@ -99,13 +99,13 @@ export default function Index() {
               </details>
               <hr />
               <small>This article was last updated on May 1, 2023.</small>
-            </Article>
+            </Prose>
           </Demo>
         </div>
 
         <div className="border">
           <Demo attribute="Another Example Article" vertical>
-            <Article>
+            <Prose>
               <header>
                 <h1>Learning React in 2025: The Ultimate Guide</h1>
                 <div className="flex gap-2 items-center text-muted-foreground">
@@ -143,6 +143,7 @@ export default function Index() {
                 </div>
 
                 <h2>Core Concepts to Master</h2>
+
                 <div>
                   <section>
                     <h3>React Hooks in 2025</h3>
@@ -224,7 +225,7 @@ export default function Index() {
 
                 <figure>
                   <img
-                    src="https://via.placeholder.com/800x400"
+                    src="https://images.unsplash.com/photo-1742593323531-c6c4dcd12351?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     alt="React Development Workflow"
                     width={800}
                     height={400}
@@ -243,7 +244,7 @@ export default function Index() {
                   </p>
                 </aside>
               </footer>
-            </Article>
+            </Prose>
           </Demo>
         </div>
       </Container>

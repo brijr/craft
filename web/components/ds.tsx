@@ -27,6 +27,7 @@ type DSProps = {
   dangerouslySetInnerHTML?: { __html: string };
   containerClassName?: string;
   isArticle?: boolean;
+  isSpaced?: boolean;
 };
 
 /**
@@ -152,6 +153,7 @@ export const Prose = ({
   dangerouslySetInnerHTML,
   style,
   isArticle = false,
+  isSpaced = false,
 }: DSProps) => {
   const Component = isArticle ? "article" : "div";
 
@@ -160,15 +162,6 @@ export const Prose = ({
       className={cn(
         // Base classes
         "antialiased text-base leading-7",
-        // Space between children
-        "space-y-3",
-        // Heading spacing
-        "[&_h1:not(:first-child)]:mt-3 [&_h1]:mb-2",
-        "[&_h2:not(:first-child)]:mt-3 [&_h2]:mb-2",
-        "[&_h3:not(:first-child)]:mt-3 [&_h3]:mb-2",
-        "[&_h4:not(:first-child)]:mt-3 [&_h4]:mb-2",
-        "[&_h5:not(:first-child)]:mt-3 [&_h5]:mb-2",
-        "[&_h6:not(:first-child)]:mt-3 [&_h6]:mb-2",
         // Heading styles
         "[&_h1]:text-4xl sm:[&_h1]:text-5xl [&_h1]:font-medium [&_h1]:tracking-tight [&_h1]:text-balance",
         "[&_h2]:text-3xl sm:[&_h2]:text-4xl [&_h2]:font-medium [&_h2]:tracking-tight [&_h2]:text-balance",
@@ -237,6 +230,15 @@ export const Prose = ({
         // Interactive elements
         "[&_kbd]:rounded-sm [&_kbd]:border [&_kbd]:bg-muted [&_kbd]:px-1.5 [&_kbd]:py-0.5 [&_kbd]:text-sm [&_kbd]:font-mono [&_kbd]:shadow-xs [&_kbd]:align-middle",
         isArticle && "max-w-prose",
+        // Space between children
+        isSpaced ? "space-y-6" : "",
+        // Heading spacing
+        isSpaced ? "[&_h1:not(:first-child)]:mt-8 [&_h1]:mb-4" : "",
+        isSpaced ? "[&_h2:not(:first-child)]:mt-8 [&_h2]:mb-4" : "",
+        isSpaced ? "[&_h3:not(:first-child)]:mt-6 [&_h3]:mb-3" : "",
+        isSpaced ? "[&_h4:not(:first-child)]:mt-6 [&_h4]:mb-3" : "",
+        isSpaced ? "[&_h5:not(:first-child)]:mt-6 [&_h5]:mb-2" : "",
+        isSpaced ? "[&_h6:not(:first-child)]:mt-4 [&_h6]:mb-2" : "",
         className
       )}
       id={id}
