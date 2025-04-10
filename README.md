@@ -4,6 +4,22 @@
 
 Craft is a lightweight, flexible design system for building responsive layouts in React and handling prose. It provides a set of foundational components that make it easy to create consistent, maintainable layouts while leveraging the power of Tailwind CSS.
 
+## Quick Start
+
+To quickly get up and building with shadcn and craft use this command:
+
+```bash
+pnpx shadcn init my-app
+cd my-app
+pnpx craft-ds init
+```
+
+To add to an existing project, use:
+
+```bash
+pnpx craft-ds init
+```
+
 ## Features
 
 - **Modern Styling**: Built with Tailwind CSS and compatible with shadcn/ui
