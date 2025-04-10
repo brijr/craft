@@ -15,7 +15,7 @@
       "name": "craft-ds",
       "style": "default",
       "path": "./registry-item.json",
-      "type": "registry:component"
+      "type": "registry:ui"
     }
   ]
 }
