@@ -5,61 +5,136 @@ export default function Index() {
   return (
     <Section>
       <Container>
-        <Prose className="border bg-accent/50 p-6 mb-12">
-          Craft is a minimalist Design System that combines a single component
-          file and a single CSS file with Next.js best practices for building
-          websites quickly. It leverages{" "}
-          <a
-            href="https://nextjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Next.js
-          </a>
-          ,{" "}
-          <a
-            href="https://tailwindcss.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Tailwind
-          </a>
-          ,{" "}
-          <a
-            href="https://ui.shadcn.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            shadcn/ui
-          </a>
-          , and{" "}
-          <a
-            href="https://typescript.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            TypeScript
-          </a>{" "}
-          to provide a streamlined development experience while maintaining a
-          clean, modern aesthetic.
-        </Prose>
-
-        <Prose>
-          <div className="grid gap-12 my-12">
-            <Headings />
-            <TextStyles />
-            <Lists />
-            <BlockElements />
-            <InlineElements />
-            <Tables />
-            <FormElements />
-            <AdditionalElements />
-          </div>
-        </Prose>
+        <Intro />
+        <LayoutExample />
+        <ProseExample />
       </Container>
     </Section>
   );
 }
+
+const Intro = () => {
+  return (
+    <Prose className="border bg-accent/50 p-6 mb-12">
+      Craft is a minimalist Design System that combines a single component file
+      and a single CSS file with Next.js best practices for building websites
+      quickly. It leverages{" "}
+      <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
+        Next.js
+      </a>
+      ,{" "}
+      <a
+        href="https://tailwindcss.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Tailwind
+      </a>
+      ,{" "}
+      <a
+        href="https://ui.shadcn.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        shadcn/ui
+      </a>
+      , and{" "}
+      <a
+        href="https://typescript.org/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        TypeScript
+      </a>{" "}
+      to provide a streamlined development experience while maintaining a clean,
+      modern aesthetic.
+    </Prose>
+  );
+};
+
+const LayoutExample = () => {
+  return (
+    <Prose isSpaced className="border p-6 mb-12">
+      <h2>Layout Setup</h2>
+      <p>
+        Craft provides a set of layout components that make it easy to structure
+        your pages. Here's how to use them:
+      </p>
+
+      <h3>Basic Layout Structure</h3>
+      <pre>
+        <code>{`// In your layout.tsx
+import { Layout } from "@/components/ds";
+
+export default function RootLayout({ children }) {
+  return <Layout>{children}</Layout>;
+}`}</code>
+      </pre>
+
+      <h3>Page Structure</h3>
+      <p>
+        For individual pages, use the <code>Section</code>,{" "}
+        <code>Container</code>, and <code>Prose</code> components:
+      </p>
+      <pre>
+        <code>{`// In your page.tsx
+import { Section, Container, Prose } from "@/components/ds";
+
+export default function Page() {
+  return (
+    <Section>
+      <Container>
+        <Prose>
+          <h1>Page Title</h1>
+          <p>Your content here...</p>
+        </Prose>
+      </Container>
+    </Section>
+  );
+}`}</code>
+      </pre>
+
+      <h3>Navigation</h3>
+      <p>
+        For navigation elements, use the <code>Nav</code> component:
+      </p>
+      <pre>
+        <code>{`import { Nav } from "@/components/ds";
+
+export function Navigation() {
+  return (
+    <Nav>
+      <div className="flex justify-between items-center">
+        <div>Logo</div>
+        <ul className="flex gap-4">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </div>
+    </Nav>
+  );
+}`}</code>
+      </pre>
+    </Prose>
+  );
+};
+
+const ProseExample = () => {
+  return (
+    <Prose>
+      <div className="grid gap-12 my-12">
+        <Headings />
+        <TextStyles />
+        <Lists />
+        <BlockElements />
+        <InlineElements />
+        <Tables />
+        <FormElements />
+        <AdditionalElements />
+      </div>
+    </Prose>
+  );
+};
 
 const Headings = () => {
   return (
