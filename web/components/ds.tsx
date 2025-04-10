@@ -222,7 +222,7 @@ export const Prose = ({
         "[&_th]:px-4 [&_th]:py-3 [&_th]:text-left [&_th]:font-semibold [&_th]:border-r",
         "[&_td]:px-4 [&_td]:py-2 [&_td]:border-r",
         // Media
-        "[&_img]:border [&_img]:my-4 [&_img]:max-w-full [&_img]:h-auto",
+        "[&_img]:border [&_img]:my-4 [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-sm",
         "[&_video]:border [&_video]:my-4 [&_video]:max-w-full [&_video]:h-auto [&_video]:rounded-sm",
         "[&_figure]:my-4",
         "[&_figcaption]:text-sm [&_figcaption]:mb-6! [&_figcaption]:text-muted-foreground",

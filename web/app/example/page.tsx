@@ -7,7 +7,7 @@ export default function Index() {
       <Container>
         <div className="grid my-12 border">
           <Demo attribute="Example Article" vertical>
-            <Prose isArticle>
+            <Prose isArticle isSpaced>
               <h1>Sample Article Title</h1>
               <p className="lead">
                 This is a lead paragraph that introduces the article.
@@ -55,7 +55,7 @@ export default function Index() {
               </pre>
               <figure>
                 <img
-                  src="https://via.placeholder.com/600x300"
+                  src="https://images.unsplash.com/photo-1743167150074-4fe3fd1cd2b6?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Placeholder image"
                 />
                 <figcaption>
@@ -105,7 +105,7 @@ export default function Index() {
 
         <div className="border">
           <Demo attribute="Another Example Article" vertical>
-            <Prose>
+            <Prose isSpaced>
               <header>
                 <h1>Learning React in 2025: The Ultimate Guide</h1>
                 <div className="flex gap-2 items-center text-muted-foreground">
