@@ -58,7 +58,7 @@ const LayoutExample = () => {
       <h2>Layout Setup</h2>
       <p>
         Craft provides a set of layout components that make it easy to structure
-        your pages. Here's how to use them:
+        your pages. Here is how to use them:
       </p>
 
       <h3>Basic Layout Structure</h3>
