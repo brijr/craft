@@ -97,23 +97,15 @@ const TextStyles = () => {
         <Demo attribute="p">
           <p>Regular paragraph text.</p>
         </Demo>
-        <Demo attribute="lead">
-          <p className="lead">
-            Lead paragraph text that stands out from regular text.
-          </p>
-        </Demo>
         <Demo attribute="large">
           <p className="large">
             Large text that&apos;s bigger than regular text.
           </p>
         </Demo>
         <Demo attribute="small">
-          <p className="small">
+          <small className="small">
             Small text that&apos;s smaller than regular text.
-          </p>
-        </Demo>
-        <Demo attribute="muted">
-          <p className="muted">Muted text with reduced emphasis.</p>
+          </small>
         </Demo>
       </div>
     </div>
@@ -142,6 +134,7 @@ const Lists = () => {
           </ol>
         </Demo>
         <Demo attribute="dl">
+          <p>This is an example of a description list</p>
           <dl>
             <dt>Definition Term</dt>
             <dd>Definition description explaining the term above.</dd>

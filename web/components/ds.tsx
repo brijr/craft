@@ -173,19 +173,24 @@ export const Prose = ({
         "[&_p]:text-pretty [&_p]:text-base",
         // Inline text styles
         "[&_strong]:font-semibold",
+        "[&_muted]:text-muted-foreground",
         "[&_em]:italic",
         "[&_del]:line-through",
-        "[&_small]:text-sm sm:[&_small]:text-base [&_small]:font-medium [&_small]:leading-snug",
+        "[&_small]:text-sm [&_small]:leading-snug",
         "[&_sub]:text-sm [&_sub]:align-baseline [&_sup]:text-sm [&_sup]:align-baseline",
         // Links (except in headings)
-        "[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:text-primary dark:[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:text-primary/50 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:transition-all [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:no-underline [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:hover:underline [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:underline-offset-2 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:decoration-primary/50 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:outline-hidden [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:ring-2 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:ring-primary/50",
+        "[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:text-primary dark:[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:text-primary/50 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:transition-all [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:no-underline [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:hover:underline [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:hover:text-primary/100 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:underline-offset-2 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:decoration-primary/50 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:outline-hidden [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:ring-2 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:ring-primary/50",
         // Lists
-        "[&_ul]:pl-0 [&_ul]:list-none [&_ul]:space-y-2",
+        "[&_ul]:pl-0 [&_ul]:py-3 [&_ul]:list-none [&_ul]:space-y-1",
         "[&_ul>li]:relative [&_ul>li]:pl-6",
         "[&_ul>li]:before:absolute [&_ul>li]:before:left-1 [&_ul>li]:before:top-[0.6875em] [&_ul>li]:before:h-1.5 [&_ul>li]:before:w-1.5 [&_ul>li]:before:rounded-full [&_ul>li]:before:bg-foreground/80 [&_ul>li]:before:content-['']",
-        "[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:space-y-2",
+        "[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:py-3 [&_ol]:space-y-1",
         "[&_ol>ol]:list-[lower-alpha]",
         "[&_ol>ol>ol]:list-[lower-roman]",
+        // Definition list
+        "[&_dl]:py-3 [&_dl]:space-y-1",
+        "[&_dt]:font-medium [&_dt]:text-sm [&_dt]:leading-snug [&_dt:not(:first-child)]:mt-3",
+        "[&_dd]:text-sm [&_dd]:leading-snug [&_dd]:text-muted-foreground",
         // List item base styling
         "[&_li]:pl-2 [&_li]:marker:text-foreground/80",
         "[&_li>ul]:mt-2 [&_li>ul]:mb-0 [&_li>ol]:mt-2 [&_li>ol]:mb-0",
