@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "craft-ds",
+  "title": "Craft Design System",
+  "description": "A lightweight, flexible design system for building responsive layouts in React and handling prose content.",
+  "type": "registry:style",
+  "author": "Bridger Tower",
+  "dependencies": [
+    "tailwindcss",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "./ds.tsx",
+      "type": "registry:component"
+    }
+  ],
+  "docs": "Craft Design System provides layout components (Layout, Main, Section, Container, Nav) and a powerful Prose component for rich text styling. Import from '@/components/ds'.",
+  "categories": ["layout", "typography", "design-system"],
+  "meta": {
+    "version": "0.3.52",
+    "repository": "https://github.com/brijr/craft",
+    "website": "https://craft-ds.com"
+  }
+}
