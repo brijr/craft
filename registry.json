@@ -14,7 +14,7 @@
     {
       "name": "craft-ds",
       "style": "default",
-      "path": "./registry-item.json",
+      "path": "./ds.tsx",
       "type": "registry:ui"
     }
   ]
