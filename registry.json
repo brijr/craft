@@ -14,10 +14,8 @@
     {
       "name": "craft-ds",
       "style": "default",
-      "path": "./ds.tsx",
-      "type": "registry:component",
-      "title": "Craft Design System",
-      "description": "A lightweight, flexible design system for building responsive layouts in React and handling prose content."
+      "path": "./registry/craft-ds.json",
+      "type": "registry:component"
     }
   ]
 }
