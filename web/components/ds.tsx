@@ -223,7 +223,7 @@ export const Prose = ({
         "[&_td]:px-4 [&_td]:py-2 [&_td]:border-r",
         // Media
         "[&_img]:border [&_img]:my-4 [&_img]:max-w-full [&_img]:h-auto",
-        "[&_video]:border [&_video]:my-4 [&_video]:max-w-full [&_video]:h-auto",
+        "[&_video]:border [&_video]:my-4 [&_video]:max-w-full [&_video]:h-auto [&_video]:rounded-sm",
         "[&_figure]:my-4",
         "[&_figcaption]:text-sm [&_figcaption]:mb-6! [&_figcaption]:text-muted-foreground",
         // Block elements
@@ -234,6 +234,8 @@ export const Prose = ({
         "[&_summary]:cursor-pointer [&_summary]:font-semibold focus-visible:[&_summary]:outline-hidden",
         // Interactive elements
         "[&_kbd]:rounded-sm [&_kbd]:border [&_kbd]:bg-muted [&_kbd]:px-1.5 [&_kbd]:py-0.5 [&_kbd]:text-sm [&_kbd]:font-mono [&_kbd]:shadow-xs [&_kbd]:align-middle",
+        // Abbreviations
+        "[&_abbr]:border-b [&_abbr]:border-dotted [&_abbr]:decoration-muted-foreground [&_abbr]:underline-offset-2 [&_abbr]:cursor-help",
         isArticle && "max-w-prose",
         // Space between children
         isSpaced ? "space-y-6" : "",
