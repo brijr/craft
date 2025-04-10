@@ -3,7 +3,7 @@
   "name": "craft-registry",
   "description": "Registry for Craft Design System components",
   "version": "0.3.52",
-  "type": "registry",
+  "homepage": "https://github.com/brijr/craft",
   "styles": [
     {
       "name": "default",
@@ -15,7 +15,9 @@
       "name": "craft-ds",
       "style": "default",
       "path": "./ds.tsx",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "title": "Craft Design System",
+      "description": "A lightweight, flexible design system for building responsive layouts in React and handling prose content."
     }
   ]
 }
