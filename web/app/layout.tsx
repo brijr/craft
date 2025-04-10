@@ -89,7 +89,7 @@ const Header = () => {
           </Link>
           <a
             className="hover:underline underline-offset-4"
-            href="https://github.com/brijr/craft/blob/main/craft.tsx"
+            href="https://github.com/brijr/craft/blob/main/ds.tsx"
           >
             + View Source Code
           </a>
