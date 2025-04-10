@@ -12,10 +12,10 @@
   ],
   "items": [
     {
-      "type": "registry:component",
       "name": "craft-ds",
       "style": "default",
-      "path": "./ds.tsx"
+      "path": "./registry-item.json",
+      "type": "registry:component"
     }
   ]
 }
