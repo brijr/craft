@@ -1,49 +1,50 @@
+import { Container, Section, Prose } from "@/components/ds";
 import { Demo } from "@/components/demo";
-import { Container, Section, Prose } from "@/components/craft";
 
 export default function Index() {
   return (
-    <Prose>
-      <Section>
-        <Container>
-          <div className="border bg-accent/50 p-6">
-            Craft is a minimalist Design System that combines a single component
-            file and a single CSS file with Next.js best practices for building
-            websites quickly. It leverages{" "}
-            <a
-              href="https://nextjs.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Next.js
-            </a>
-            ,{" "}
-            <a
-              href="https://tailwindcss.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Tailwind
-            </a>
-            ,{" "}
-            <a
-              href="https://ui.shadcn.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              shadcn/ui
-            </a>
-            , and{" "}
-            <a
-              href="https://typescript.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              TypeScript
-            </a>{" "}
-            to provide a streamlined development experience while maintaining a
-            clean, modern aesthetic.
-          </div>
+    <Section>
+      <Container>
+        <Prose className="border bg-accent/50 p-6 mb-12">
+          Craft is a minimalist Design System that combines a single component
+          file and a single CSS file with Next.js best practices for building
+          websites quickly. It leverages{" "}
+          <a
+            href="https://nextjs.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Next.js
+          </a>
+          ,{" "}
+          <a
+            href="https://tailwindcss.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Tailwind
+          </a>
+          ,{" "}
+          <a
+            href="https://ui.shadcn.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            shadcn/ui
+          </a>
+          , and{" "}
+          <a
+            href="https://typescript.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            TypeScript
+          </a>{" "}
+          to provide a streamlined development experience while maintaining a
+          clean, modern aesthetic.
+        </Prose>
+
+        <Prose>
           <div className="grid gap-12 my-12">
             <Headings />
             <TextStyles />
@@ -54,9 +55,9 @@ export default function Index() {
             <FormElements />
             <AdditionalElements />
           </div>
-        </Container>
-      </Section>
-    </Prose>
+        </Prose>
+      </Container>
+    </Section>
   );
 }
 
@@ -96,23 +97,15 @@ const TextStyles = () => {
         <Demo attribute="p">
           <p>Regular paragraph text.</p>
         </Demo>
-        <Demo attribute="lead">
-          <p className="lead">
-            Lead paragraph text that stands out from regular text.
-          </p>
-        </Demo>
         <Demo attribute="large">
           <p className="large">
             Large text that&apos;s bigger than regular text.
           </p>
         </Demo>
         <Demo attribute="small">
-          <p className="small">
+          <small className="small">
             Small text that&apos;s smaller than regular text.
-          </p>
-        </Demo>
-        <Demo attribute="muted">
-          <p className="muted">Muted text with reduced emphasis.</p>
+          </small>
         </Demo>
       </div>
     </div>
@@ -141,6 +134,7 @@ const Lists = () => {
           </ol>
         </Demo>
         <Demo attribute="dl">
+          <p>This is an example of a description list</p>
           <dl>
             <dt>Definition Term</dt>
             <dd>Definition description explaining the term above.</dd>
@@ -181,7 +175,10 @@ const BlockElements = () => {
         </Demo>
         <Demo attribute="figure">
           <figure>
-            <img src="https://via.placeholder.com/400x200" alt="Example" />
+            <img
+              src="https://images.unsplash.com/photo-1742593323531-c6c4dcd12351?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Example"
+            />
             <figcaption>A sample image with a caption</figcaption>
           </figure>
         </Demo>

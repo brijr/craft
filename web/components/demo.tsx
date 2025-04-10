@@ -13,11 +13,11 @@ export const Demo = ({ children, attribute, vertical }: Props) => {
     >
       <div className="p-2 sm:p-4 bg-accent/50 border-b sm:border-b-0">
         <p className="sr-only">HTML Attribute</p>
-        <p className="!text-sm">{attribute}</p>
+        <p className="text-sm!">{attribute}</p>
       </div>
 
       <div className="p-6 relative bg-background">
-        <p className="text-muted-foreground hidden sm:block !text-xs absolute top-2 right-2">
+        <p className="text-muted-foreground hidden sm:block text-xs! absolute top-2 right-2">
           Preview
         </p>
         {children}

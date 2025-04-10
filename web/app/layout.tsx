@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -7,12 +6,14 @@ import Link from "next/link";
 
 import "./globals.css";
 
+import { Container, Section } from "@/components/ds";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Container, Section } from "@/components/craft";
 import { Toaster } from "@/components/ui/sonner";
-import { Copy } from "@/components/copy";
 import { Github } from "lucide-react";
+import { Copy } from "@/components/copy";
+
+import type { Metadata } from "next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -88,7 +89,7 @@ const Header = () => {
           </Link>
           <a
             className="hover:underline underline-offset-4"
-            href="https://github.com/brijr/craft/blob/main/craft.tsx"
+            href="https://github.com/brijr/craft/blob/main/ds.tsx"
           >
             + View Source Code
           </a>
