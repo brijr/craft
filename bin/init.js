@@ -35,7 +35,7 @@ async function promptUser(question, defaultValue) {
       }: `,
       (answer) => {
         resolve(answer.trim() || defaultValue);
-      },
+      }
     );
   });
 }
@@ -65,7 +65,7 @@ function checkNodeVersion() {
 
   if (parseInt(version) < minVersion) {
     throw new Error(
-      `Node.js version ${minVersion} or higher is required. Current version: ${process.version}`,
+      `Node.js version ${minVersion} or higher is required. Current version: ${process.version}`
     );
   }
 }
@@ -76,7 +76,7 @@ async function validateProject() {
 
   if (!existsSync(packageJsonPath)) {
     throw new Error(
-      "No package.json found. Please run this command in a Next.js project root directory.",
+      "No package.json found. Please run this command in a Next.js project root directory."
     );
   }
 
@@ -85,7 +85,7 @@ async function validateProject() {
 
   if (!deps.next) {
     throw new Error(
-      "This project doesn't appear to be a Next.js project. Please ensure Next.js is installed.",
+      "This project doesn't appear to be a Next.js project. Please ensure Next.js is installed."
     );
   }
 
@@ -102,7 +102,7 @@ async function validateProject() {
 // Check for required dependencies
 async function checkDependencies() {
   const packageJson = JSON.parse(
-    await fs.readFile(path.join(process.cwd(), "package.json"), "utf8"),
+    await fs.readFile(path.join(process.cwd(), "package.json"), "utf8")
   );
 
   const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
@@ -189,7 +189,7 @@ async function main() {
       log.info("Installing shadcn/ui...");
       const shouldInstall = await promptUser(
         "Would you like to install and configure shadcn/ui? (recommended)",
-        "yes",
+        "yes"
       );
       if (shouldInstall.toLowerCase() === "yes") {
         await runCommand(`npx shadcn@latest init`);
@@ -206,8 +206,8 @@ async function main() {
     log.success(
       `Components directory ready at ${path.relative(
         process.cwd(),
-        componentsDir,
-      )}`,
+        componentsDir
+      )}`
     );
 
     // Check for existing craft component
@@ -215,7 +215,7 @@ async function main() {
     if (existsSync(craftPath)) {
       const replace = await promptUser(
         "Craft component already exists. Do you want to replace it?",
-        "no",
+        "no"
       );
       if (replace.toLowerCase() !== "yes") {
         log.info("Installation aborted.");
@@ -240,12 +240,12 @@ async function main() {
     log.success(
       `Craft Design System installed in ${path.relative(
         process.cwd(),
-        componentsDir,
-      )}`,
+        componentsDir
+      )}`
     );
     console.log("\nTo use Craft in your project:");
     console.log(
-      `1. Import components:\n   ${colors.blue}import { Main, Section, Container } from "@/components/craft";${colors.reset}`,
+      `1. Import components:\n   ${colors.blue}import { Main, Section, Container } from "@/components/ds";${colors.reset}`
     );
     console.log("\n2. Use in your app:");
     console.log(
@@ -259,7 +259,7 @@ async function main() {
          </Section>
        </Main>
      );
-   }${colors.reset}`,
+   }${colors.reset}`
     );
     console.log("\n" + "=".repeat(50));
   } catch (error) {
