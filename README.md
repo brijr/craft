@@ -65,7 +65,7 @@ The installer will:
 The root component that provides base styling and structure for the HTML document.
 
 ```tsx
-import { Layout } from "@/components/craft";
+import { Layout } from "@/components/ds";
 
 export default function RootLayout({ children }) {
   return <Layout>{children}</Layout>;
