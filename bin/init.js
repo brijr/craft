@@ -239,7 +239,7 @@ async function main() {
     );
     console.log("\nTo use Craft in your project:");
     console.log(
-      `1. Import components:\n   ${colors.blue}import { Main, Section, Container } from "@/components/craft";${colors.reset}`
+      `1. Import components:\n   ${colors.blue}import { Main, Section, Container } from "@/components/ds";${colors.reset}`
     );
     console.log("\n2. Use in your app:");
     console.log(
