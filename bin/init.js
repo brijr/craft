@@ -139,12 +139,6 @@ async function findComponentsDir() {
   }
 
   // If no components directory exists, create one in the appropriate location
-  if (existsSync(path.join(process.cwd(), "app"))) {
-    const dir = path.join(process.cwd(), "app", "components");
-    await fs.mkdir(dir, { recursive: true });
-    return dir;
-  }
-
   if (existsSync(path.join(process.cwd(), "src"))) {
     const dir = path.join(process.cwd(), "src", "components");
     await fs.mkdir(dir, { recursive: true });
