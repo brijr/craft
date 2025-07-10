@@ -1,28 +1,33 @@
 {
-  "name": "craft-ds",
-  "version": "0.3.56",
-  "description": "> craft-ds is a Design System developed using a group of `npm` packages and **one component file** created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀",
-  "bin": {
-    "craft-ds": "bin/init.js"
-  },
-  "main": "index.js",
+  "name": "shadcn-ui-monorepo",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "next-themes": "^0.4.6",
-    "tailwind-merge": "^2.6.0"
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "rimraf node_modules */**/node_modules"
   },
   "devDependencies": {
-    "@types/node": "^22.15.32",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "react": "^18.3.1",
-    "react-dom": "^19.1.0",
-    "typescript": "^5.8.3"
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "turbo": "^2.5.4",
+    "typescript": "5.7.3"
+  },
+  "packageManager": "pnpm@10.4.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "core-js",
+      "core-js-pure",
+      "sharp",
+      "unrs-resolver"
+    ]
   }
 }
