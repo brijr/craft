@@ -1,27 +1,95 @@
-interface Props {
+import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
+
+import { colors } from "@workspace/craft-ds/tokens.stylex";
+
+const styles = stylex.create({
+  root: {
+    display: "grid",
+    gridTemplateColumns: {
+      default: "1fr",
+      "@media (min-width: 640px)": "8rem minmax(0, 3fr)",
+    },
+    minWidth: 0,
+  },
+  vertical: {
+    gridTemplateColumns: "1fr",
+  },
+  label: {
+    backgroundColor: colors.accent,
+    borderBlockEndColor: colors.border,
+    borderBlockEndStyle: "solid",
+    borderBlockEndWidth: {
+      default: 1,
+      "@media (min-width: 640px)": 0,
+    },
+    borderInlineEndColor: colors.border,
+    borderInlineEndStyle: "solid",
+    borderInlineEndWidth: {
+      default: 0,
+      "@media (min-width: 640px)": 1,
+    },
+    padding: {
+      default: 8,
+      "@media (min-width: 640px)": 16,
+    },
+  },
+  verticalLabel: {
+    borderBlockEndWidth: 1,
+    borderInlineEndWidth: 0,
+  },
+  labelText: {
+    fontSize: 14,
+    margin: 0,
+  },
+  visuallyHidden: {
+    clip: "rect(0, 0, 0, 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    whiteSpace: "nowrap",
+    width: 1,
+  },
+  preview: {
+    backgroundColor: colors.background,
+    minWidth: 0,
+    padding: 24,
+    position: "relative",
+  },
+  previewLabel: {
+    color: colors.mutedForeground,
+    display: {
+      default: "none",
+      "@media (min-width: 640px)": "block",
+    },
+    fontSize: 12,
+    margin: 0,
+    position: "absolute",
+    right: 8,
+    top: 8,
+  },
+});
+
+export function Demo({
+  children,
+  attribute,
+  vertical = false,
+}: {
   children: React.ReactNode;
   attribute: string;
   vertical?: boolean;
-}
-
-export const Demo = ({ children, attribute, vertical }: Props) => {
+}) {
   return (
-    <section
-      className={`grid ${
-        vertical ? "divide-y" : "sm:divide-x sm:grid-cols-[8rem_3fr]"
-      }`}
-    >
-      <div className="p-2 sm:p-4 bg-accent/50 border-b sm:border-b-0">
-        <p className="sr-only">HTML Attribute</p>
-        <p className="text-sm!">{attribute}</p>
+    <section {...stylex.props(styles.root, vertical && styles.vertical)}>
+      <div {...stylex.props(styles.label, vertical && styles.verticalLabel)}>
+        <p {...stylex.props(styles.visuallyHidden)}>HTML element</p>
+        <p {...stylex.props(styles.labelText)}>{attribute}</p>
       </div>
-
-      <div className="p-6 relative bg-background">
-        <p className="text-muted-foreground hidden sm:block text-xs! absolute top-2 right-2">
-          Preview
-        </p>
+      <div {...stylex.props(styles.preview)}>
+        <p {...stylex.props(styles.previewLabel)}>Preview</p>
         {children}
       </div>
     </section>
   );
-};
+}

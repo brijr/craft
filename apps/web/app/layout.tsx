@@ -1,35 +1,99 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import * as stylex from "@stylexjs/stylex";
 import { Analytics } from "@vercel/analytics/next";
-
-import Balancer from "react-wrap-balancer";
+import { Github } from "lucide-react";
 import Link from "next/link";
+import Balancer from "react-wrap-balancer";
+
+import { Container, Section } from "@workspace/craft-ds/ds";
+import { colors } from "@workspace/craft-ds/tokens.stylex";
+import { Copy } from "@/components/copy";
+import { ThemedToaster, ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 import "./globals.css";
 
-import { Container, Section } from "@workspace/craft-ds/ds";
-import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { Toaster } from "@workspace/ui/components/sonner";
-import { Github } from "lucide-react";
-import { Copy } from "@/components/copy";
-
 import type { Metadata } from "next";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Craft Design System",
+  metadataBase: new URL("https://craft-ds.com"),
+  title: "Craft StyleX Comparison",
   description:
-    "A lightweight, flexible design system for building responsive layouts in React and handling prose.",
+    "A StyleX implementation of the Craft design system for comparing authoring models, output, and performance.",
 };
+
+const styles = stylex.create({
+  headerRow: {
+    display: "flex",
+    gap: 16,
+    justifyContent: "space-between",
+  },
+  logo: {
+    color: colors.foreground,
+    display: "block",
+    fontSize: 36,
+    lineHeight: 1,
+    marginBlockEnd: 32,
+    textDecorationLine: "none",
+  },
+  actions: {
+    display: "flex",
+    gap: 8,
+  },
+  iconButton: {
+    alignItems: "center",
+    borderColor: colors.border,
+    borderStyle: "solid",
+    borderWidth: 1,
+    color: colors.foreground,
+    display: "flex",
+    height: 36,
+    justifyContent: "center",
+    width: 36,
+  },
+  icon: {
+    height: 19,
+    width: 19,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 500,
+    marginBlock: 0,
+  },
+  subtitle: {
+    color: colors.mutedForeground,
+    marginBlockEnd: 0,
+    marginBlockStart: 8,
+    maxWidth: "65ch",
+  },
+  links: {
+    display: "grid",
+    gap: 8,
+    marginBlock: 32,
+  },
+  link: {
+    color: colors.foreground,
+    textDecorationLine: {
+      default: "none",
+      ":hover": "underline",
+    },
+    textUnderlineOffset: 4,
+  },
+  footer: {
+    display: "grid",
+    gap: 8,
+  },
+  footerText: {
+    margin: 0,
+  },
+  muted: {
+    color: colors.mutedForeground,
+  },
+  inlineLink: {
+    color: colors.foreground,
+    textDecorationLine: "underline",
+    textUnderlineOffset: 2,
+  },
+});
 
 export default function RootLayout({
   children,
@@ -38,19 +102,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+      <body>
+        <ThemeProvider>
           <Header />
           {children}
           <Footer />
-          <Toaster position="top-center" />
+          <ThemedToaster />
           <Analytics />
         </ThemeProvider>
       </body>
@@ -58,73 +115,70 @@ export default function RootLayout({
   );
 }
 
-const Header = () => {
+function Header() {
   return (
     <Section>
       <Container>
-        <div className="flex gap-4 justify-between">
-          <Link href="/" className="text-4xl block mb-8">
+        <div {...stylex.props(styles.headerRow)}>
+          <Link href="/" {...stylex.props(styles.logo)}>
             ✴︎
           </Link>
-          <div className="flex gap-2">
+          <div {...stylex.props(styles.actions)}>
             <a
-              className="h-9 w-9 relative flex items-center justify-center border"
+              aria-label="View Craft on GitHub"
               href="https://github.com/brijr/craft"
+              {...stylex.props(styles.iconButton)}
             >
-              <Github className="h-[1.2rem] w-[1.2rem]" />
+              <Github aria-hidden="true" {...stylex.props(styles.icon)} />
             </a>
             <ThemeToggle />
           </div>
         </div>
-        <h1 className="text-xl font-medium mb-2">Craft Design System</h1>
-        <p className="craft text-muted-foreground max-w-prose">
+        <h1 {...stylex.props(styles.title)}>Craft StyleX Comparison</h1>
+        <p {...stylex.props(styles.subtitle)}>
           <Balancer>
-            Craft is a lightweight, flexible design system for building
-            responsive layouts in React and handling prose.
+            The same lightweight layout and prose system, rebuilt with StyleX to
+            compare its component API, generated output, and ergonomics.
           </Balancer>
         </p>
-        <Copy text="pnpx craft-ds@latest init" />
-        {/* <Copy text={`pnpx shadcn@latest add "https://craft-ds.com/shadcn"`} /> */}
-        <div className="my-8 grid gap-2">
-          <a
-            className="hover:underline underline-offset-4"
-            href="https://www.npmjs.com/package/craft-ds"
-          >
-            + Get Started with Craft
+        <Copy text="pnpm add @stylexjs/stylex" />
+        <div {...stylex.props(styles.links)}>
+          <a href="https://stylexjs.com" {...stylex.props(styles.link)}>
+            + Read the StyleX documentation
           </a>
           <a
-            className="hover:underline underline-offset-4"
-            href="https://github.com/brijr/craft/blob/main/ds.tsx"
+            href="https://github.com/brijr/craft/blob/main/packages/craft-ds/ds.tsx"
+            {...stylex.props(styles.link)}
           >
-            + View Source Code
+            + View the original Tailwind source
           </a>
-          <Link className="hover:underline underline-offset-4" href="/example">
-            + View an Article Example
+          <Link href="/example" {...stylex.props(styles.link)}>
+            + View the StyleX article example
           </Link>
         </div>
       </Container>
     </Section>
   );
-};
+}
 
-const Footer = () => {
+function Footer() {
   return (
     <Section>
-      <Container className="space-y-2">
-        <p>
+      <Container style={styles.footer}>
+        <p {...stylex.props(styles.footerText)}>
           Follow on{" "}
           <a
-            className="text-foreground underline underline-offset-2"
             href="https://x.com/bridgertower"
+            {...stylex.props(styles.inlineLink)}
           >
             x.com
           </a>{" "}
           for updates.
         </p>
-        <p className="text-muted-foreground">
-          &copy; 2025 <a href="https://bridger.to">brijr</a>
+        <p {...stylex.props(styles.footerText, styles.muted)}>
+          &copy; 2026 <a href="https://bridger.to">brijr</a>
         </p>
       </Container>
     </Section>
   );
-};
+}

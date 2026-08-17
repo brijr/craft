@@ -1,5 +1,70 @@
-import { Container, Section, Prose } from "@workspace/craft-ds/ds";
+import * as stylex from "@stylexjs/stylex";
+
+import { Container, Prose, Section } from "@workspace/craft-ds/ds";
+import { colors, fonts, radii } from "@workspace/craft-ds/tokens.stylex";
 import { Demo } from "@/components/demo";
+
+const styles = stylex.create({
+  panel: {
+    borderColor: colors.border,
+    borderStyle: "solid",
+    borderWidth: 1,
+    padding: 24,
+  },
+  intro: {
+    backgroundColor: colors.accent,
+    marginBlockEnd: 48,
+  },
+  layoutExample: {
+    marginBlockEnd: 48,
+  },
+  showcase: {
+    display: "grid",
+    gap: 48,
+    marginBlock: 48,
+  },
+  group: {
+    display: "grid",
+    gap: 16,
+  },
+  demoList: {
+    borderColor: colors.border,
+    borderStyle: "solid",
+    borderWidth: 1,
+    display: "grid",
+  },
+  input: {
+    backgroundColor: colors.background,
+    borderColor: colors.input,
+    borderRadius: radii.medium,
+    borderStyle: "solid",
+    borderWidth: 1,
+    color: colors.foreground,
+    fontFamily: fonts.sans,
+    maxWidth: 384,
+    paddingBlock: 8,
+    paddingInline: 12,
+    width: "100%",
+  },
+  checkRow: {
+    alignItems: "center",
+    display: "flex",
+    gap: 8,
+  },
+  radioGroup: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+  },
+  sampleBlock: {
+    display: "grid",
+    gap: 16,
+  },
+  taskCheckbox: {
+    accentColor: colors.primary,
+    marginInlineEnd: 8,
+  },
+});
 
 export default function Index() {
   return (
@@ -7,122 +72,87 @@ export default function Index() {
       <Container>
         <Intro />
         <LayoutExample />
-        <ProseExample />
+        <ProseShowcase />
       </Container>
     </Section>
   );
 }
 
-const Intro = () => {
+function Intro() {
   return (
-    <Prose className="border bg-accent/50 p-6 mb-12">
-      Craft is a minimalist Design System that combines a single component file
-      and a single CSS file with Next.js best practices for building websites
-      quickly. It leverages{" "}
-      <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
-        Next.js
-      </a>
-      ,{" "}
-      <a
-        href="https://tailwindcss.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Tailwind
-      </a>
-      ,{" "}
-      <a
-        href="https://ui.shadcn.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        shadcn/ui
-      </a>
-      , and{" "}
-      <a
-        href="https://typescript.org/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        TypeScript
-      </a>{" "}
-      to provide a streamlined development experience while maintaining a clean,
-      modern aesthetic.
+    <Prose style={[styles.panel, styles.intro]}>
+      <Prose.P>
+        This comparison rebuilds Craft&apos;s layout and prose primitives with{" "}
+        <Prose.A
+          href="https://stylexjs.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          StyleX
+        </Prose.A>
+        . It keeps the same semantic HTML and visual goals while replacing
+        Tailwind utilities and descendant selectors with compiled, explicit
+        component styles.
+      </Prose.P>
     </Prose>
   );
-};
+}
 
-const LayoutExample = () => {
+function LayoutExample() {
   return (
-    <Prose isSpaced className="border p-6 mb-12">
-      <h2>Layout Setup</h2>
-      <p>
-        Craft provides a set of layout components that make it easy to structure
-        your pages. Here is how to use them:
-      </p>
+    <Prose isSpaced style={[styles.panel, styles.layoutExample]}>
+      <Prose.H2>Layout Setup</Prose.H2>
+      <Prose.P>
+        The layout component names stay the same. Customization moves from
+        string class names to typed StyleX style objects.
+      </Prose.P>
 
-      <h3>Basic Layout Structure</h3>
-      <pre>
-        <code>{`// In your layout.tsx
-import { Layout } from "@/components/ds";
+      <Prose.H3>Basic Layout Structure</Prose.H3>
+      <Prose.Pre>
+        <Prose.Code block>{`// In your layout.tsx
+import { Layout } from "@workspace/craft-ds/ds";
 
 export default function RootLayout({ children }) {
   return <Layout>{children}</Layout>;
-}`}</code>
-      </pre>
+}`}</Prose.Code>
+      </Prose.Pre>
 
-      <h3>Page Structure</h3>
-      <p>
-        For individual pages, use the <code>Section</code>,{" "}
-        <code>Container</code>, and <code>Prose</code> components:
-      </p>
-      <pre>
-        <code>{`// In your page.tsx
-import { Section, Container, Prose } from "@/components/ds";
+      <Prose.H3>Explicit Prose Structure</Prose.H3>
+      <Prose.P>
+        StyleX does not style arbitrary descendants. Each semantic element owns
+        its styles explicitly:
+      </Prose.P>
+      <Prose.Pre>
+        <Prose.Code block>{`import { Prose } from "@workspace/craft-ds/ds";
 
-export default function Page() {
+export default function Article() {
   return (
-    <Section>
-      <Container>
-        <Prose>
-          <h1>Page Title</h1>
-          <p>Your content here...</p>
-        </Prose>
-      </Container>
-    </Section>
-  );
-}`}</code>
-      </pre>
-
-      <h3>Navigation</h3>
-      <p>
-        For navigation elements, use the <code>Nav</code> component:
-      </p>
-      <pre>
-        <code>{`import { Nav } from "@/components/ds";
-
-export function Navigation() {
-  return (
-    <Nav>
-      <div className="flex justify-between items-center">
-        <div>Logo</div>
-        <ul className="flex gap-4">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-      </div>
-    </Nav>
-  );
-}`}</code>
-      </pre>
+    <Prose isArticle isSpaced>
+      <Prose.H1>Page Title</Prose.H1>
+      <Prose.P>Your content here...</Prose.P>
     </Prose>
   );
-};
+}`}</Prose.Code>
+      </Prose.Pre>
 
-const ProseExample = () => {
+      <Prose.H3>Style Composition</Prose.H3>
+      <Prose.Pre>
+        <Prose.Code block>{`const styles = stylex.create({
+  section: { paddingBlock: 48 },
+});
+
+<Section style={styles.section}>
+  <Container>Content</Container>
+</Section>`}</Prose.Code>
+      </Prose.Pre>
+    </Prose>
+  );
+}
+
+function ProseShowcase() {
   return (
     <Prose>
-      <div className="grid gap-12 my-12">
+      <div {...stylex.props(styles.showcase)}>
         <Headings />
         <TextStyles />
         <Lists />
@@ -134,220 +164,226 @@ const ProseExample = () => {
       </div>
     </Prose>
   );
-};
+}
 
-const Headings = () => {
+function Headings() {
   return (
-    <div className="grid gap-4">
-      <h3>Headings</h3>
-      <div className="flex flex-col border divide-y">
+    <section {...stylex.props(styles.group)}>
+      <Prose.H3>Headings</Prose.H3>
+      <div {...stylex.props(styles.demoList)}>
         <Demo attribute="h1">
-          <h1>Heading 1</h1>
+          <Prose.H1>Heading 1</Prose.H1>
         </Demo>
         <Demo attribute="h2">
-          <h2>Heading 2</h2>
+          <Prose.H2>Heading 2</Prose.H2>
         </Demo>
         <Demo attribute="h3">
-          <h3>Heading 3</h3>
+          <Prose.H3>Heading 3</Prose.H3>
         </Demo>
         <Demo attribute="h4">
-          <h4>Heading 4</h4>
+          <Prose.H4>Heading 4</Prose.H4>
         </Demo>
         <Demo attribute="h5">
-          <h5>Heading 5</h5>
+          <Prose.H5>Heading 5</Prose.H5>
         </Demo>
         <Demo attribute="h6">
-          <h6>Heading 6</h6>
+          <Prose.H6>Heading 6</Prose.H6>
         </Demo>
       </div>
-    </div>
+    </section>
   );
-};
+}
 
-const TextStyles = () => {
+function TextStyles() {
   return (
-    <div className="grid gap-4">
-      <h3>Text Styles</h3>
-      <div className="grid border divide-y">
+    <section {...stylex.props(styles.group)}>
+      <Prose.H3>Text Styles</Prose.H3>
+      <div {...stylex.props(styles.demoList)}>
         <Demo attribute="p">
-          <p>Regular paragraph text.</p>
+          <Prose.P>Regular paragraph text.</Prose.P>
+        </Demo>
+        <Demo attribute="lead">
+          <Prose.P variant="lead">
+            Lead text for an article introduction.
+          </Prose.P>
         </Demo>
         <Demo attribute="large">
-          <p className="large">
-            Large text that&apos;s bigger than regular text.
-          </p>
+          <Prose.P variant="large">Large text for added emphasis.</Prose.P>
         </Demo>
         <Demo attribute="small">
-          <small className="small">
-            Small text that&apos;s smaller than regular text.
-          </small>
+          <Prose.P variant="small">Small text for supporting details.</Prose.P>
         </Demo>
       </div>
-    </div>
+    </section>
   );
-};
+}
 
-const Lists = () => {
+function Lists() {
   return (
-    <div className="grid gap-4">
-      <h3>Lists</h3>
-      <div className="grid border divide-y">
+    <section {...stylex.props(styles.group)}>
+      <Prose.H3>Lists</Prose.H3>
+      <div {...stylex.props(styles.demoList)}>
         <Demo attribute="ul">
-          <p>This is an example of an unordered list</p>
-          <ul>
-            <li>Unordered list item 1</li>
-            <li>Unordered list item 2</li>
-            <li>Unordered list item 3</li>
-          </ul>
+          <Prose.P>This is an example of an unordered list.</Prose.P>
+          <Prose.Ul>
+            <Prose.Li>Unordered list item 1</Prose.Li>
+            <Prose.Li>Unordered list item 2</Prose.Li>
+            <Prose.Li>Unordered list item 3</Prose.Li>
+          </Prose.Ul>
         </Demo>
         <Demo attribute="ol">
-          <p>This is an example of an ordered list</p>
-          <ol>
-            <li>Ordered list item 1</li>
-            <li>Ordered list item 2</li>
-            <li>Ordered list item 3</li>
-          </ol>
+          <Prose.P>This is an example of an ordered list.</Prose.P>
+          <Prose.Ol>
+            <Prose.Li>Ordered list item 1</Prose.Li>
+            <Prose.Li>Ordered list item 2</Prose.Li>
+            <Prose.Li>Ordered list item 3</Prose.Li>
+          </Prose.Ol>
         </Demo>
         <Demo attribute="dl">
-          <p>This is an example of a description list</p>
-          <dl>
-            <dt>Definition Term</dt>
-            <dd>Definition description explaining the term above.</dd>
-            <dt>Another Term</dt>
-            <dd>Another description for the term above.</dd>
-          </dl>
+          <Prose.Dl>
+            <Prose.Dt>Definition Term</Prose.Dt>
+            <Prose.Dd>
+              Definition description explaining the term above.
+            </Prose.Dd>
+            <Prose.Dt>Another Term</Prose.Dt>
+            <Prose.Dd>Another description for the second term.</Prose.Dd>
+          </Prose.Dl>
         </Demo>
       </div>
-    </div>
+    </section>
   );
-};
+}
 
-const BlockElements = () => {
+function BlockElements() {
   return (
-    <div className="grid gap-4">
-      <h3>Block Elements</h3>
-      <div className="grid border divide-y">
+    <section {...stylex.props(styles.group)}>
+      <Prose.H3>Block Elements</Prose.H3>
+      <div {...stylex.props(styles.demoList)}>
         <Demo attribute="blockquote">
-          <blockquote>
+          <Prose.Blockquote>
             A well-known quote, contained in a blockquote element.
-            <cite>- Source Attribution</cite>
-          </blockquote>
+            <Prose.Cite>— Source Attribution</Prose.Cite>
+          </Prose.Blockquote>
         </Demo>
         <Demo attribute="pre">
-          <pre data-filename="example.js">
-            <code>
-              {`function example() {
-  console.log("Hello World");
-}`}
-            </code>
-          </pre>
+          <Prose.Pre data-filename="example.js">
+            <Prose.Code block>{`function example() {
+  console.log("Hello StyleX");
+}`}</Prose.Code>
+          </Prose.Pre>
         </Demo>
         <Demo attribute="details">
-          <details>
-            <summary>Click to expand</summary>
-            <p>Hidden content that appears when expanded.</p>
-          </details>
+          <Prose.Details>
+            <Prose.Summary>Click to expand</Prose.Summary>
+            <Prose.P>Hidden content that appears when expanded.</Prose.P>
+          </Prose.Details>
         </Demo>
         <Demo attribute="figure">
-          <figure>
-            <img
-              src="https://images.unsplash.com/photo-1742593323531-c6c4dcd12351?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="Example"
+          <Prose.Figure>
+            <Prose.Img
+              alt="Colorful aurora"
+              src="https://images.unsplash.com/photo-1742593323531-c6c4dcd12351?q=80&w=2670&auto=format&fit=crop"
             />
-            <figcaption>A sample image with a caption</figcaption>
-          </figure>
+            <Prose.Figcaption>A sample image with a caption</Prose.Figcaption>
+          </Prose.Figure>
         </Demo>
       </div>
-    </div>
+    </section>
   );
-};
+}
 
-const InlineElements = () => {
+function InlineElements() {
   return (
-    <div className="grid gap-4">
-      <h3>Inline Elements</h3>
-      <div className="grid border divide-y">
+    <section {...stylex.props(styles.group)}>
+      <Prose.H3>Inline Elements</Prose.H3>
+      <div {...stylex.props(styles.demoList)}>
         <Demo attribute="a">
-          <a href="#">Sample link with hover state</a>
+          <Prose.A href="#inline-elements">
+            Sample link with hover state
+          </Prose.A>
         </Demo>
         <Demo attribute="strong">
-          <strong>Strong text for emphasis</strong>
+          <Prose.Strong>Strong text for emphasis</Prose.Strong>
         </Demo>
         <Demo attribute="code">
-          <code>Inline code element</code>
+          <Prose.Code>Inline code element</Prose.Code>
         </Demo>
         <Demo attribute="kbd">
-          <kbd>Ctrl</kbd> + <kbd>C</kbd>
+          <Prose.Kbd>Ctrl</Prose.Kbd> + <Prose.Kbd>C</Prose.Kbd>
         </Demo>
         <Demo attribute="mark">
-          <mark>Highlighted text</mark>
+          <Prose.Mark>Highlighted text</Prose.Mark>
         </Demo>
         <Demo attribute="abbr">
-          <abbr title="HyperText Markup Language">HTML</abbr>
+          <Prose.Abbr title="HyperText Markup Language">HTML</Prose.Abbr>
         </Demo>
         <Demo attribute="sub,sup">
-          <p>
-            Text with <sub>subscript</sub> and <sup>superscript</sup>
-          </p>
+          <Prose.P>
+            Text with <Prose.Sub>subscript</Prose.Sub> and{" "}
+            <Prose.Sup>superscript</Prose.Sup>
+          </Prose.P>
         </Demo>
       </div>
-    </div>
+    </section>
   );
-};
+}
 
-const Tables = () => {
+function Tables() {
   return (
-    <div className="grid gap-4">
-      <h3>Tables</h3>
-      <div className="grid border divide-y">
+    <section {...stylex.props(styles.group)}>
+      <Prose.H3>Tables</Prose.H3>
+      <div {...stylex.props(styles.demoList)}>
         <Demo attribute="table">
-          <table>
-            <thead>
-              <tr>
-                <th>Header 1</th>
-                <th>Header 2</th>
-                <th>Header 3</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Cell 1</td>
-                <td>Cell 2</td>
-                <td>Cell 3</td>
-              </tr>
-              <tr>
-                <td>Cell 4</td>
-                <td>Cell 5</td>
-                <td>Cell 6</td>
-              </tr>
-            </tbody>
-          </table>
+          <Prose.Table>
+            <Prose.Thead>
+              <Prose.Tr>
+                <Prose.Th>Header 1</Prose.Th>
+                <Prose.Th>Header 2</Prose.Th>
+                <Prose.Th>Header 3</Prose.Th>
+              </Prose.Tr>
+            </Prose.Thead>
+            <Prose.Tbody>
+              <Prose.Tr>
+                <Prose.Td>Cell 1</Prose.Td>
+                <Prose.Td>Cell 2</Prose.Td>
+                <Prose.Td>Cell 3</Prose.Td>
+              </Prose.Tr>
+              <Prose.Tr>
+                <Prose.Td>Cell 4</Prose.Td>
+                <Prose.Td>Cell 5</Prose.Td>
+                <Prose.Td>Cell 6</Prose.Td>
+              </Prose.Tr>
+            </Prose.Tbody>
+          </Prose.Table>
         </Demo>
       </div>
-    </div>
+    </section>
   );
-};
+}
 
-const FormElements = () => {
+function FormElements() {
   return (
-    <div className="grid gap-4">
-      <h3>Form Elements</h3>
-      <div className="flex flex-col border divide-y">
+    <section {...stylex.props(styles.group)}>
+      <Prose.H3>Form Elements</Prose.H3>
+      <div {...stylex.props(styles.demoList)}>
         <Demo attribute="input">
-          <input
-            type="text"
-            placeholder="Text input"
-            className="w-full max-w-sm px-3 py-2 border rounded-md"
-          />
+          <label>
+            <span>Text input</span>
+            <input
+              placeholder="Text input"
+              type="text"
+              {...stylex.props(styles.input)}
+            />
+          </label>
         </Demo>
         <Demo attribute="textarea">
-          <textarea
-            placeholder="Textarea"
-            className="w-full max-w-sm px-3 py-2 border rounded-md"
-          />
+          <label>
+            <span>Textarea</span>
+            <textarea placeholder="Textarea" {...stylex.props(styles.input)} />
+          </label>
         </Demo>
         <Demo attribute="select">
-          <select className="w-full max-w-sm px-3 py-2 border rounded-md">
+          <select aria-label="Select an option" {...stylex.props(styles.input)}>
             <option value="">Select an option</option>
             <option value="1">Option 1</option>
             <option value="2">Option 2</option>
@@ -355,99 +391,108 @@ const FormElements = () => {
           </select>
         </Demo>
         <Demo attribute="checkbox">
-          <div className="flex items-center gap-2">
-            <input type="checkbox" id="checkbox" />
+          <div {...stylex.props(styles.checkRow)}>
+            <input id="checkbox" type="checkbox" />
             <label htmlFor="checkbox">Checkbox</label>
           </div>
         </Demo>
         <Demo attribute="radio">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <input type="radio" id="radio1" name="radio-group" />
+          <div {...stylex.props(styles.radioGroup)}>
+            <div {...stylex.props(styles.checkRow)}>
+              <input id="radio1" name="radio-group" type="radio" />
               <label htmlFor="radio1">Radio 1</label>
             </div>
-            <div className="flex items-center gap-2">
-              <input type="radio" id="radio2" name="radio-group" />
+            <div {...stylex.props(styles.checkRow)}>
+              <input id="radio2" name="radio-group" type="radio" />
               <label htmlFor="radio2">Radio 2</label>
             </div>
           </div>
         </Demo>
       </div>
-    </div>
+    </section>
   );
-};
+}
 
-const AdditionalElements = () => {
+function AdditionalElements() {
   return (
-    <div className="grid gap-4">
-      <h3>Additional Elements</h3>
-      <div className="grid border divide-y">
+    <section {...stylex.props(styles.group)}>
+      <Prose.H3>Additional Elements</Prose.H3>
+      <div {...stylex.props(styles.demoList)}>
         <Demo attribute="hr">
           <div>
-            <p>Text before horizontal rule</p>
-            <hr />
-            <p>Text after horizontal rule</p>
+            <Prose.P>Text before horizontal rule</Prose.P>
+            <Prose.Hr />
+            <Prose.P>Text after horizontal rule</Prose.P>
           </div>
         </Demo>
         <Demo attribute="small">
-          <small>Small text element</small>
+          <Prose.Small>Small text element</Prose.Small>
         </Demo>
         <Demo attribute="video">
-          <video controls>
+          <Prose.Video controls>
             <source
               src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
               type="video/webm"
             />
             Your browser does not support the video tag.
-          </video>
+          </Prose.Video>
         </Demo>
         <Demo attribute="nested-lists">
-          <ul>
-            <li>Parent item 1</li>
-            <li>
+          <Prose.Ul>
+            <Prose.Li>Parent item 1</Prose.Li>
+            <Prose.Li>
               Parent item 2
-              <ul>
-                <li>Child item 1</li>
-                <li>Child item 2</li>
-              </ul>
-            </li>
-            <li>Parent item 3</li>
-          </ul>
+              <Prose.Ul>
+                <Prose.Li>Child item 1</Prose.Li>
+                <Prose.Li>Child item 2</Prose.Li>
+              </Prose.Ul>
+            </Prose.Li>
+            <Prose.Li>Parent item 3</Prose.Li>
+          </Prose.Ul>
         </Demo>
         <Demo attribute="task-list">
-          <ul className="task-list">
-            <li className="task-list-item">
-              <input type="checkbox" checked readOnly /> Completed task
-            </li>
-            <li className="task-list-item">
-              <input type="checkbox" readOnly /> Pending task
-            </li>
-          </ul>
+          <Prose.Ul>
+            <Prose.Li>
+              <input
+                checked
+                readOnly
+                type="checkbox"
+                {...stylex.props(styles.taskCheckbox)}
+              />
+              Completed task
+            </Prose.Li>
+            <Prose.Li>
+              <input
+                readOnly
+                type="checkbox"
+                {...stylex.props(styles.taskCheckbox)}
+              />
+              Pending task
+            </Prose.Li>
+          </Prose.Ul>
         </Demo>
         <Demo attribute="table-of-contents">
-          <nav className="table-of-contents">
-            <ol>
-              <li>
-                <a href="#section1">Section 1</a>
-              </li>
-              <li>
-                <a href="#section2">Section 2</a>
-              </li>
-              <li>
-                <a href="#section3">Section 3</a>
-              </li>
-            </ol>
+          <nav aria-label="Table of contents">
+            <Prose.Ol>
+              <Prose.Li>
+                <Prose.A href="#headings">Headings</Prose.A>
+              </Prose.Li>
+              <Prose.Li>
+                <Prose.A href="#lists">Lists</Prose.A>
+              </Prose.Li>
+              <Prose.Li>
+                <Prose.A href="#tables">Tables</Prose.A>
+              </Prose.Li>
+            </Prose.Ol>
           </nav>
         </Demo>
         <Demo attribute="footnotes">
-          <div className="footnotes">
-            <ol>
-              <li>First footnote reference</li>
-              <li>Second footnote reference</li>
-            </ol>
-          </div>
+          <Prose.Ol>
+            <Prose.Li>First footnote reference</Prose.Li>
+            <Prose.Li>Second footnote reference</Prose.Li>
+          </Prose.Ol>
         </Demo>
       </div>
-    </div>
+    </section>
   );
-};
+}

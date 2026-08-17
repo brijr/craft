@@ -1,28 +1,59 @@
 "use client";
 
-import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+
+import { colors } from "@workspace/craft-ds/tokens.stylex";
+import { useCraftTheme } from "@/components/theme-provider";
+
+const styles = stylex.create({
+  button: {
+    alignItems: "center",
+    backgroundColor: "transparent",
+    borderColor: colors.border,
+    borderStyle: "solid",
+    borderWidth: 1,
+    color: colors.foreground,
+    cursor: "pointer",
+    display: "flex",
+    height: 36,
+    justifyContent: "center",
+    padding: 0,
+    position: "relative",
+    width: 36,
+  },
+  icon: {
+    height: 19,
+    width: 19,
+  },
+  visuallyHidden: {
+    clip: "rect(0, 0, 0, 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    whiteSpace: "nowrap",
+    width: 1,
+  },
+});
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+  const { theme, toggleTheme } = useCraftTheme();
+  const nextTheme = theme === "light" ? "dark" : "light";
 
   return (
     <button
-      className="h-9 w-9 relative flex items-center justify-center border"
+      aria-label={`Switch to ${nextTheme} theme`}
       onClick={toggleTheme}
+      type="button"
+      {...stylex.props(styles.button)}
     >
       {theme === "light" ? (
-        <Sun className="h-[1.2rem] w-[1.2rem]" />
+        <Sun {...stylex.props(styles.icon)} />
       ) : (
-        <Moon className="h-[1.2rem] w-[1.2rem]" />
+        <Moon {...stylex.props(styles.icon)} />
       )}
-
-      <span className="sr-only">Toggle theme</span>
+      <span {...stylex.props(styles.visuallyHidden)}>Toggle theme</span>
     </button>
   );
 }

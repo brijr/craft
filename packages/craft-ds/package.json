@@ -1,36 +1,44 @@
 {
   "name": "@workspace/craft-ds",
-  "version": "0.3.56",
-  "description": "> craft-ds is a Design System developed using a group of `npm` packages and **one component file** created by [Bridger Tower](https://bridger.to) to build websites with NextJS, Tailwind, shadcn/ui, and TypeScript faster 🚀",
+  "version": "0.4.0-stylex.0",
+  "description": "A StyleX implementation of Craft's typed layout and prose primitives for React.",
   "bin": {
     "craft-ds": "bin/init.js"
   },
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check-types": "tsc --noEmit"
   },
-  "keywords": [],
+  "files": [
+    "bin",
+    "ds.tsx",
+    "themes.ts",
+    "tokens.stylex.ts"
+  ],
+  "keywords": [
+    "design-system",
+    "react",
+    "stylex"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "clsx": "^2.1.1",
-    "next-themes": "^0.4.6",
-    "postcss": "^8.5.4",
-    "tailwind": "^4.0.0",
-    "tailwind-merge": "^2.6.0",
-    "tw-animate-css": "^1.2.4"
+    "@stylexjs/stylex": "0.19.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^22.15.32",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3"
   },
+  "peerDependencies": {
+    "react": ">=18"
+  },
   "exports": {
-    "./ds": "./ds.tsx"
+    ".": "./ds.tsx",
+    "./ds": "./ds.tsx",
+    "./themes": "./themes.ts",
+    "./tokens.stylex": "./tokens.stylex.ts"
   }
 }

@@ -1,17 +1,14 @@
 #!/usr/bin/env node
 
 const fs = require("fs").promises;
-const path = require("path");
-const { execSync } = require("child_process");
-const readline = require("readline");
 const { existsSync } = require("fs");
+const path = require("path");
+const readline = require("readline");
+const { spawnSync } = require("child_process");
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+const STYLEX_VERSION = "0.19.0";
+const STYLEX_SETUP_URL = "https://stylexjs.com/docs/learn/installation/nextjs";
 
-// Colored console output
 const colors = {
   reset: "\x1b[0m",
   green: "\x1b[32m",
@@ -21,21 +18,23 @@ const colors = {
 };
 
 const log = {
-  info: (msg) => console.log(`${colors.blue}ℹ${colors.reset} ${msg}`),
-  success: (msg) => console.log(`${colors.green}✓${colors.reset} ${msg}`),
-  warn: (msg) => console.log(`${colors.yellow}⚠${colors.reset} ${msg}`),
-  error: (msg) => console.error(`${colors.red}✕${colors.reset} ${msg}`),
+  info: (message) => console.log(`${colors.blue}ℹ${colors.reset} ${message}`),
+  success: (message) =>
+    console.log(`${colors.green}✓${colors.reset} ${message}`),
+  warn: (message) => console.log(`${colors.yellow}⚠${colors.reset} ${message}`),
+  error: (message) => console.error(`${colors.red}✕${colors.reset} ${message}`),
 };
 
-async function promptUser(question, defaultValue) {
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+function prompt(question, defaultValue) {
   return new Promise((resolve) => {
     rl.question(
-      `${colors.blue}?${colors.reset} ${question} ${
-        defaultValue ? `(default: ${defaultValue})` : ""
-      }: `,
-      (answer) => {
-        resolve(answer.trim() || defaultValue);
-      }
+      `${colors.blue}?${colors.reset} ${question} (default: ${defaultValue}): `,
+      (answer) => resolve(answer.trim() || defaultValue),
     );
   });
 }
@@ -44,222 +43,129 @@ function detectPackageManager() {
   if (existsSync("pnpm-lock.yaml")) return "pnpm";
   if (existsSync("yarn.lock")) return "yarn";
   if (existsSync("package-lock.json")) return "npm";
-  return "pnpm"; // Default to pnpm
+  return "npm";
 }
 
-async function runCommand(command, silent = false) {
-  if (!silent) log.info(`Running: ${command}`);
-  try {
-    execSync(command, { stdio: silent ? "ignore" : "inherit" });
-    return true;
-  } catch (error) {
-    if (!silent) log.error(`Command failed: ${command}`);
-    return false;
+function installDependencies(packageManager, dependencies, isDev) {
+  const command = packageManager;
+  const args = [packageManager === "npm" ? "install" : "add"];
+
+  if (isDev) args.push("-D");
+  args.push(...dependencies);
+
+  log.info(`Installing ${dependencies.join(", ")}...`);
+  const result = spawnSync(command, args, { stdio: "inherit" });
+
+  if (result.status !== 0) {
+    throw new Error(`Dependency installation failed with ${packageManager}.`);
   }
 }
 
-// Check Node.js version
-function checkNodeVersion() {
-  const version = process.version.match(/^v(\d+)\./)[1];
-  const minVersion = 18;
-
-  if (parseInt(version) < minVersion) {
-    throw new Error(
-      `Node.js version ${minVersion} or higher is required. Current version: ${process.version}`
-    );
-  }
-}
-
-// Validation and project structure detection
 async function validateProject() {
-  const packageJsonPath = path.join(process.cwd(), "package.json");
-
-  if (!existsSync(packageJsonPath)) {
-    throw new Error(
-      "No package.json found. Please run this command in a Next.js project root directory."
-    );
+  if (!existsSync("package.json")) {
+    throw new Error("Run this command from the root of a Next.js project.");
   }
 
-  const packageJson = JSON.parse(await fs.readFile(packageJsonPath, "utf8"));
-  const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
-
-  if (!deps.next) {
-    throw new Error(
-      "This project doesn't appear to be a Next.js project. Please ensure Next.js is installed."
-    );
-  }
-
-  // Check Next.js version
-  const nextVersion = deps.next.replace(/[^0-9.]/g, "");
-  const [major] = nextVersion.split(".");
-  if (parseInt(major) < 14) {
-    log.warn("Craft works best with Next.js 14 or higher. Consider upgrading.");
-  }
-
-  return packageJson;
-}
-
-// Check for required dependencies
-async function checkDependencies() {
-  const packageJson = JSON.parse(
-    await fs.readFile(path.join(process.cwd(), "package.json"), "utf8")
-  );
-
-  const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
-
-  return {
-    hasShadcn: existsSync(path.join(process.cwd(), "components.json")),
-    hasTailwind: deps["tailwindcss"] !== undefined,
-    hasClsx: deps["clsx"] !== undefined,
-    hasTailwindMerge: deps["tailwind-merge"] !== undefined,
+  const packageJson = JSON.parse(await fs.readFile("package.json", "utf8"));
+  const dependencies = {
+    ...packageJson.dependencies,
+    ...packageJson.devDependencies,
   };
+
+  if (!dependencies.next) {
+    throw new Error("Craft's installer currently targets Next.js projects.");
+  }
+
+  const nodeMajor = Number(process.versions.node.split(".")[0]);
+  if (nodeMajor < 18) {
+    throw new Error(
+      `Node.js 18 or newer is required. Found ${process.version}.`,
+    );
+  }
 }
 
-// Find the components directory
-async function findComponentsDir() {
-  const possiblePaths = [
+async function findComponentsDirectory() {
+  const candidates = [
     path.join(process.cwd(), "app", "components"),
     path.join(process.cwd(), "src", "components"),
     path.join(process.cwd(), "components"),
   ];
 
-  // Check if we're in a monorepo
-  const isMonorepo =
-    existsSync(path.join(process.cwd(), "packages")) ||
-    existsSync(path.join(process.cwd(), "apps"));
+  const existing = candidates.find((candidate) => existsSync(candidate));
+  if (existing) return existing;
 
-  if (isMonorepo) {
-    log.warn("Monorepo detected. Installing in the current working directory.");
-  }
+  const directory = existsSync(path.join(process.cwd(), "src"))
+    ? path.join(process.cwd(), "src", "components")
+    : path.join(process.cwd(), "components");
 
-  for (const dir of possiblePaths) {
-    if (existsSync(dir)) {
-      return dir;
+  await fs.mkdir(directory, { recursive: true });
+  return directory;
+}
+
+async function copyCraftFiles(targetDirectory) {
+  const filenames = ["ds.tsx", "tokens.stylex.ts", "themes.ts"];
+  const existingFiles = filenames.filter((filename) =>
+    existsSync(path.join(targetDirectory, filename)),
+  );
+
+  if (existingFiles.length > 0) {
+    const answer = await prompt(
+      `Replace existing ${existingFiles.join(", ")}?`,
+      "no",
+    );
+
+    if (answer.toLowerCase() !== "yes") {
+      log.warn("No files were changed.");
+      return false;
     }
   }
 
-  // If no components directory exists, create one in the appropriate location
-  if (existsSync(path.join(process.cwd(), "src"))) {
-    const dir = path.join(process.cwd(), "src", "components");
-    await fs.mkdir(dir, { recursive: true });
-    return dir;
+  for (const filename of filenames) {
+    await fs.copyFile(
+      path.join(__dirname, "..", filename),
+      path.join(targetDirectory, filename),
+    );
   }
 
-  const dir = path.join(process.cwd(), "components");
-  await fs.mkdir(dir, { recursive: true });
-  return dir;
+  return true;
 }
 
 async function main() {
   try {
-    log.info("Welcome to the Craft Design System installer!");
-
-    // Check Node.js version
-    checkNodeVersion();
-    log.success("Node.js version check passed");
-
-    // Validate project structure
+    log.info("Craft StyleX installer");
     await validateProject();
-    log.success("Valid Next.js project detected");
 
-    // Check dependencies
-    const { hasShadcn, hasTailwind, hasClsx, hasTailwindMerge } =
-      await checkDependencies();
+    const targetDirectory = await findComponentsDirectory();
+    const shouldContinue = await copyCraftFiles(targetDirectory);
+    if (!shouldContinue) return;
 
-    // Install required dependencies
     const packageManager = detectPackageManager();
-    const installCmd =
-      packageManager === "npm" ? "npm install" : `${packageManager} add`;
+    installDependencies(
+      packageManager,
+      [`@stylexjs/stylex@${STYLEX_VERSION}`],
+      false,
+    );
+    installDependencies(
+      packageManager,
+      [
+        `@stylexjs/babel-plugin@${STYLEX_VERSION}`,
+        `@stylexjs/postcss-plugin@${STYLEX_VERSION}`,
+        "autoprefixer",
+      ],
+      true,
+    );
 
-    if (!hasTailwind) {
-      log.info("Installing Tailwind CSS...");
-      await runCommand(`${installCmd} -D tailwindcss`);
-      log.success("Tailwind CSS installed");
-    } else {
-      log.success("Tailwind CSS already installed");
-    }
-
-    if (!hasShadcn) {
-      log.info("Installing shadcn/ui...");
-      const shouldInstall = await promptUser(
-        "Would you like to install and configure shadcn/ui? (recommended)",
-        "yes"
-      );
-      if (shouldInstall.toLowerCase() === "yes") {
-        await runCommand(`npx shadcn@latest init`);
-        log.success("shadcn/ui installed");
-      } else {
-        log.warn("Skipping shadcn/ui installation");
-      }
-    } else {
-      log.success("shadcn/ui already installed");
-    }
-
-    // Find or create components directory
-    const componentsDir = await findComponentsDir();
     log.success(
-      `Components directory ready at ${path.relative(
-        process.cwd(),
-        componentsDir
-      )}`
+      `Installed Craft in ${path.relative(process.cwd(), targetDirectory)}.`,
     );
-
-    // Check for existing craft component
-    const craftPath = path.join(componentsDir, "ds.tsx");
-    if (existsSync(craftPath)) {
-      const replace = await promptUser(
-        "Craft component already exists. Do you want to replace it?",
-        "no"
-      );
-      if (replace.toLowerCase() !== "yes") {
-        log.info("Installation aborted.");
-        process.exit(0);
-      }
-    }
-
-    // Copy craft component
-    const sourcePath = path.join(__dirname, "..", "ds.tsx");
-    await fs.copyFile(sourcePath, craftPath);
-    log.success("Craft component installed");
-
-    // Install remaining dependencies if needed
-    if (!hasClsx || !hasTailwindMerge) {
-      log.info("Installing additional dependencies...");
-      await runCommand(`${installCmd} clsx tailwind-merge`);
-      log.success("Additional dependencies installed");
-    }
-
-    // Final success message
-    console.log("\n" + "=".repeat(50));
-    log.success(
-      `Craft Design System installed in ${path.relative(
-        process.cwd(),
-        componentsDir
-      )}`
-    );
-    console.log("\nTo use Craft in your project:");
+    log.warn("StyleX also needs Babel and PostCSS configuration.");
+    console.log(`Follow the official Next.js setup: ${STYLEX_SETUP_URL}`);
     console.log(
-      `1. Import components:\n   ${colors.blue}import { Main, Section, Container } from "@/components/ds";${colors.reset}`
+      `Then import with: import { Main, Prose } from "@/components/ds";`,
     );
-    console.log("\n2. Use in your app:");
-    console.log(
-      `   ${colors.blue}export default function Page() {
-     return (
-       <Main>
-         <Section>
-           <Container>
-             <h1>Hello, Craft!</h1>
-           </Container>
-         </Section>
-       </Main>
-     );
-   }${colors.reset}`
-    );
-    console.log("\n" + "=".repeat(50));
   } catch (error) {
-    log.error("An error occurred during installation:");
-    log.error(error.message);
-    process.exit(1);
+    log.error(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
   } finally {
     rl.close();
   }

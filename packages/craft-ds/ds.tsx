@@ -1,263 +1,666 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import * as React from "react";
+import * as stylex from "@stylexjs/stylex";
+import type { StyleXStyles } from "@stylexjs/stylex";
 
-/**
- * Welcome to Craft DS this is the design system file for your project.
- * @file ds.tsx
- * @description Provides layout components for structuring pages and a design system for prose content.
- */
+import { colors, fonts, radii } from "./tokens.stylex";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+type ElementProps<Tag extends keyof React.JSX.IntrinsicElements> = Omit<
+  React.ComponentPropsWithoutRef<Tag>,
+  "className" | "style"
+> & {
+  style?: StyleXStyles;
+};
 
-/**
- * Props for layout components.
- *
- * @typedef {Object} DSProps
- * @property {string} [className] - Additional class names.
- * @property {React.ReactNode} [children] - Child elements to render.
- * @property {string} [id] - HTML id attribute.
- * @property {React.CSSProperties} [style] - Inline styles for the element.
- * @property {{ __html: string }} [dangerouslySetInnerHTML] - HTML content to set dangerously.
- * @property {string} [containerClassName] - Additional class names for inner container elements.
- * @property {boolean} [isArticle] - If true, renders the element as an article.
- */
-
-type DSProps = {
-  className?: string;
-  children?: React.ReactNode;
-  id?: string;
-  style?: React.CSSProperties;
-  dangerouslySetInnerHTML?: { __html: string };
-  containerClassName?: string;
+type RootProps = ElementProps<"div"> & {
   isArticle?: boolean;
   isSpaced?: boolean;
 };
 
-/**
- * Section component to wrap content in a section element.
- *
- * @param {DSProps} props - Component props.
- * @param {React.ReactNode} props.children - Child elements.
- * @param {string} [props.className] - Additional class names.
- * @param {string} [props.id] - HTML id attribute.
- * @param {React.CSSProperties} [props.style] - Inline styles.
- * @returns {JSX.Element} A section element.
- */
-export const Section = ({ children, className, id, style }: DSProps) => (
-  <section className={cn("py-2 sm:py-4", className)} id={id} style={style}>
-    {children}
-  </section>
-);
+type NavProps = ElementProps<"nav"> & {
+  containerStyle?: StyleXStyles;
+};
 
-/**
- * Container component to wrap content within a centered div with padding.
- *
- * @param {DSProps} props - Component props.
- * @param {React.ReactNode} props.children - Child elements.
- * @param {string} [props.className] - Additional class names.
- * @param {string} [props.id] - HTML id attribute.
- * @param {React.CSSProperties} [props.style] - Inline styles.
- * @returns {JSX.Element} A div element acting as a container.
- */
-export const Container = ({ children, className, id, style }: DSProps) => (
-  <div
-    className={cn("max-w-5xl mx-auto p-4 sm:p-6", className)}
-    id={id}
-    style={style}
-  >
-    {children}
-  </div>
-);
+type TextProps = ElementProps<"p"> & {
+  variant?: "body" | "lead" | "large" | "small" | "muted";
+};
 
-/**
- * Nav component to render a navigation container with an inner div.
- *
- * @param {DSProps} props - Component props.
- * @param {React.ReactNode} props.children - Child elements.
- * @param {string} [props.className] - Additional class names for the nav element.
- * @param {string} [props.id] - HTML id attribute.
- * @param {React.CSSProperties} [props.style] - Inline styles.
- * @param {string} [props.containerClassName] - Additional class names for the inner container.
- * @returns {JSX.Element} A nav element with a centered inner container.
- */
+type CodeProps = ElementProps<"code"> & {
+  block?: boolean;
+};
 
-export const Nav = ({
-  children,
-  className,
-  id,
-  style,
-  containerClassName,
-}: DSProps) => (
-  <nav className={cn(className)} id={id} style={style}>
-    <div
-      id="nav-container"
-      className={cn("max-w-5xl mx-auto px-4 sm:px-6 py-2", containerClassName)}
-    >
-      {children}
-    </div>
-  </nav>
-);
+const layoutStyles = stylex.create({
+  section: {
+    paddingBlock: {
+      default: 8,
+      "@media (min-width: 640px)": 16,
+    },
+  },
+  container: {
+    marginInline: "auto",
+    maxWidth: 1024,
+    padding: {
+      default: 16,
+      "@media (min-width: 640px)": 24,
+    },
+  },
+  navContainer: {
+    marginInline: "auto",
+    maxWidth: 1024,
+    paddingBlock: 8,
+    paddingInline: {
+      default: 16,
+      "@media (min-width: 640px)": 24,
+    },
+  },
+  layout: {
+    scrollBehavior: "smooth",
+  },
+});
 
-/**
- * Layout component that renders the root HTML element with global settings.
- *
- * @param {DSProps} props - Component props.
- * @param {React.ReactNode} props.children - Child elements.
- * @param {string} [props.className] - Additional class names.
- * @param {React.CSSProperties} [props.style] - Inline styles.
- * @returns {JSX.Element} An HTML element wrapping the entire document.
- */
+export function Section({ style, ...props }: ElementProps<"section">) {
+  return <section {...props} {...stylex.props(layoutStyles.section, style)} />;
+}
 
-export const Layout = ({ children, className, style }: DSProps) => (
-  <html
-    lang="en"
-    suppressHydrationWarning
-    className={cn("scroll-smooth antialiased focus:scroll-auto", className)}
-    style={style}
-  >
-    {children}
-  </html>
-);
+export function Container({ style, ...props }: ElementProps<"div">) {
+  return <div {...props} {...stylex.props(layoutStyles.container, style)} />;
+}
 
-/**
- * Main component to wrap the primary content of the page.
- *
- * @param {DSProps} props - Component props.
- * @param {React.ReactNode} props.children - Child elements.
- * @param {string} [props.className] - Additional class names.
- * @param {string} [props.id] - HTML id attribute.
- * @param {React.CSSProperties} [props.style] - Inline styles.
- * @returns {JSX.Element} A main element.
- */
-export const Main = ({ children, className, id, style }: DSProps) => (
-  <main className={cn("", className)} id={id} style={style}>
-    {children}
-  </main>
-);
+export function Nav({ children, containerStyle, style, ...props }: NavProps) {
+  return (
+    <nav {...props} {...stylex.props(style)}>
+      <div
+        id="nav-container"
+        {...stylex.props(layoutStyles.navContainer, containerStyle)}
+      >
+        {children}
+      </div>
+    </nav>
+  );
+}
 
-/**
- * Prose component to render formatted rich text content.
- * Can render as an article or a div based on the isArticle prop.
- *
- * @param {DSProps} props - Component props.
- * @param {React.ReactNode} props.children - Child elements.
- * @param {string} [props.className] - Additional class names.
- * @param {string} [props.id] - HTML id attribute.
- * @param {{ __html: string }} [props.dangerouslySetInnerHTML] - HTML content to be dangerously set.
- * @param {React.CSSProperties} [props.style] - Inline styles.
- * @param {boolean} [props.isArticle=false] - If true, renders as an article element.
- * @returns {JSX.Element} A div or article element containing styled rich text.
- */
+export function Layout({ style, ...props }: ElementProps<"html">) {
+  return (
+    <html
+      lang="en"
+      suppressHydrationWarning
+      {...props}
+      {...stylex.props(layoutStyles.layout, style)}
+    />
+  );
+}
 
-export const Prose = ({
-  children,
-  className,
-  id,
-  dangerouslySetInnerHTML,
-  style,
+export function Main({ style, ...props }: ElementProps<"main">) {
+  return <main {...props} {...stylex.props(style)} />;
+}
+
+const proseStyles = stylex.create({
+  root: {
+    color: colors.foreground,
+    fontFamily: fonts.sans,
+    fontSize: 16,
+    lineHeight: 1.75,
+    minWidth: 0,
+  },
+  article: {
+    maxWidth: "65ch",
+  },
+  spaced: {
+    display: "flex",
+    flexDirection: "column",
+    rowGap: 24,
+  },
+  h1: {
+    fontSize: {
+      default: 36,
+      "@media (min-width: 640px)": 48,
+    },
+    fontWeight: 500,
+    letterSpacing: "-0.025em",
+    lineHeight: 1,
+    margin: 0,
+    textWrap: "balance",
+  },
+  h2: {
+    fontSize: {
+      default: 30,
+      "@media (min-width: 640px)": 36,
+    },
+    fontWeight: 500,
+    letterSpacing: "-0.025em",
+    lineHeight: 1.1,
+    margin: 0,
+    textWrap: "balance",
+  },
+  h3: {
+    fontSize: {
+      default: 24,
+      "@media (min-width: 640px)": 30,
+    },
+    fontWeight: 500,
+    letterSpacing: "-0.025em",
+    lineHeight: 1.2,
+    margin: 0,
+    textWrap: "balance",
+  },
+  h4: {
+    fontSize: {
+      default: 20,
+      "@media (min-width: 640px)": 24,
+    },
+    letterSpacing: "-0.025em",
+    lineHeight: 1.25,
+    margin: 0,
+    textWrap: "balance",
+  },
+  h5: {
+    fontSize: {
+      default: 18,
+      "@media (min-width: 640px)": 20,
+    },
+    letterSpacing: "-0.025em",
+    lineHeight: 1.3,
+    margin: 0,
+    textWrap: "balance",
+  },
+  h6: {
+    fontSize: {
+      default: 16,
+      "@media (min-width: 640px)": 18,
+    },
+    letterSpacing: "-0.025em",
+    lineHeight: 1.4,
+    margin: 0,
+    textWrap: "balance",
+  },
+  text: {
+    fontSize: 16,
+    margin: 0,
+    textWrap: "pretty",
+  },
+  lead: {
+    fontSize: 20,
+    lineHeight: 1.6,
+  },
+  large: {
+    fontSize: 18,
+  },
+  small: {
+    fontSize: 14,
+    lineHeight: 1.4,
+  },
+  muted: {
+    color: colors.mutedForeground,
+  },
+  link: {
+    color: colors.primaryMuted,
+    textDecorationColor: colors.primaryMuted,
+    textDecorationLine: {
+      default: "none",
+      ":hover": "underline",
+    },
+    textUnderlineOffset: 2,
+    transitionDuration: "150ms",
+    transitionProperty: "color",
+    transitionTimingFunction: "ease",
+    outline: {
+      default: "none",
+      ":focus-visible": `2px solid ${colors.ring}`,
+    },
+    outlineOffset: 2,
+  },
+  strong: {
+    fontWeight: 600,
+  },
+  em: {
+    fontStyle: "italic",
+  },
+  del: {
+    textDecorationLine: "line-through",
+  },
+  inlineCode: {
+    backgroundColor: colors.muted,
+    borderColor: colors.border,
+    borderRadius: radii.medium,
+    borderStyle: "solid",
+    borderWidth: 1,
+    fontFamily: fonts.mono,
+    fontSize: 14,
+    fontWeight: 500,
+    paddingBlock: 1,
+    paddingInline: 4,
+  },
+  blockCode: {
+    backgroundColor: "transparent",
+    borderWidth: 0,
+    fontFamily: fonts.mono,
+    fontSize: 14,
+    fontWeight: 400,
+    padding: 0,
+  },
+  pre: {
+    backgroundColor: colors.muted,
+    borderColor: colors.border,
+    borderRadius: radii.small,
+    borderStyle: "solid",
+    borderWidth: 1,
+    fontFamily: fonts.mono,
+    marginBlock: 16,
+    overflowX: "auto",
+    padding: 16,
+    whiteSpace: "pre",
+  },
+  ul: {
+    listStyleType: "disc",
+    margin: 0,
+    paddingBlock: 12,
+    paddingInlineStart: 24,
+  },
+  ol: {
+    listStyleType: "decimal",
+    margin: 0,
+    paddingBlock: 12,
+    paddingInlineStart: 24,
+  },
+  li: {
+    paddingInlineStart: 8,
+  },
+  dl: {
+    margin: 0,
+    paddingBlock: 12,
+  },
+  dt: {
+    fontSize: 14,
+    fontWeight: 500,
+    lineHeight: 1.4,
+    marginBlockStart: 12,
+  },
+  dd: {
+    color: colors.mutedForeground,
+    fontSize: 14,
+    lineHeight: 1.4,
+    marginInlineStart: 0,
+  },
+  blockquote: {
+    backgroundColor: colors.muted,
+    borderInlineStartColor: colors.border,
+    borderInlineStartStyle: "solid",
+    borderInlineStartWidth: 4,
+    color: colors.mutedForeground,
+    marginBlock: 16,
+    marginInline: 0,
+    paddingBlock: 8,
+    paddingInline: 16,
+  },
+  cite: {
+    display: "block",
+    fontSize: 14,
+    fontStyle: "normal",
+    marginBlockStart: 4,
+  },
+  table: {
+    borderCollapse: "collapse",
+    borderColor: colors.border,
+    borderStyle: "solid",
+    borderWidth: 1,
+    marginBlock: 16,
+    tableLayout: "fixed",
+    width: "100%",
+  },
+  thead: {
+    backgroundColor: colors.muted,
+  },
+  tr: {
+    backgroundColor: {
+      default: "transparent",
+      ":nth-child(even)": colors.muted,
+    },
+    borderBlockEndColor: colors.border,
+    borderBlockEndStyle: "solid",
+    borderBlockEndWidth: 1,
+  },
+  th: {
+    borderInlineEndColor: colors.border,
+    borderInlineEndStyle: "solid",
+    borderInlineEndWidth: 1,
+    fontWeight: 600,
+    overflowWrap: "anywhere",
+    paddingBlock: 12,
+    paddingInline: 16,
+    textAlign: "start",
+  },
+  td: {
+    borderInlineEndColor: colors.border,
+    borderInlineEndStyle: "solid",
+    borderInlineEndWidth: 1,
+    overflowWrap: "anywhere",
+    paddingBlock: 8,
+    paddingInline: 16,
+  },
+  image: {
+    borderColor: colors.border,
+    borderRadius: radii.small,
+    borderStyle: "solid",
+    borderWidth: 1,
+    display: "block",
+    height: "auto",
+    marginBlock: 16,
+    maxWidth: "100%",
+  },
+  figure: {
+    marginBlock: 16,
+    marginInline: 0,
+  },
+  figcaption: {
+    color: colors.mutedForeground,
+    fontSize: 14,
+    marginBlockEnd: 24,
+  },
+  details: {
+    borderColor: colors.border,
+    borderRadius: radii.small,
+    borderStyle: "solid",
+    borderWidth: 1,
+    marginBlock: 16,
+    paddingBlock: 8,
+    paddingInline: 16,
+  },
+  summary: {
+    cursor: "pointer",
+    fontWeight: 600,
+    outline: {
+      default: "none",
+      ":focus-visible": `2px solid ${colors.ring}`,
+    },
+  },
+  hr: {
+    borderBlockStartColor: colors.border,
+    borderBlockStartStyle: "solid",
+    borderBlockStartWidth: 2,
+    borderBottomWidth: 0,
+    marginBlock: 32,
+  },
+  kbd: {
+    backgroundColor: colors.muted,
+    borderColor: colors.border,
+    borderRadius: radii.small,
+    borderStyle: "solid",
+    borderWidth: 1,
+    boxShadow: "0 1px 2px oklch(0 0 0 / 0.08)",
+    fontFamily: fonts.mono,
+    fontSize: 14,
+    paddingBlock: 2,
+    paddingInline: 6,
+  },
+  mark: {
+    backgroundColor: colors.mark,
+    color: "inherit",
+  },
+  abbr: {
+    borderBlockEndColor: colors.mutedForeground,
+    borderBlockEndStyle: "dotted",
+    borderBlockEndWidth: 1,
+    cursor: "help",
+    textDecorationLine: "none",
+  },
+  subSup: {
+    fontSize: 14,
+    verticalAlign: "baseline",
+  },
+  video: {
+    borderColor: colors.border,
+    borderRadius: radii.small,
+    borderStyle: "solid",
+    borderWidth: 1,
+    height: "auto",
+    marginBlock: 16,
+    maxWidth: "100%",
+  },
+});
+
+function ProseRoot({
   isArticle = false,
   isSpaced = false,
-}: DSProps) => {
+  style,
+  ...props
+}: RootProps) {
   const Component = isArticle ? "article" : "div";
-
   return (
     <Component
-      className={cn(
-        // Base classes
-        "antialiased text-base leading-7",
-        // Heading styles
-        "[&_h1]:text-4xl sm:[&_h1]:text-5xl [&_h1]:font-medium [&_h1]:tracking-tight [&_h1]:text-balance",
-        "[&_h2]:text-3xl sm:[&_h2]:text-4xl [&_h2]:font-medium [&_h2]:tracking-tight [&_h2]:text-balance",
-        "[&_h3]:text-2xl sm:[&_h3]:text-3xl [&_h3]:font-medium [&_h3]:tracking-tight [&_h3]:text-balance",
-        "[&_h4]:text-xl sm:[&_h4]:text-2xl [&_h4]:tracking-tight [&_h4]:text-balance",
-        "[&_h5]:text-lg sm:[&_h5]:text-xl [&_h5]:tracking-tight [&_h5]:text-balance",
-        "[&_h6]:text-base sm:[&_h6]:text-lg [&_h6]:tracking-tight [&_h6]:text-balance",
-        // Paragraph styles
-        "[&_p]:text-pretty [&_p]:text-base",
-        // Inline text styles
-        "[&_strong]:font-semibold",
-        "[&_muted]:text-muted-foreground",
-        "[&_em]:italic",
-        "[&_del]:line-through",
-        "[&_small]:text-sm [&_small]:leading-snug",
-        "[&_sub]:text-sm [&_sub]:align-baseline [&_sup]:text-sm [&_sup]:align-baseline",
-        // Links (except in headings)
-        "[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:text-primary dark:[&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:text-primary/50 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:transition-all [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:no-underline [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:hover:underline [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:hover:text-primary/100 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:underline-offset-2 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:decoration-primary/50 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:outline-hidden [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:ring-2 [&_a:not(h1_a,h2_a,h3_a,h4_a,h5_a,h6_a)]:focus-visible:ring-primary/50",
-        // Lists
-        "[&_ul]:pl-0 [&_ul]:py-3 [&_ul]:list-none [&_ul]:space-y-1",
-        "[&_ul>li]:relative [&_ul>li]:pl-6",
-        "[&_ul>li]:before:absolute [&_ul>li]:before:left-1 [&_ul>li]:before:top-[0.6875em] [&_ul>li]:before:h-1.5 [&_ul>li]:before:w-1.5 [&_ul>li]:before:rounded-full [&_ul>li]:before:bg-foreground/80 [&_ul>li]:before:content-['']",
-        "[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:py-3 [&_ol]:space-y-1",
-        "[&_ol>ol]:list-[lower-alpha]",
-        "[&_ol>ol>ol]:list-[lower-roman]",
-        // Definition list
-        "[&_dl]:py-3 [&_dl]:space-y-1",
-        "[&_dt]:font-medium [&_dt]:text-sm [&_dt]:leading-snug [&_dt:not(:first-child)]:mt-3",
-        "[&_dd]:text-sm [&_dd]:leading-snug [&_dd]:text-muted-foreground",
-        // List item base styling
-        "[&_li]:pl-2 [&_li]:marker:text-foreground/80",
-        "[&_li>ul]:mt-2 [&_li>ul]:mb-0 [&_li>ol]:mt-2 [&_li>ol]:mb-0",
-        "[&_ul>ul>li]:before:bg-foreground/60",
-        "[&_ul>ul>ul>li]:before:bg-foreground/40",
-        // Code blocks
-        "[&_code:not(pre_code)]:rounded [&_code:not(pre_code)]:border [&_code:not(pre_code)]:bg-muted/50 [&_code:not(pre_code)]:px-1 [&_code:not(pre_code)]:py-px [&_code:not(pre_code)]:font-mono [&_code:not(pre_code)]:text-sm [&_code:not(pre_code)]:font-medium",
-        // Title code blocks
-        "[&_h1>code:not(pre_code)]:text-inherit [&_h1>code:not(pre_code)]:tracking-tight",
-        "[&_h2>code:not(pre_code)]:text-inherit [&_h2>code:not(pre_code)]:tracking-tight",
-        "[&_h3>code:not(pre_code)]:text-inherit [&_h3>code:not(pre_code)]:tracking-tight",
-        "[&_h4>code:not(pre_code)]:text-inherit [&_h4>code:not(pre_code)]:tracking-tight",
-        "[&_h5>code:not(pre_code)]:text-inherit [&_h5>code:not(pre_code)]:tracking-tight",
-        "[&_h6>code:not(pre_code)]:text-inherit [&_h6>code:not(pre_code)]:tracking-tight",
-        // Specific heading code block sizes
-        "[&_h1>code:not(pre_code)]:text-4xl sm:[&_h1>code:not(pre_code)]:text-5xl",
-        "[&_h2>code:not(pre_code)]:text-3xl sm:[&_h2>code:not(pre_code)]:text-4xl",
-        "[&_h3>code:not(pre_code)]:text-2xl sm:[&_h3>code:not(pre_code)]:text-3xl",
-        "[&_h4>code:not(pre_code)]:text-xl sm:[&_h4>code:not(pre_code)]:text-2xl",
-        "[&_h5>code:not(pre_code)]:text-lg sm:[&_h5>code:not(pre_code)]:text-xl",
-        "[&_h6>code:not(pre_code)]:text-base sm:[&_h6>code:not(pre_code)]:text-lg",
-        // Pre blocks
-        "[&_pre]:overflow-x-auto [&_pre]:rounded-sm [&_pre]:border [&_pre]:bg-muted/50 [&_pre]:p-4 [&_pre]:my-4",
-        "[&_pre>code]:bg-transparent [&_pre>code]:p-0",
-        // Tables
-        "[&_table]:w-full [&_table]:my-4 [&_table]:overflow-hidden [&_table]:rounded-sm [&_table]:border",
-        "[&_thead]:bg-muted/50",
-        "[&_tr]:border-b [&_tr:nth-child(even)]:bg-muted/20",
-        "[&_th]:px-4 [&_th]:py-3 [&_th]:text-left [&_th]:font-semibold [&_th]:border-r",
-        "[&_td]:px-4 [&_td]:py-2 [&_td]:border-r",
-        // Media
-        "[&_img]:border [&_img]:my-4 [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-sm",
-        "[&_video]:border [&_video]:my-4 [&_video]:max-w-full [&_video]:h-auto [&_video]:rounded-sm",
-        "[&_figure]:my-4",
-        "[&_figcaption]:text-sm [&_figcaption]:mb-6! [&_figcaption]:text-muted-foreground",
-        // Block elements
-        "[&_blockquote]:border-l-4 [&_blockquote]:border-border [&_blockquote]:pl-4! [&_blockquote]:py-2 [&_blockquote]:my-4 [&_blockquote]:text-muted-foreground [&_blockquote]:bg-muted/30",
-        "[&_hr]:my-8! [&_hr]:border-t-2 [&_hr]:border-border/50",
-        "[&_p:has(>hr)]:my-8! [&_p:has(>hr)]:border-t-2 [&_p:has(>hr)]:border-border/50",
-        "[&_details]:rounded-sm [&_details]:border [&_details]:px-4 [&_details]:py-2 [&_details]:my-4",
-        "[&_summary]:cursor-pointer [&_summary]:font-semibold focus-visible:[&_summary]:outline-hidden",
-        // Interactive elements
-        "[&_kbd]:rounded-sm [&_kbd]:border [&_kbd]:bg-muted [&_kbd]:px-1.5 [&_kbd]:py-0.5 [&_kbd]:text-sm [&_kbd]:font-mono [&_kbd]:shadow-xs [&_kbd]:align-middle",
-        // Abbreviations
-        "[&_abbr]:border-b [&_abbr]:border-dotted [&_abbr]:decoration-muted-foreground [&_abbr]:underline-offset-2 [&_abbr]:cursor-help",
-        isArticle && "max-w-prose",
-        // Space between children
-        isSpaced ? "space-y-6" : "",
-        // Heading spacing
-        isSpaced ? "[&_h1:not(:first-child)]:mt-8 [&_h1]:mb-4" : "",
-        isSpaced ? "[&_h2:not(:first-child)]:mt-8 [&_h2]:mb-4" : "",
-        isSpaced ? "[&_h3:not(:first-child)]:mt-6 [&_h3]:mb-3" : "",
-        isSpaced ? "[&_h4:not(:first-child)]:mt-6 [&_h4]:mb-3" : "",
-        isSpaced ? "[&_h5:not(:first-child)]:mt-6 [&_h5]:mb-2" : "",
-        isSpaced ? "[&_h6:not(:first-child)]:mt-4 [&_h6]:mb-2" : "",
-        className
+      {...props}
+      {...stylex.props(
+        proseStyles.root,
+        isArticle && proseStyles.article,
+        isSpaced && proseStyles.spaced,
+        style,
       )}
-      id={id}
-      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-      style={style}
-    >
-      {children}
-    </Component>
+    />
   );
-};
+}
+
+function H1({ style, ...props }: ElementProps<"h1">) {
+  return <h1 {...props} {...stylex.props(proseStyles.h1, style)} />;
+}
+
+function H2({ style, ...props }: ElementProps<"h2">) {
+  return <h2 {...props} {...stylex.props(proseStyles.h2, style)} />;
+}
+
+function H3({ style, ...props }: ElementProps<"h3">) {
+  return <h3 {...props} {...stylex.props(proseStyles.h3, style)} />;
+}
+
+function H4({ style, ...props }: ElementProps<"h4">) {
+  return <h4 {...props} {...stylex.props(proseStyles.h4, style)} />;
+}
+
+function H5({ style, ...props }: ElementProps<"h5">) {
+  return <h5 {...props} {...stylex.props(proseStyles.h5, style)} />;
+}
+
+function H6({ style, ...props }: ElementProps<"h6">) {
+  return <h6 {...props} {...stylex.props(proseStyles.h6, style)} />;
+}
+
+const textVariants = {
+  body: null,
+  lead: proseStyles.lead,
+  large: proseStyles.large,
+  small: proseStyles.small,
+  muted: proseStyles.muted,
+} as const;
+
+function P({ variant = "body", style, ...props }: TextProps) {
+  return (
+    <p
+      {...props}
+      {...stylex.props(proseStyles.text, textVariants[variant], style)}
+    />
+  );
+}
+
+function A({ style, ...props }: ElementProps<"a">) {
+  return <a {...props} {...stylex.props(proseStyles.link, style)} />;
+}
+
+function Strong({ style, ...props }: ElementProps<"strong">) {
+  return <strong {...props} {...stylex.props(proseStyles.strong, style)} />;
+}
+
+function Em({ style, ...props }: ElementProps<"em">) {
+  return <em {...props} {...stylex.props(proseStyles.em, style)} />;
+}
+
+function Del({ style, ...props }: ElementProps<"del">) {
+  return <del {...props} {...stylex.props(proseStyles.del, style)} />;
+}
+
+function Code({ block = false, style, ...props }: CodeProps) {
+  return (
+    <code
+      {...props}
+      {...stylex.props(
+        block ? proseStyles.blockCode : proseStyles.inlineCode,
+        style,
+      )}
+    />
+  );
+}
+
+function Pre({ style, ...props }: ElementProps<"pre">) {
+  return <pre {...props} {...stylex.props(proseStyles.pre, style)} />;
+}
+
+function Ul({ style, ...props }: ElementProps<"ul">) {
+  return <ul {...props} {...stylex.props(proseStyles.ul, style)} />;
+}
+
+function Ol({ style, ...props }: ElementProps<"ol">) {
+  return <ol {...props} {...stylex.props(proseStyles.ol, style)} />;
+}
+
+function Li({ style, ...props }: ElementProps<"li">) {
+  return <li {...props} {...stylex.props(proseStyles.li, style)} />;
+}
+
+function Dl({ style, ...props }: ElementProps<"dl">) {
+  return <dl {...props} {...stylex.props(proseStyles.dl, style)} />;
+}
+
+function Dt({ style, ...props }: ElementProps<"dt">) {
+  return <dt {...props} {...stylex.props(proseStyles.dt, style)} />;
+}
+
+function Dd({ style, ...props }: ElementProps<"dd">) {
+  return <dd {...props} {...stylex.props(proseStyles.dd, style)} />;
+}
+
+function Blockquote({ style, ...props }: ElementProps<"blockquote">) {
+  return (
+    <blockquote {...props} {...stylex.props(proseStyles.blockquote, style)} />
+  );
+}
+
+function Cite({ style, ...props }: ElementProps<"cite">) {
+  return <cite {...props} {...stylex.props(proseStyles.cite, style)} />;
+}
+
+function Table({ style, ...props }: ElementProps<"table">) {
+  return <table {...props} {...stylex.props(proseStyles.table, style)} />;
+}
+
+function Thead({ style, ...props }: ElementProps<"thead">) {
+  return <thead {...props} {...stylex.props(proseStyles.thead, style)} />;
+}
+
+function Tbody({ style, ...props }: ElementProps<"tbody">) {
+  return <tbody {...props} {...stylex.props(style)} />;
+}
+
+function Tr({ style, ...props }: ElementProps<"tr">) {
+  return <tr {...props} {...stylex.props(proseStyles.tr, style)} />;
+}
+
+function Th({ style, ...props }: ElementProps<"th">) {
+  return <th {...props} {...stylex.props(proseStyles.th, style)} />;
+}
+
+function Td({ style, ...props }: ElementProps<"td">) {
+  return <td {...props} {...stylex.props(proseStyles.td, style)} />;
+}
+
+function Figure({ style, ...props }: ElementProps<"figure">) {
+  return <figure {...props} {...stylex.props(proseStyles.figure, style)} />;
+}
+
+function Img({ style, ...props }: ElementProps<"img">) {
+  return <img {...props} {...stylex.props(proseStyles.image, style)} />;
+}
+
+function Figcaption({ style, ...props }: ElementProps<"figcaption">) {
+  return (
+    <figcaption {...props} {...stylex.props(proseStyles.figcaption, style)} />
+  );
+}
+
+function Details({ style, ...props }: ElementProps<"details">) {
+  return <details {...props} {...stylex.props(proseStyles.details, style)} />;
+}
+
+function Summary({ style, ...props }: ElementProps<"summary">) {
+  return <summary {...props} {...stylex.props(proseStyles.summary, style)} />;
+}
+
+function Hr({ style, ...props }: ElementProps<"hr">) {
+  return <hr {...props} {...stylex.props(proseStyles.hr, style)} />;
+}
+
+function Small({ style, ...props }: ElementProps<"small">) {
+  return <small {...props} {...stylex.props(proseStyles.small, style)} />;
+}
+
+function Kbd({ style, ...props }: ElementProps<"kbd">) {
+  return <kbd {...props} {...stylex.props(proseStyles.kbd, style)} />;
+}
+
+function Mark({ style, ...props }: ElementProps<"mark">) {
+  return <mark {...props} {...stylex.props(proseStyles.mark, style)} />;
+}
+
+function Abbr({ style, ...props }: ElementProps<"abbr">) {
+  return <abbr {...props} {...stylex.props(proseStyles.abbr, style)} />;
+}
+
+function Sub({ style, ...props }: ElementProps<"sub">) {
+  return <sub {...props} {...stylex.props(proseStyles.subSup, style)} />;
+}
+
+function Sup({ style, ...props }: ElementProps<"sup">) {
+  return <sup {...props} {...stylex.props(proseStyles.subSup, style)} />;
+}
+
+function Video({ style, ...props }: ElementProps<"video">) {
+  return <video {...props} {...stylex.props(proseStyles.video, style)} />;
+}
+
+export const Prose = Object.assign(ProseRoot, {
+  Abbr,
+  A,
+  Blockquote,
+  Cite,
+  Code,
+  Dd,
+  Del,
+  Details,
+  Dl,
+  Dt,
+  Em,
+  Figcaption,
+  Figure,
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+  Hr,
+  Img,
+  Kbd,
+  Li,
+  Mark,
+  Ol,
+  P,
+  Pre,
+  Small,
+  Strong,
+  Sub,
+  Summary,
+  Sup,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  Ul,
+  Video,
+});
