@@ -1,11 +1,13 @@
 {
-  "name": "craft-stylex-comparison",
+  "name": "craft-ds-comparison",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "build": "turbo build",
     "check-types": "turbo check-types",
-    "dev": "turbo dev",
+    "dev": "turbo dev --filter=@craft/stylex --filter=@craft/tailwind",
+    "dev:stylex": "turbo dev --filter=@craft/stylex",
+    "dev:tailwind": "turbo dev --filter=@craft/tailwind",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "clean": "rimraf node_modules */**/node_modules"
@@ -20,10 +22,11 @@
   },
   "packageManager": "pnpm@10.4.1",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.9.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
       "core-js",
       "core-js-pure",
       "sharp",

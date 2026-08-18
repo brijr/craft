@@ -1,24 +1,32 @@
 # Tailwind Craft vs. StyleX Craft
 
-This comparison was captured on August 17, 2026 from the same Craft checkout. Next.js 15.3.5, React 19, the routes, the content coverage, and the visual intent were held constant. The StyleX version is a pure port rather than a compatibility layer.
+This comparison was refreshed on August 17, 2026 with both variants running Next.js 16.3.1, React 19.2.8, and the default Turbopack development and production builds.
+
+- StyleX: `apps/stylex` with `packages/craft-ds-stylex`
+- Tailwind: `apps/tailwind` with `packages/craft-ds-tailwind`
+- Shared Tailwind starting point: commit `1333d16811c605abb252aaa34578803664bca0b8`
+
+The routes, content coverage, layout intent, viewport, browser, and production server configuration were held constant. The StyleX implementation remains a pure port rather than a compatibility layer.
 
 ## Results
 
-| Measure                           | Tailwind baseline | StyleX port |  Change |
-| --------------------------------- | ----------------: | ----------: | ------: |
-| Generated production CSS, raw     |          42,864 B |     6,974 B |  −83.7% |
-| Shared first-load JavaScript      |            101 kB |      184 kB |  +82.2% |
-| `className=` authoring sites      |                80 |           0 |   −100% |
-| Core design-system styling source |         263 lines |   708 lines | +169.2% |
-| Selected parity source            |       1,095 lines | 1,573 lines |  +43.7% |
+| Measure                                   |    Tailwind |      StyleX |  Change |
+| ----------------------------------------- | ----------: | ----------: | ------: |
+| Generated production CSS, raw             |    46,038 B |     7,726 B |  −83.2% |
+| Initial `/` CSS, encoded over HTTP        |     8,237 B |     2,930 B |  −64.4% |
+| Initial `/` JavaScript, encoded over HTTP |   151,920 B |   143,066 B |   −5.8% |
+| Initial `/` HTML, encoded over HTTP       |    14,394 B |    12,546 B |  −12.8% |
+| `className=` authoring sites              |          82 |           0 |   −100% |
+| Core design-system styling source         |   263 lines |   708 lines | +169.2% |
+| Selected parity source                    | 1,095 lines | 1,575 lines |  +43.8% |
 
-The StyleX CSS is 2,693 bytes after gzip. “Core design-system styling source” compares the original `ds.tsx` with the StyleX `ds.tsx`, tokens, and theme files. “Selected parity source” also includes the catalog page, example page, and global stylesheet.
+Next.js 16 removed the old `Size` and `First Load JS` build output because it was unreliable for React Server Components. The HTTP figures above instead use a fresh Chromium session and `PerformanceResourceTiming.encodedBodySize` for the six initial JavaScript resources, stylesheet, and document. Browser cache was empty for each origin.
 
-Build timing is intentionally omitted because repeat builds reused local caches. The final StyleX build passes type-checking, ESLint, static generation, and production browser verification. The baseline compiled and prerendered, but its monorepo build reported a missing `@eslint/js` package declaration; that repository configuration issue was fixed during the port.
+“Core design-system styling source” compares the Tailwind `ds.tsx` with the StyleX `ds.tsx`, tokens, and theme files. “Selected parity source” also includes the catalog page, example page, and global stylesheet.
 
 ## API difference
 
-The Tailwind version offered concise descendant styling:
+Tailwind offers concise descendant styling:
 
 ```tsx
 <Prose isArticle isSpaced>
@@ -27,7 +35,7 @@ The Tailwind version offered concise descendant styling:
 </Prose>
 ```
 
-The StyleX version makes ownership explicit:
+StyleX makes ownership explicit:
 
 ```tsx
 <Prose isArticle isSpaced>
@@ -36,42 +44,43 @@ The StyleX version makes ownership explicit:
 </Prose>
 ```
 
-That is the central tradeoff. StyleX avoids broad descendant selectors and gives every element a typed style extension point, but the author writes more component syntax and the package owns a larger surface.
+That is still the central authoring tradeoff. StyleX avoids broad descendant selectors and gives every element a typed extension point, but the package owns more components and the caller writes more syntax.
 
-## What improved
+## What improved with StyleX
 
-- Production CSS dropped from 42.9 kB to 7.0 kB while preserving the catalog and article designs.
+- Raw generated CSS is 83% smaller and the CSS downloaded for `/` is 64% smaller.
+- Initial JavaScript is now slightly smaller under the shared Next.js 16 Turbopack build, reversing the misleading Next.js 15 build-metric result.
 - Style props, tokens, responsive values, and theme overrides are statically typed.
-- Component composition is deterministic; callers do not need a class-merging utility.
+- Composition is deterministic; callers do not need a class-merging utility.
 - Dark mode is a token theme rather than a second set of utility classes.
-- Tailwind, shadcn, `clsx`, `tailwind-merge`, animation helpers, and the unused UI workspace package are gone.
-- The output contains no authored `className=` sites.
+- Tailwind, shadcn, `clsx`, `tailwind-merge`, animation helpers, and the UI workspace package are absent from the StyleX application's dependency graph.
 
-## What regressed
+## What remains more expensive
 
-- Shared first-load JavaScript increased by 83 kB in this Next.js 15 build.
-- The core package source grew substantially because rich prose now exposes an explicit primitive for each styled element.
-- StyleX requires coordinated Babel and PostCSS configuration. On this fixed Next.js 15 baseline, the custom Babel path disables SWC.
+- The core StyleX package source is 169% larger because rich prose exposes an explicit primitive for each styled element.
+- StyleX requires coordinated Babel and PostCSS configuration even though Next.js 16 now runs that integration through Turbopack successfully.
 - Arbitrary CMS or Markdown HTML cannot inherit the full prose treatment automatically. It must be mapped to `Prose.*` elements or handled by a deliberately scoped compatibility layer.
+- Tailwind remains faster to improvise with when a design is primarily utility composition inside one application.
 
-The [current StyleX Next.js guide](https://stylexjs.com/docs/learn/installation/nextjs) documents a Turbopack path for Next.js 16.0.3 and newer. This comparison does not upgrade Next because changing the framework version would muddy the result.
+The [StyleX Next.js guide](https://stylexjs.com/docs/learn/installation/nextjs) documents Webpack and Turbopack compatibility starting with Next.js 16.0.3. Both `next dev` and `next build` use Turbopack here without `--webpack`.
 
 ## Verification
+
+Both applications pass from the shared workspace:
 
 - `pnpm check-types`
 - `pnpm lint`
 - `pnpm build`
-- Production browser checks at desktop and 390 px widths
+- Static generation of `/` and `/example`
+- Desktop and 390 px production-browser checks
 - Light/dark theme switching and persistence
-- `/` and `/example` navigation
-- Copy-to-clipboard feedback
-- Semantic headings, links, forms, lists, tables, details, media, and footnotes
 - Zero horizontal overflow at 390 px
+- Zero hydration or runtime errors
 
-The only browser console message is the expected local warning that Vercel Web Analytics is not available until deployment.
+The Tailwind lint run retains three existing `@next/next/no-img-element` warnings. The only browser console message in either app is the expected local warning that Vercel Web Analytics is unavailable until deployment.
 
 ## Verdict
 
-For Craft as a small copy-paste typography layer, Tailwind remains terser and currently produces much less first-load JavaScript in this Next.js 15 app. StyleX produces dramatically less CSS and a stronger typed component contract, but it asks the library to own explicit prose elements and compiler setup.
+On the shared Next.js 16.3.1 baseline, StyleX has the better delivered output: much less CSS, slightly less JavaScript, and a smaller document. The old 83 kB JavaScript regression was an artifact of comparing different Next.js 15 compiler paths and no longer appears.
 
-StyleX is the more interesting direction if Craft is meant to become a durable, themeable component API. Tailwind is the pragmatic choice if Craft should remain a minimal wrapper around arbitrary HTML. Before choosing StyleX for production, repeat the bundle comparison on Next.js 16 with its supported Turbopack integration; the 83 kB JavaScript regression is too large to wave away.
+Tailwind is still substantially terser and better suited to Craft as a minimal wrapper around arbitrary HTML. StyleX is the stronger direction if Craft should become a durable, themeable, typed component API. The decision is now about authoring model and ownership—not a runtime payload penalty.
