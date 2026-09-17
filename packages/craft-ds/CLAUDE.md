@@ -12,17 +12,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Package Distribution
 
-- `pnpx craft-ds init` - CLI command to install craft-ds in a Next.js project (run from target project)
+- `pnpx craft-ds init` - CLI command to install craft-ds in a React + Tailwind project (run from target project)
 
 ## Architecture
 
-craft-ds is a minimalist design system for Next.js applications with two main parts:
+craft-ds is a React + Tailwind design system with two main parts:
 
 1. **NPM Package (craft-ds)**: The core design system distributed via npm
 
-   - `ds.tsx` - Main component file containing Layout, Main, Section, Container, Nav, and Prose components
+   - `ds.tsx` - Layout primitives, `typography` roles, and the Prose wrapper
+   - `ds.css` - `@theme` tokens, `type-*` utilities, and `ds-prose` content styles
    - `lib/utils.ts` - Utility functions including `cn()` for className merging
-   - `bin/init.js` - CLI installer that sets up the design system in target projects
+   - `bin/init.js` - CLI installer that copies `ds.tsx` + `ds.css` and injects the CSS import
 
 2. **Demo Website (/web)**: Next.js 15 app showcasing the design system
    - Uses app router structure
@@ -39,23 +40,37 @@ craft-ds is a minimalist design system for Next.js applications with two main pa
 ### Component Architecture
 
 ```tsx
-// Standard layout pattern
+// Next.js App Router document root only
 <Layout>
   <Nav>{/* Navigation with optional blur/border */}</Nav>
   <Main>
     <Section>{/* Semantic sections with consistent spacing */}</Section>
   </Main>
 </Layout>
+
+// Vite / React Router: put `root` on the existing <html>. Do not wrap that document in Craft Layout.
+<html lang="en" className={root}>
 ```
+
+### Typography
+
+- UI text → `typography.*` (`typography.h1` is `"type-h1 sm:type-h1-sm"`)
+- Markdown / CMS / AI HTML → `<Prose>`
+- Do not wrap app UI in Prose
+- Do not put `typography.*` on children inside Prose
+
+The export is `typography` because `type` is a TypeScript import keyword.
 
 ### Installation Process (handled by CLI)
 
-1. Validates Node.js v18+ and Next.js project structure
-2. Installs required dependencies (tailwindcss-animate, clsx, tailwind-merge)
+1. Validates Node.js v18+ and a `package.json` (Next.js is not required)
+2. Installs required dependencies (clsx, tailwind-merge; Tailwind if missing)
 3. Optionally sets up shadcn/ui with base configuration
-4. Copies ds.tsx to target project's components directory
-5. Updates import paths automatically
+4. Copies `ds.tsx` and `ds.css` to the target project's components directory
+5. Injects `@import ".../ds.css"` after `@import "tailwindcss"` when it finds `app/globals.css`, `src/app/globals.css`, `src/styles/globals.css`, `styles/globals.css`, `app/app.css`, `src/index.css`, or `src/style.css`. Warns and prints the import if none exist.
+
+`Layout` is Next App Router document-root only. Vite / React Router put `root` on the existing `<html>` and must not wrap that document in Craft `Layout`.
 
 ### Testing
 
-Currently no test framework is implemented. The `test` script is a placeholder.
+- `npm test` in this package runs `node --test` (installer helpers and package surface).

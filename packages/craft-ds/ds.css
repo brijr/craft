@@ -1,0 +1,613 @@
+/*
+ * Craft typography
+ *
+ * Tokens → type-* utilities (any element) → ds-prose (markdown / CMS HTML).
+ * Import after Tailwind in the app stylesheet.
+ */
+
+@theme {
+  --text-h1: 2.25rem;
+  --text-h1--line-height: 1;
+  --text-h1--letter-spacing: -0.025em;
+  --text-h1--font-weight: 500;
+  --text-h1-sm: 3rem;
+  --text-h1-sm--line-height: 1;
+  --text-h1-sm--letter-spacing: -0.025em;
+  --text-h1-sm--font-weight: 500;
+
+  --text-h2: 1.875rem;
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h2--font-weight: 500;
+  --text-h2-sm: 2.25rem;
+  --text-h2-sm--line-height: 1.1;
+  --text-h2-sm--letter-spacing: -0.025em;
+  --text-h2-sm--font-weight: 500;
+
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.025em;
+  --text-h3--font-weight: 500;
+  --text-h3-sm: 1.875rem;
+  --text-h3-sm--line-height: 1.2;
+  --text-h3-sm--letter-spacing: -0.025em;
+  --text-h3-sm--font-weight: 500;
+
+  --text-h4: 1.25rem;
+  --text-h4--line-height: 1.25;
+  --text-h4--letter-spacing: -0.025em;
+  --text-h4-sm: 1.5rem;
+  --text-h4-sm--line-height: 1.25;
+  --text-h4-sm--letter-spacing: -0.025em;
+
+  --text-h5: 1.125rem;
+  --text-h5--line-height: 1.3;
+  --text-h5--letter-spacing: -0.025em;
+  --text-h5-sm: 1.25rem;
+  --text-h5-sm--line-height: 1.3;
+  --text-h5-sm--letter-spacing: -0.025em;
+
+  --text-h6: 1rem;
+  --text-h6--line-height: 1.4;
+  --text-h6--letter-spacing: -0.025em;
+  --text-h6-sm: 1.125rem;
+  --text-h6-sm--line-height: 1.4;
+  --text-h6-sm--letter-spacing: -0.025em;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.75;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.6;
+  --text-large: 1.125rem;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.375;
+  --text-caption: 0.875rem;
+  --text-caption--line-height: 1.375;
+
+  --color-foreground: var(--foreground, oklch(0.145 0 0));
+  --color-muted-foreground: var(--muted-foreground, oklch(0.556 0 0));
+  --color-primary: var(--primary, oklch(0.205 0 0));
+  --color-muted: var(--muted, oklch(0.97 0 0));
+  --color-border: var(--border, oklch(0.922 0 0));
+}
+
+@utility type-h1 {
+  font-size: var(--text-h1);
+  line-height: var(--text-h1--line-height);
+  letter-spacing: var(--text-h1--letter-spacing);
+  font-weight: var(--text-h1--font-weight);
+  text-wrap: balance;
+}
+@utility type-h1-sm {
+  font-size: var(--text-h1-sm);
+  line-height: var(--text-h1-sm--line-height);
+  letter-spacing: var(--text-h1-sm--letter-spacing);
+  font-weight: var(--text-h1-sm--font-weight);
+  text-wrap: balance;
+}
+
+@utility type-h2 {
+  font-size: var(--text-h2);
+  line-height: var(--text-h2--line-height);
+  letter-spacing: var(--text-h2--letter-spacing);
+  font-weight: var(--text-h2--font-weight);
+  text-wrap: balance;
+}
+@utility type-h2-sm {
+  font-size: var(--text-h2-sm);
+  line-height: var(--text-h2-sm--line-height);
+  letter-spacing: var(--text-h2-sm--letter-spacing);
+  font-weight: var(--text-h2-sm--font-weight);
+  text-wrap: balance;
+}
+
+@utility type-h3 {
+  font-size: var(--text-h3);
+  line-height: var(--text-h3--line-height);
+  letter-spacing: var(--text-h3--letter-spacing);
+  font-weight: var(--text-h3--font-weight);
+  text-wrap: balance;
+}
+@utility type-h3-sm {
+  font-size: var(--text-h3-sm);
+  line-height: var(--text-h3-sm--line-height);
+  letter-spacing: var(--text-h3-sm--letter-spacing);
+  font-weight: var(--text-h3-sm--font-weight);
+  text-wrap: balance;
+}
+
+@utility type-h4 {
+  font-size: var(--text-h4);
+  line-height: var(--text-h4--line-height);
+  letter-spacing: var(--text-h4--letter-spacing);
+  text-wrap: balance;
+}
+@utility type-h4-sm {
+  font-size: var(--text-h4-sm);
+  line-height: var(--text-h4-sm--line-height);
+  letter-spacing: var(--text-h4-sm--letter-spacing);
+  text-wrap: balance;
+}
+
+@utility type-h5 {
+  font-size: var(--text-h5);
+  line-height: var(--text-h5--line-height);
+  letter-spacing: var(--text-h5--letter-spacing);
+  text-wrap: balance;
+}
+@utility type-h5-sm {
+  font-size: var(--text-h5-sm);
+  line-height: var(--text-h5-sm--line-height);
+  letter-spacing: var(--text-h5-sm--letter-spacing);
+  text-wrap: balance;
+}
+
+@utility type-h6 {
+  font-size: var(--text-h6);
+  line-height: var(--text-h6--line-height);
+  letter-spacing: var(--text-h6--letter-spacing);
+  text-wrap: balance;
+}
+@utility type-h6-sm {
+  font-size: var(--text-h6-sm);
+  line-height: var(--text-h6-sm--line-height);
+  letter-spacing: var(--text-h6-sm--letter-spacing);
+  text-wrap: balance;
+}
+
+@utility type-body {
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  text-wrap: pretty;
+}
+@utility type-lead {
+  font-size: var(--text-lead);
+  line-height: var(--text-lead--line-height);
+  text-wrap: pretty;
+}
+@utility type-large {
+  font-size: var(--text-large);
+}
+@utility type-small {
+  font-size: var(--text-small);
+  line-height: var(--text-small--line-height);
+}
+@utility type-caption {
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+}
+@utility type-muted {
+  color: var(--color-muted-foreground);
+}
+
+@utility ds-prose {
+  min-width: 0;
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  & h1 {
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
+    letter-spacing: var(--text-h1--letter-spacing);
+    font-weight: var(--text-h1--font-weight);
+    text-wrap: balance;
+    @variant sm {
+      font-size: var(--text-h1-sm);
+      line-height: var(--text-h1-sm--line-height);
+      letter-spacing: var(--text-h1-sm--letter-spacing);
+      font-weight: var(--text-h1-sm--font-weight);
+    }
+  }
+
+  & h2 {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    letter-spacing: var(--text-h2--letter-spacing);
+    font-weight: var(--text-h2--font-weight);
+    text-wrap: balance;
+    @variant sm {
+      font-size: var(--text-h2-sm);
+      line-height: var(--text-h2-sm--line-height);
+      letter-spacing: var(--text-h2-sm--letter-spacing);
+      font-weight: var(--text-h2-sm--font-weight);
+    }
+  }
+
+  & h3 {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    letter-spacing: var(--text-h3--letter-spacing);
+    font-weight: var(--text-h3--font-weight);
+    text-wrap: balance;
+    @variant sm {
+      font-size: var(--text-h3-sm);
+      line-height: var(--text-h3-sm--line-height);
+      letter-spacing: var(--text-h3-sm--letter-spacing);
+      font-weight: var(--text-h3-sm--font-weight);
+    }
+  }
+
+  & h4 {
+    font-size: var(--text-h4);
+    line-height: var(--text-h4--line-height);
+    letter-spacing: var(--text-h4--letter-spacing);
+    text-wrap: balance;
+    @variant sm {
+      font-size: var(--text-h4-sm);
+      line-height: var(--text-h4-sm--line-height);
+      letter-spacing: var(--text-h4-sm--letter-spacing);
+    }
+  }
+
+  & h5 {
+    font-size: var(--text-h5);
+    line-height: var(--text-h5--line-height);
+    letter-spacing: var(--text-h5--letter-spacing);
+    text-wrap: balance;
+    @variant sm {
+      font-size: var(--text-h5-sm);
+      line-height: var(--text-h5-sm--line-height);
+      letter-spacing: var(--text-h5-sm--letter-spacing);
+    }
+  }
+
+  & h6 {
+    font-size: var(--text-h6);
+    line-height: var(--text-h6--line-height);
+    letter-spacing: var(--text-h6--letter-spacing);
+    text-wrap: balance;
+    @variant sm {
+      font-size: var(--text-h6-sm);
+      line-height: var(--text-h6-sm--line-height);
+      letter-spacing: var(--text-h6-sm--letter-spacing);
+    }
+  }
+
+  & p {
+    font-size: var(--text-body);
+    text-wrap: pretty;
+  }
+
+  & .lead {
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+    text-wrap: pretty;
+  }
+
+  & .large {
+    font-size: var(--text-large);
+  }
+
+  & .small,
+  & small {
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
+  & .muted,
+  & muted {
+    color: var(--color-muted-foreground);
+  }
+
+  & strong {
+    font-weight: 600;
+  }
+
+  & em {
+    font-style: italic;
+  }
+
+  & del {
+    text-decoration-line: line-through;
+  }
+
+  & sub,
+  & sup {
+    font-size: var(--text-small);
+    vertical-align: baseline;
+  }
+
+  & a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a) {
+    color: var(--color-primary);
+    text-decoration-line: none;
+    text-decoration-color: color-mix(
+      in oklab,
+      var(--color-primary) 50%,
+      transparent
+    );
+    text-underline-offset: 2px;
+    transition-property: all;
+    transition-duration: 150ms;
+    outline: none;
+    @variant dark {
+      color: color-mix(in oklab, var(--color-primary) 50%, transparent);
+    }
+    &:hover {
+      text-decoration-line: underline;
+      color: var(--color-primary);
+    }
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px
+        color-mix(in oklab, var(--color-primary) 50%, transparent);
+    }
+  }
+
+  & ul {
+    list-style: none;
+    padding-left: 0;
+    padding-block: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  & ul > li {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  & ul > li::before {
+    content: "";
+    position: absolute;
+    left: 0.25rem;
+    top: 0.6875em;
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 9999px;
+    background-color: color-mix(
+      in oklab,
+      var(--color-foreground) 80%,
+      transparent
+    );
+  }
+
+  & ul ul > li::before {
+    background-color: color-mix(
+      in oklab,
+      var(--color-foreground) 60%,
+      transparent
+    );
+  }
+
+  & ul ul ul > li::before {
+    background-color: color-mix(
+      in oklab,
+      var(--color-foreground) 40%,
+      transparent
+    );
+  }
+
+  & ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    padding-block: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  & ol ol {
+    list-style-type: lower-alpha;
+  }
+
+  & ol ol ol {
+    list-style-type: lower-roman;
+  }
+
+  & li {
+    padding-left: 0.5rem;
+  }
+
+  & li::marker {
+    color: color-mix(in oklab, var(--color-foreground) 80%, transparent);
+  }
+
+  & li > ul,
+  & li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  & dl {
+    padding-block: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  & dt {
+    font-size: var(--text-small);
+    font-weight: 500;
+    line-height: var(--text-small--line-height);
+  }
+
+  & dt:not(:first-child) {
+    margin-top: 0.75rem;
+  }
+
+  & dd {
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    color: var(--color-muted-foreground);
+  }
+
+  & code:not(pre code) {
+    border-radius: var(--radius-sm, 0.25rem);
+    border: 1px solid var(--color-border);
+    background-color: color-mix(in oklab, var(--color-muted) 50%, transparent);
+    padding: 1px 0.25rem;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: var(--text-small);
+    font-weight: 500;
+  }
+
+  & :is(h1, h2, h3, h4, h5, h6) > code:not(pre code) {
+    color: inherit;
+    letter-spacing: -0.025em;
+    font-size: inherit;
+  }
+
+  & pre {
+    overflow-x: auto;
+    border-radius: var(--radius-sm, 0.125rem);
+    border: 1px solid var(--color-border);
+    background-color: color-mix(in oklab, var(--color-muted) 50%, transparent);
+    padding: 1rem;
+    margin-block: 1rem;
+  }
+
+  & pre > code {
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    font-weight: 400;
+  }
+
+  & table {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    margin-block: 1rem;
+    overflow: hidden;
+    border-radius: var(--radius-sm, 0.125rem);
+    border: 1px solid var(--color-border);
+    border-collapse: collapse;
+  }
+
+  & thead {
+    background-color: color-mix(in oklab, var(--color-muted) 50%, transparent);
+  }
+
+  & tr {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  & tr:nth-child(even) {
+    background-color: color-mix(in oklab, var(--color-muted) 20%, transparent);
+  }
+
+  & th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    border-right: 1px solid var(--color-border);
+    overflow-wrap: anywhere;
+  }
+
+  & td {
+    padding: 0.5rem 1rem;
+    border-right: 1px solid var(--color-border);
+    overflow-wrap: anywhere;
+  }
+
+  & img,
+  & video {
+    border: 1px solid var(--color-border);
+    margin-block: 1rem;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm, 0.125rem);
+  }
+
+  & figure {
+    margin-block: 1rem;
+  }
+
+  & figcaption {
+    font-size: var(--text-small);
+    color: var(--color-muted-foreground);
+    margin-bottom: 1.5rem;
+  }
+
+  & blockquote {
+    border-inline-start: 4px solid var(--color-border);
+    padding-inline-start: 1rem;
+    padding-block: 0.5rem;
+    margin-block: 1rem;
+    color: var(--color-muted-foreground);
+    background-color: color-mix(in oklab, var(--color-muted) 30%, transparent);
+  }
+
+  & hr,
+  & p:has(> hr) {
+    margin-block: 2rem;
+    border: 0;
+    border-block-start: 2px solid
+      color-mix(in oklab, var(--color-border) 50%, transparent);
+  }
+
+  & details {
+    border-radius: var(--radius-sm, 0.125rem);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 1rem;
+    margin-block: 1rem;
+  }
+
+  & summary {
+    cursor: pointer;
+    font-weight: 600;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  & kbd {
+    border-radius: var(--radius-sm, 0.125rem);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-muted);
+    padding: 0.125rem 0.375rem;
+    font-size: var(--text-small);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    box-shadow: 0 1px 2px color-mix(in oklab, black 8%, transparent);
+    vertical-align: middle;
+  }
+
+  & abbr {
+    border-bottom: 1px dotted var(--color-muted-foreground);
+    text-decoration: none;
+    text-underline-offset: 2px;
+    cursor: help;
+  }
+}
+
+@utility ds-prose-spaced {
+  & > :not([hidden]) ~ :not([hidden]) {
+    margin-block-start: --spacing(6);
+  }
+
+  & h1:not(:first-child),
+  & h2:not(:first-child) {
+    margin-block-start: --spacing(8);
+  }
+
+  & h1,
+  & h2 {
+    margin-block-end: --spacing(4);
+  }
+
+  & h3:not(:first-child),
+  & h4:not(:first-child),
+  & h5:not(:first-child) {
+    margin-block-start: --spacing(6);
+  }
+
+  & h3,
+  & h4 {
+    margin-block-end: --spacing(3);
+  }
+
+  & h5 {
+    margin-block-end: --spacing(2);
+  }
+
+  & h6:not(:first-child) {
+    margin-block-start: --spacing(4);
+  }
+
+  & h6 {
+    margin-block-end: --spacing(2);
+  }
+}

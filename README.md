@@ -2,7 +2,7 @@
 
 [View Demo Site](https://craft-ds.com)
 
-Craft is a lightweight, flexible design system for building responsive layouts in React and handling prose. It provides a set of foundational components that make it easy to create consistent, maintainable layouts while leveraging the power of Tailwind CSS.
+Craft is a React + Tailwind design system for building responsive layouts and handling prose. It is one component file (`ds.tsx`) and one CSS file (`ds.css`): layout primitives, portable type roles, and a Prose applicator for markdown. It is not Next-only — Vite and React Router work the same way.
 
 ### Quick Start
 
@@ -33,10 +33,10 @@ pnpx craft-ds init
 ## Requirements
 
 - Node.js 18 or higher (recommended 20+)
-- Next.js 13 or higher (recommended 15+)
-- shadcn/ui (for the color system)
-- Tailwind CSS
+- React
+- Tailwind CSS v4
 - TypeScript (recommended)
+- shadcn/ui is optional (Craft ships color fallbacks; shadcn tokens still win when present)
 
 ## Quick Start
 
@@ -62,14 +62,18 @@ The installer will:
 
 ### Layout
 
-The root component that provides base styling and structure for the HTML document.
+`Layout` renders the document `<html>` element. Use it only as the Next.js App Router document root. Vite and React Router already own `<html>` — put the exported `root` classes on that element and do not wrap the document in Craft `Layout`.
 
 ```tsx
-import { Layout } from "@/components/ds";
+import { Layout, root } from "@/components/ds";
 
+// Next.js App Router only
 export default function RootLayout({ children }) {
   return <Layout>{children}</Layout>;
 }
+
+// Vite or React Router: existing document <html>
+<html lang="en" className={root}>
 ```
 
 ### Main
@@ -120,21 +124,44 @@ Creates a navigation container with an inner div for navigation elements.
 </Nav>
 ```
 
-### Prose
+### Typography
 
-A powerful component for rich text content with extensive typography styling. Can be rendered as an article element when needed.
+Portable type roles for UI. Content HTML still uses Prose.
 
 ```tsx
-// As a div (default)
+import { typography, Prose, cn } from "@/components/ds";
+
+<h1 className={typography.h1}>Settings</h1>
+<p className={cn(typography.lead, typography.muted)}>
+  Manage your workspace.
+</p>
+
+<Prose isArticle isSpaced>
+  <h1>Article title</h1>
+  <p className="lead">Intro for markdown or CMS HTML.</p>
+</Prose>
+```
+
+- UI text → `typography.*`
+- Markdown / CMS / AI HTML → `<Prose>`
+- Do not wrap app UI in Prose
+- Do not put `typography.*` on children inside Prose
+
+`typography.h1` is `"type-h1 sm:type-h1-sm"`. Import `ds.css` after Tailwind or the classes will not exist.
+
+### Prose
+
+Styles descendant HTML for articles, markdown, and CMS output. Renders as an article when `isArticle` is set. Inside Prose, `lead`, `large`, `small`, and `muted` work as class names on the HTML.
+
+```tsx
 <Prose>
   <h1>Rich Text Content</h1>
   <p>Content with proper typography styling.</p>
 </Prose>
 
-// As an article with spacing
-<Prose isArticle={true} isSpaced={true}>
+<Prose isArticle isSpaced>
   <h1>Article Title</h1>
-  <p>Article content with proper typography and spacing.</p>
+  <p className="lead">Article intro.</p>
 </Prose>
 ```
 
@@ -157,48 +184,35 @@ type DSProps = {
 
 ## Typography System
 
-The Prose component provides a comprehensive typography system that handles:
+`typography` covers headings, body, lead, large, small, caption, and muted. Prose maps those recipes onto descendant tags and adds content chrome:
 
-- **Headings (h1-h6)**: Responsive sizing, proper tracking, and text balance
-- **Paragraphs**: Text prettifying and proper base sizing
-- **Inline Text**: Styling for strong, em, del, small, sub, and sup elements
-- **Links**: Special styling with hover and focus states
-- **Lists**: Styled ordered, unordered, and nested lists
-- **Definition Lists**: Styled dt and dd elements
-- **Code Blocks**: Different styling for inline code vs. code blocks
-- **Tables**: Fully styled tables with alternating row colors
-- **Media**: Styling for images, videos, figures, and captions
-- **Block Elements**: Styling for blockquotes, horizontal rules, and details/summary
-- **Interactive Elements**: Styling for keyboard shortcuts and abbreviations
+- **Headings (h1-h6)**: Responsive sizing, tight tracking, text balance, heading line-heights
+- **Paragraphs**: Pretty wrapping and body size
+- **Inline Text**: strong, em, del, small, sub, and sup
+- **Links**: Hover and focus, skipped inside headings
+- **Lists**: Ordered, unordered, nested, and definition lists
+- **Code**: Inline code vs. code blocks
+- **Tables, media, blockquotes, rules, details, kbd, abbr**
 
-### Typography Example
+### Content example
 
 ```tsx
-<Prose isSpaced={true}>
+<Prose isSpaced>
   <h1>Main Heading</h1>
-  <p>Introduction paragraph with <a href="#">links</a> and <code>inline code</code>.</p>
+  <p className="lead">Introduction with <a href="#">links</a> and <code>inline code</code>.</p>
 
   <h2>Section Heading</h2>
   <p>More content with <strong>strong text</strong> and <em>emphasis</em>.</p>
 
   <ul>
     <li>List item one</li>
-    <li>List item two
+    <li>
+      List item two
       <ul>
         <li>Nested list item</li>
-
       </ul>
     </li>
   </ul>
-
-  <blockquote>
-    <p>This is a blockquote with styled borders and background.</p>
-  </blockquote>
-
-  <pre><code>// This is a code block
-function example() {
-  return true;
-}</code></pre>
 </Prose>
 ```
 
@@ -229,31 +243,47 @@ All components accept a `className` prop for custom styling:
 
 ### Layout Structure
 
+Next.js App Router document root:
+
 ```tsx
 <Layout>
   <Nav>{/* Navigation content */}</Nav>
   <Main>
     <Section>
       <Container>
-        <h1>Page Title</h1>
-        {/* Content */}
+        <h1 className={typography.h1}>Page Title</h1>
       </Container>
     </Section>
   </Main>
 </Layout>
 ```
 
+Vite / React Router — do not wrap `<html>` in Craft `Layout`:
+
+```tsx
+<html lang="en" className={root}>
+  <body>
+    <Nav>{/* Navigation content */}</Nav>
+    <Main>
+      <Section>
+        <Container>
+          <h1 className={typography.h1}>Page Title</h1>
+        </Container>
+      </Section>
+    </Main>
+  </body>
+</html>
+```
+
 ### Content Structure
 
 ```tsx
-<Prose isArticle={true} isSpaced={true}>
+<h1 className={typography.h1}>Page Title</h1>
+<p className={cn(typography.lead, typography.muted)}>Short description.</p>
+
+<Prose isArticle isSpaced>
   <h1>Article Title</h1>
   <p>Introduction paragraph...</p>
-
-  <h2>Section Title</h2>
-  <p>Section content...</p>
-
-  {/* Rich content with full typography styling */}
 </Prose>
 ```
 

@@ -1,4 +1,4 @@
-import { Container, Section, Prose } from "@workspace/craft-ds/ds";
+import { Container, Section, Prose, typography, cn } from "@workspace/craft-ds/ds";
 import { Demo } from "@/components/demo";
 
 export default function Index() {
@@ -6,6 +6,7 @@ export default function Index() {
     <Section>
       <Container>
         <Intro />
+        <TypeExample />
         <LayoutExample />
         <ProseExample />
       </Container>
@@ -17,7 +18,7 @@ const Intro = () => {
   return (
     <Prose className="border bg-accent/50 p-6 mb-12">
       Craft is a minimalist Design System that combines a single component file
-      and a single CSS file with Next.js best practices for building websites
+      and a single CSS file with React and Tailwind for building websites
       quickly. It leverages{" "}
       <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
         Next.js
@@ -52,6 +53,24 @@ const Intro = () => {
   );
 };
 
+const TypeExample = () => {
+  return (
+    <div className="border p-6 mb-12">
+      <p className={cn(typography.caption, typography.muted, "mb-4")}>
+        Type — use outside Prose
+      </p>
+      <h1 className={typography.h1}>Settings</h1>
+      <p className={cn(typography.lead, typography.muted, "mt-2")}>
+        Manage your workspace. These classes work on any element.
+      </p>
+      <p className={cn(typography.body, "mt-4")}>
+        UI text uses <span className={typography.large}>typography.*</span>.
+        Markdown and articles still go through Prose.
+      </p>
+    </div>
+  );
+};
+
 const LayoutExample = () => {
   return (
     <Prose isSpaced className="border p-6 mb-12">
@@ -63,12 +82,18 @@ const LayoutExample = () => {
 
       <h3>Basic Layout Structure</h3>
       <pre>
-        <code>{`// In your layout.tsx
+        <code>{`// Next.js App Router document root only
 import { Layout } from "@/components/ds";
 
 export default function RootLayout({ children }) {
   return <Layout>{children}</Layout>;
-}`}</code>
+}
+
+// Vite / React Router: put root on the existing <html>.
+// Do not wrap that document in Craft Layout.
+import { root } from "@/components/ds";
+
+<html lang="en" className={root}>`}</code>
       </pre>
 
       <h3>Page Structure</h3>

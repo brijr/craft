@@ -6,11 +6,6 @@ const { execSync } = require("child_process");
 const readline = require("readline");
 const { existsSync } = require("fs");
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
 // Colored console output
 const colors = {
   reset: "\x1b[0m",
@@ -27,18 +22,30 @@ const log = {
   error: (msg) => console.error(`${colors.red}✕${colors.reset} ${msg}`),
 };
 
-async function promptUser(question, defaultValue) {
-  return new Promise((resolve) => {
-    rl.question(
-      `${colors.blue}?${colors.reset} ${question} ${
-        defaultValue ? `(default: ${defaultValue})` : ""
-      }: `,
-      (answer) => {
-        resolve(answer.trim() || defaultValue);
-      }
-    );
-  });
+function createPrompt(rl) {
+  return function promptUser(question, defaultValue) {
+    return new Promise((resolve) => {
+      rl.question(
+        `${colors.blue}?${colors.reset} ${question} ${
+          defaultValue ? `(default: ${defaultValue})` : ""
+        }: `,
+        (answer) => {
+          resolve(answer.trim() || defaultValue);
+        }
+      );
+    });
+  };
 }
+
+const STYLESHEET_CANDIDATES = [
+  "app/globals.css",
+  "src/app/globals.css",
+  "src/styles/globals.css",
+  "styles/globals.css",
+  "app/app.css",
+  "src/index.css",
+  "src/style.css",
+];
 
 function detectPackageManager() {
   if (existsSync("pnpm-lock.yaml")) return "pnpm";
@@ -70,30 +77,26 @@ function checkNodeVersion() {
   }
 }
 
-// Validation and project structure detection
-async function validateProject() {
-  const packageJsonPath = path.join(process.cwd(), "package.json");
+async function validateProject(rootDir = process.cwd()) {
+  const packageJsonPath = path.join(rootDir, "package.json");
 
   if (!existsSync(packageJsonPath)) {
     throw new Error(
-      "No package.json found. Please run this command in a Next.js project root directory."
+      "No package.json found. Please run this command in a project root directory."
     );
   }
 
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, "utf8"));
   const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
 
-  if (!deps.next) {
-    throw new Error(
-      "This project doesn't appear to be a Next.js project. Please ensure Next.js is installed."
-    );
-  }
-
-  // Check Next.js version
-  const nextVersion = deps.next.replace(/[^0-9.]/g, "");
-  const [major] = nextVersion.split(".");
-  if (parseInt(major) < 14) {
-    log.warn("Craft works best with Next.js 14 or higher. Consider upgrading.");
+  if (deps.next) {
+    const nextVersion = String(deps.next).replace(/[^0-9.]/g, "");
+    const [major] = nextVersion.split(".");
+    if (parseInt(major, 10) < 14) {
+      log.warn(
+        "Craft works best with Next.js 14 or higher. Consider upgrading."
+      );
+    }
   }
 
   return packageJson;
@@ -150,7 +153,49 @@ async function findComponentsDir() {
   return dir;
 }
 
+function findStylesheet(rootDir = process.cwd(), exists = existsSync) {
+  for (const relativePath of STYLESHEET_CANDIDATES) {
+    const file = path.join(rootDir, relativePath);
+    if (exists(file)) return file;
+  }
+
+  return null;
+}
+
+function toCssImportPath(fromFile, toFile) {
+  let rel = path.relative(path.dirname(fromFile), toFile);
+  if (!rel.startsWith(".")) rel = `./${rel}`;
+  return rel.split(path.sep).join("/");
+}
+
+function injectDsCssImport(css, importPath) {
+  const line = `@import "${importPath}";`;
+  if (
+    css.includes(importPath) ||
+    css.includes("/ds.css") ||
+    css.includes("craft-ds/ds.css")
+  ) {
+    return { css, injected: false };
+  }
+
+  const tailwindImport = /@import\s+["']tailwindcss["']\s*;/;
+  if (tailwindImport.test(css)) {
+    return {
+      css: css.replace(tailwindImport, (match) => `${match}\n${line}`),
+      injected: true,
+    };
+  }
+
+  return { css: `${line}\n${css}`, injected: true };
+}
+
 async function main() {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+  const promptUser = createPrompt(rl);
+
   try {
     log.info("Welcome to the Craft Design System installer!");
 
@@ -160,7 +205,7 @@ async function main() {
 
     // Validate project structure
     await validateProject();
-    log.success("Valid Next.js project detected");
+    log.success("Valid project detected");
 
     // Check dependencies
     const { hasShadcn, hasTailwind, hasClsx, hasTailwindMerge } =
@@ -217,10 +262,34 @@ async function main() {
       }
     }
 
-    // Copy craft component
+    // Copy craft component and typography CSS
     const sourcePath = path.join(__dirname, "..", "ds.tsx");
     await fs.copyFile(sourcePath, craftPath);
-    log.success("Craft component installed");
+    const cssSourcePath = path.join(__dirname, "..", "ds.css");
+    const cssDestPath = path.join(componentsDir, "ds.css");
+    await fs.copyFile(cssSourcePath, cssDestPath);
+    log.success("Craft component and typography CSS installed");
+
+    const globalsPath = findStylesheet();
+    const cssImportPath = globalsPath
+      ? toCssImportPath(globalsPath, cssDestPath)
+      : "@/components/ds.css";
+    if (globalsPath) {
+      const currentCss = await fs.readFile(globalsPath, "utf8");
+      const { css, injected } = injectDsCssImport(currentCss, cssImportPath);
+      if (injected) {
+        await fs.writeFile(globalsPath, css);
+        log.success(
+          `Added typography import to ${path.relative(process.cwd(), globalsPath)}`
+        );
+      } else {
+        log.info("Typography CSS import already present");
+      }
+    } else {
+      log.warn(
+        `Could not find globals.css. Add this after @import "tailwindcss":\n   @import "${cssImportPath}";`
+      );
+    }
 
     // Install remaining dependencies if needed
     if (!hasClsx || !hasTailwindMerge) {
@@ -239,16 +308,27 @@ async function main() {
     );
     console.log("\nTo use Craft in your project:");
     console.log(
-      `1. Import components:\n   ${colors.blue}import { Main, Section, Container } from "@/components/ds";${colors.reset}`
+      `1. Import components:\n   ${colors.blue}import { Main, Section, Container, Prose, typography, root } from "@/components/ds";${colors.reset}`
     );
-    console.log("\n2. Use in your app:");
+    console.log(
+      `\n2. Import CSS (after Tailwind):\n   ${colors.blue}@import "${cssImportPath}";${colors.reset}`
+    );
+    console.log(
+      "\n3. UI text → typography.*  |  Markdown / CMS / AI HTML → <Prose>"
+    );
+    console.log("   Do not wrap app UI in Prose.");
+    console.log("   Do not put typography.* on children inside Prose.");
+    console.log(
+      "   Layout renders <html> for Next App Router only. Vite / React Router: className={root} on the existing <html>."
+    );
+    console.log("\n4. Use in your app:");
     console.log(
       `   ${colors.blue}export default function Page() {
      return (
        <Main>
          <Section>
            <Container>
-             <h1>Hello, Craft!</h1>
+             <h1 className={typography.h1}>Hello, Craft!</h1>
            </Container>
          </Section>
        </Main>
@@ -265,4 +345,14 @@ async function main() {
   }
 }
 
-main();
+module.exports = {
+  STYLESHEET_CANDIDATES,
+  validateProject,
+  findStylesheet,
+  injectDsCssImport,
+  toCssImportPath,
+};
+
+if (require.main === module) {
+  main();
+}

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import "./globals.css";
 
-import { Container, Section } from "@workspace/craft-ds/ds";
+import { Container, Section, typography, cn } from "@workspace/craft-ds/ds";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Toaster } from "@workspace/ui/components/sonner";
@@ -76,8 +76,10 @@ const Header = () => {
             <ThemeToggle />
           </div>
         </div>
-        <h1 className="text-xl font-medium mb-2">Craft Design System</h1>
-        <p className="craft text-muted-foreground max-w-prose">
+        <h1 className={cn(typography.h4, "font-medium mb-2")}>
+          Craft Design System
+        </h1>
+        <p className={cn(typography.body, typography.muted, "max-w-prose")}>
           <Balancer>
             Craft is a lightweight, flexible design system for building
             responsive layouts in React and handling prose.

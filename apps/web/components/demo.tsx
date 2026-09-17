@@ -7,7 +7,7 @@ interface Props {
 export const Demo = ({ children, attribute, vertical }: Props) => {
   return (
     <section
-      className={`grid ${
+      className={`grid min-w-0 ${
         vertical ? "divide-y" : "sm:divide-x sm:grid-cols-[8rem_3fr]"
       }`}
     >
@@ -16,7 +16,7 @@ export const Demo = ({ children, attribute, vertical }: Props) => {
         <p className="text-sm!">{attribute}</p>
       </div>
 
-      <div className="p-6 relative bg-background">
+      <div className="p-6 relative bg-background min-w-0 overflow-x-auto">
         <p className="text-muted-foreground hidden sm:block text-xs! absolute top-2 right-2">
           Preview
         </p>
