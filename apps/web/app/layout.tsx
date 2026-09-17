@@ -103,6 +103,9 @@ const Header = () => {
           <Link className="hover:underline underline-offset-4" href="/example">
             + View an Article Example
           </Link>
+          <a className="hover:underline underline-offset-4" href="/llms.txt">
+            + Agent guide (llms.txt)
+          </a>
         </div>
       </Container>
     </Section>

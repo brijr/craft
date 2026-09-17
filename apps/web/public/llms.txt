@@ -1,0 +1,52 @@
+# Craft
+
+> Craft is a React + Tailwind v4 design system: one component file (`ds.tsx`) and one CSS file (`ds.css`). Use `craft-ds@0.4.0` to structure pages and style typography. This file is the agent handoff for building a website with Craft.
+
+Install `craft-ds@0.4.0`. Import CSS after Tailwind. Compose pages from `Nav`, `Main`, `Section`, and `Container`. Style UI text with `typography.*`. Wrap markdown, CMS, and article HTML in `<Prose>`.
+
+```bash
+npm install craft-ds@0.4.0
+```
+
+```css
+@import "tailwindcss";
+@import "craft-ds/ds.css";
+@source "../node_modules/craft-ds";
+```
+
+The `@source` line is required when Tailwind does not scan `node_modules` (Vite, and some React Router setups). If a `typography.h1` heading renders at 16px, `@source` is missing.
+
+Next.js App Router may wrap the document in `<Layout>` from `craft-ds/ds` — that component renders `<html>`. Vite and React Router already own `<html>`; put `className={root}` on that element.
+
+UI text uses `typography.h1`–`h6`, `body`, `lead`, `large`, `small`, `caption`, and `muted` (compose muted with `cn(typography.lead, typography.muted)`). Markdown, CMS, and AI HTML use `<Prose isArticle isSpaced>`. App chrome (nav, hero, pricing, forms) stays outside Prose. Children inside Prose are plain HTML; `lead`, `large`, `small`, and `muted` are class names on that HTML.
+
+A heading using `typography.h1` should be about 48px on desktop and 36px at a 390px viewport.
+
+```tsx
+import { typography, Prose, cn, root } from "craft-ds/ds";
+
+<html lang="en" className={root}>
+
+<h1 className={typography.h1}>Settings</h1>
+<p className={cn(typography.lead, typography.muted)}>Manage your workspace.</p>
+
+<Prose isArticle isSpaced>
+  <h1>Article title</h1>
+  <p className="lead">Intro for markdown or CMS HTML.</p>
+</Prose>
+```
+
+Alternatively run `pnpx craft-ds@0.4.0 init` in the project root. That copies `ds.tsx` and `ds.css` into `components/` and injects the CSS import. Then import from `@/components/ds` instead of `craft-ds/ds`.
+
+## Docs
+
+- [Website](https://craft-ds.com/): Component catalog and Type demo
+- [Article example](https://craft-ds.com/example): Prose against real article HTML
+- [npm](https://www.npmjs.com/package/craft-ds): `craft-ds@0.4.0`
+- [Source](https://github.com/brijr/craft): Repository
+- [Full agent guide](https://craft-ds.com/llms-full.txt): Same getting-started with a complete layout example
+
+## Optional
+
+- [GitHub ds.tsx](https://github.com/brijr/craft/blob/main/packages/craft-ds/ds.tsx): Layout primitives and `typography` export
+- [GitHub ds.css](https://github.com/brijr/craft/blob/main/packages/craft-ds/ds.css): Type utilities and `ds-prose`

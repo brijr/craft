@@ -1,0 +1,98 @@
+# Craft — agent getting started
+
+> Use `craft-ds@0.4.0` to build a React + Tailwind v4 website. This is the full guide. The short index is https://craft-ds.com/llms.txt
+
+## Install
+
+```bash
+npm install craft-ds@0.4.0
+```
+
+In the stylesheet that already imports Tailwind:
+
+```css
+@import "tailwindcss";
+@import "craft-ds/ds.css";
+@source "../node_modules/craft-ds";
+```
+
+Adjust the `@source` path so it reaches `node_modules/craft-ds`. Vite apps that import CSS from `src/` typically use `../node_modules/craft-ds`. Without `@source`, Tailwind will not emit `type-h1` or `ds-prose` because those class names live inside the package.
+
+Alternatively, from the project root:
+
+```bash
+pnpx craft-ds@0.4.0 init
+```
+
+That copies `ds.tsx` and `ds.css` into `components/` and injects the CSS import. Import from `@/components/ds` in that case.
+
+## Document root
+
+Next.js App Router:
+
+```tsx
+import { Layout } from "craft-ds/ds";
+
+export default function RootLayout({ children }) {
+  return <Layout>{children}</Layout>;
+}
+```
+
+Vite or React Router — the app already has `<html>`. Do not wrap it in Craft `Layout`.
+
+```tsx
+import { root } from "craft-ds/ds";
+
+<html lang="en" className={root}>
+```
+
+`root` is `scroll-smooth antialiased focus:scroll-auto`.
+
+## Type
+
+```tsx
+import { typography, Prose, cn } from "craft-ds/ds";
+
+<h1 className={typography.h1}>Settings</h1>
+<p className={cn(typography.lead, typography.muted)}>Manage your workspace.</p>
+
+<Prose isArticle isSpaced>
+  <h1>Article title</h1>
+  <p className="lead">Intro for markdown or CMS HTML.</p>
+</Prose>
+```
+
+- UI text → `typography.*` (`h1`–`h6`, `body`, `lead`, `large`, `small`, `caption`, `muted`)
+- Markdown / CMS / AI HTML → `<Prose isArticle isSpaced>`
+- App chrome stays outside Prose
+- Children inside Prose are plain HTML. `lead`, `large`, `small`, and `muted` are class names on that HTML.
+
+`typography.h1` is `"type-h1 sm:type-h1-sm"`. `text-lg` will not override it — pick another role.
+
+## Layout
+
+```tsx
+import { Nav, Main, Section, Container, typography } from "craft-ds/ds";
+
+<Nav>{/* brand, links */}</Nav>
+<Main>
+  <Section>
+    <Container>
+      <h1 className={typography.h1}>Page title</h1>
+    </Container>
+  </Section>
+</Main>
+```
+
+Override spacing and chrome with `className` and `cn()`. There are no variant props.
+
+## Done when
+
+A heading using `typography.h1` is about 48px on a desktop viewport and 36px at 390px wide. If those sizes are 16px, `@source` is missing or `ds.css` was not imported after Tailwind.
+
+## Links
+
+- https://craft-ds.com/
+- https://craft-ds.com/example
+- https://www.npmjs.com/package/craft-ds
+- https://github.com/brijr/craft
